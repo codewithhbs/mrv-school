@@ -1,0 +1,13 @@
+admin/node_modules
+admin/.next
+admin/.env.example
+admin/.env
+
+backend/node_modules
+backend/.env.example
+backend/.env
+
+frontend/node_modules
+frontend/.next
+frontend/.env.example
+frontend/.env

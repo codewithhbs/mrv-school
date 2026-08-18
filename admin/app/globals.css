@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { -webkit-font-smoothing: antialiased; }
+  ::selection { background-color: #A31621; color: #fff; }
+  :focus-visible { outline: 2px solid #A31621; outline-offset: 2px; }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-primary { @apply btn bg-red text-white hover:bg-red-dark; }
+  .btn-secondary { @apply btn bg-white text-ink border border-line hover:bg-paper; }
+  .btn-ghost { @apply btn text-slate hover:bg-paper hover:text-ink; }
+  .btn-danger { @apply btn bg-white text-red border border-red/30 hover:bg-red-50; }
+
+  .input {
+    @apply w-full rounded-lg border border-line bg-white px-3.5 py-2.5 text-sm text-ink placeholder:text-slate-light focus:border-red focus:ring-1 focus:ring-red outline-none transition-colors;
+  }
+  .label { @apply block text-xs font-semibold uppercase tracking-wide text-slate mb-1.5; }
+
+  .card { @apply bg-white rounded-xl border border-line shadow-card; }
+
+  .badge { @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold; }
+  .badge-new { @apply badge bg-gold-light text-gold-dark; }
+  .badge-active { @apply badge bg-green-50 text-green-700; }
+  .badge-inactive { @apply badge bg-line text-slate; }
+  .badge-neutral { @apply badge bg-paper text-slate; }
+}

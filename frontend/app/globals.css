@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --seal-red: #A31621;
+  --seal-gold: #E8A93B;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #FBF8F3;
+  color: #1C1B1F;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+/* Visible keyboard focus everywhere */
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: 2px solid #A31621;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Eyebrow label style — used for section kickers throughout the site */
+.eyebrow {
+  font-family: var(--font-plex-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Signature medallion / seal motif — echoes the school's official seal.
+   Reused for: admissions badge, affiliation badge, testimonial ratings,
+   achievement markers, faculty credentials. */
+.seal {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1.5px solid currentColor;
+}
+.seal::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 9999px;
+  border: 1px dashed currentColor;
+  opacity: 0.5;
+}
+
+.hairline {
+  background-image: linear-gradient(to right, #E7E1D6 0, #E7E1D6 100%);
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+  background-position: bottom;
+}
+
+.container-max {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+@media (min-width: 1024px) {
+  .container-max { padding-left: 2rem; padding-right: 2rem; }
+}
