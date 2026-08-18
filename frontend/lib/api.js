@@ -3,7 +3,7 @@
 // callers get `null`/`[]` back instead of a thrown error, so pages keep
 // rendering (with sensible empty states) even if the backend is briefly down.
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000/api';
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://api.mrvpublicschool.com/api';
 
 async function apiGet(path, { revalidate = 60 } = {}) {
   try {
