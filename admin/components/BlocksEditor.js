@@ -153,7 +153,8 @@ function BlockFields({ block, onChange }) {
             className="input min-h-[80px]"
             placeholder="One item per line"
             value={(data.items || []).join('\n')}
-            onChange={(e) => onChange({ items: e.target.value.split('\n').map((s) => s.trim()).filter(Boolean) })}
+            onChange={(e) => onChange({ items: e.target.value.split('\n') })}
+            onBlur={(e) => onChange({ items: e.target.value.split('\n').map((s) => s.trim()).filter(Boolean) })}
           />
         </div>
       );

@@ -25,6 +25,9 @@ const WHY_CHOOSE = [
   { title: 'Smart Classrooms', desc: 'Technology-enabled learning spaces that make lessons come alive.', icon: '🖥️' },
   { title: 'Holistic Development', desc: 'Sports, arts, and clubs alongside academics for well-rounded growth.', icon: '🌱' },
   { title: 'Safety First', desc: 'CCTV-monitored campus and a dedicated medical room on site.', icon: '🛡️' },
+  { title: 'Proven Results', desc: 'Consistent board exam success with strong academic track record.', icon: '🏆' },
+  { title: 'Transport Facility', desc: 'GPS-enabled buses covering major routes for safe daily commute.', icon: '🚌' },
+  { title: 'Parent Connect', desc: 'Regular PTMs and a dedicated app to track your child\'s progress.', icon: '📱' },
 ];
 
 const LEVEL_ORDER = ['pre-primary', 'primary', 'middle', 'secondary', 'senior-secondary'];
@@ -63,7 +66,13 @@ export default async function HomePage() {
         <div className="grid lg:grid-cols-[1fr_1.4fr] gap-14 items-center">
           <div className="relative">
             <div className="w-full aspect-[4/5] rounded-card bg-paper2 border-4 border-white shadow-cardHover overflow-hidden">
-              <div className="w-full h-full flex items-center justify-center text-slate/50 font-display text-sm">Principal's Photo</div>
+              <Image
+                src="/images/principal-photo.png"
+                alt="Principal, MRVPS"
+                width={500}
+                height={625}
+                className="w-full h-full object-cover"
+              />
             </div>
             <div className="absolute -bottom-5 -right-5 bg-ink text-white rounded-card px-5 py-4 shadow-cardHover">
               <div className="font-display font-bold text-sm">Principal's Desk</div>
@@ -77,9 +86,8 @@ export default async function HomePage() {
               Every Child Carries a Unique Spark
             </h2>
             <p className="text-slate leading-relaxed text-lg">
-              At M.R. Vivekananda Public School, our role is to nurture that spark — through rigorous academics,
-              caring mentorship, and a campus where curiosity is always welcome. I invite you to explore our
-              school and see for yourself the values that guide us every day.
+              At M.R. Vivekananda Public School, our role is to nurture that spark of curiosity, confidence, and creativity in every child. We believe that true education goes beyond textbooks and examinations — it is about helping students discover their strengths, develop strong values, and become responsible, compassionate, and confident individuals.
+              Through rigorous academics, caring mentorship, innovative learning experiences, and a supportive school environment, we strive to provide every student with the right opportunities to learn, explore, question, and grow. Our dedicated faculty works closely with students to encourage independent thinking while ensuring that each child receives the guidance and encouragement they need to reach their full potential.
             </p>
             <Button href="/about/principals-message" variant="ghost" className="mt-6 px-0">
               Read the full message →
@@ -128,9 +136,17 @@ export default async function HomePage() {
                 />
               </div>
             </div>
-            <div className="absolute -left-6 top-1/2 -translate-y-1/2 bg-ink text-white rounded-card p-5 shadow-cardHover w-40">
+
+            {/* Desktop/tablet: floating badge on corner */}
+            <div className="hidden sm:block absolute -bottom-6 -left-6 bg-ink text-white rounded-card p-5 shadow-cardHover w-40">
               <SealBadge label="25+" sublabel="YEARS" tone="gold" size="sm" />
               <div className="text-xs text-white/70 mt-3 leading-snug">of academic excellence in West Delhi</div>
+            </div>
+
+            {/* Mobile: static strip below the photos, not overlapping */}
+            <div className="sm:hidden mt-4 bg-ink text-white rounded-card p-4 flex items-center gap-4">
+              <SealBadge label="25+" sublabel="YEARS" tone="gold" size="sm" />
+              <div className="text-xs text-white/70 leading-snug">of academic excellence in West Delhi</div>
             </div>
           </div>
         </div>
@@ -144,8 +160,8 @@ export default async function HomePage() {
             <div
               key={w.title}
               className={`rounded-card border p-6 transition-all ${w.big
-                  ? 'lg:col-span-2 lg:row-span-1 bg-ink text-white border-ink hover:shadow-cardHover'
-                  : 'border-line hover:border-red/30 hover:shadow-card'
+                ? 'lg:col-span-2 lg:row-span-1 bg-ink text-white border-ink hover:shadow-cardHover'
+                : 'border-line hover:border-red/30 hover:shadow-card'
                 }`}
             >
               <div className="text-3xl mb-4">{w.icon}</div>
@@ -210,13 +226,19 @@ export default async function HomePage() {
               <Link
                 key={album._id}
                 href="/gallery"
-                className={`group rounded-card overflow-hidden bg-white border border-line block break-inside-avoid ${i % 3 === 0 ? 'aspect-[3/4]' : 'aspect-square'}`}
+                className={`group relative rounded-card overflow-hidden bg-white border border-line block break-inside-avoid ${i % 3 === 0 ? 'aspect-[3/4]' : 'aspect-square'}`}
               >
                 {album.coverImage ? (
-                  // eslint-disable-next-line @next/next/no-img-element
                   <img src={mediaUrl(album.coverImage)} alt={album.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-slate/50 text-xs font-display text-center p-2">{album.title}</div>
+                )}
+
+                {album.coverImage && (
+                  <div className="absolute inset-0 z-[999999] bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-3">
+                    <span className="text-white/70 text-[10px] uppercase tracking-wide font-display">{album.category}</span>
+                    <span className="text-white text-sm font-semibold font-display line-clamp-1">{album.title}</span>
+                  </div>
                 )}
               </Link>
             ))}
@@ -228,19 +250,22 @@ export default async function HomePage() {
 
       {/* Testimonials */}
       <Section bg="white">
-  <SectionHeader eyebrow="Voices of MRVPS" title="What Our Community Says" align="center" />
-  {testimonials?.length ? (
-    testimonials.length > 3 ? (
-      <TestimonialsMarquee items={testimonials} />
-    ) : (
-      <div className="grid md:grid-cols-3 gap-6">
-        {testimonials.map((t) => <TestimonialCard key={t._id} item={t} />)}
-      </div>
-    )
-  ) : (
-    <EmptyState title="No testimonials yet" />
-  )}
-</Section>
+        <SectionHeader eyebrow="Voices of MRVPS" title="What Our Community Says" align="center" />
+        {testimonials?.length ? (
+          testimonials.length > 3 ? (
+            <TestimonialsMarquee items={testimonials} />
+          ) : (
+            <>
+            <TestimonialsMarquee items={testimonials} />
+            {/* <div className="grid md:grid-cols-3 gap-6">
+              {testimonials.map((t) => <TestimonialCard key={t._id} item={t} />)}
+            </div> */}
+            </>
+          )
+        ) : (
+          <EmptyState title="No testimonials yet" />
+        )}
+      </Section>
 
       {/* Quick Links */}
       <Section bg="ink">

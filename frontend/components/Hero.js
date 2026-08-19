@@ -10,7 +10,7 @@ const STATS = [
 ];
 
 export default function Hero({ banners, settings }) {
-  const list = Array.isArray(banners) ? banners : [];
+  const list = Array.isArray(banners) ? banners.filter((b) => b.isActive) : [];
   // All three collage photos come from the ONE active banner (the lowest-
   // order active record) — not three separate banners. Keeps "one banner"
   // and "the 3 photos in its hero tile" the same editable unit in the admin

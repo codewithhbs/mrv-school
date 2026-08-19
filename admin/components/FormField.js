@@ -115,7 +115,8 @@ export default function FormField({ field, value, onChange }) {
           <textarea
             className="input min-h-[90px]"
             value={Array.isArray(value) ? value.join('\n') : value ?? ''}
-            onChange={(e) => onChange(e.target.value.split('\n').map((s) => s.trim()).filter(Boolean))}
+            onChange={(e) => onChange(e.target.value.split('\n'))}
+            onBlur={(e) => onChange(e.target.value.split('\n').map((s) => s.trim()).filter(Boolean))}
           />
           {field.hint && <p className="text-xs text-slate mt-1">{field.hint}</p>}
         </div>

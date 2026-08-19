@@ -1,13 +1,17 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { mediaUrl } from '@/lib/media';
 
 // Simple full-width banner slider — just the banner image(s), autoplay fade,
 // no collage/stats/text. Uses all active banners (sorted by order already
 // from the API) as slides.
 export default function HeroBanner({ banners }) {
-  const list = Array.isArray(banners) ? banners : [];
+  const list = Array.isArray(banners) ? banners.filter((b) => b.isActive) : [];
   const [active, setActive] = useState(0);
+  // Height follows the active slide's own natural aspect ratio instead of a
+  // fixed px height, so a taller/shorter banner image isn't cropped/stretched.
+  const [ratio, setRatio] = useState(null);
+  const imgRefs = useRef([]);
 
   useEffect(() => {
     if (list.length < 2) return;
@@ -15,16 +19,32 @@ export default function HeroBanner({ banners }) {
     return () => clearInterval(t);
   }, [list.length]);
 
+  // Slide changed to an already-loaded (cached) image — onLoad won't refire,
+  // so pull its natural size directly.
+  useEffect(() => {
+    const el = imgRefs.current[active];
+    if (el && el.complete && el.naturalWidth) {
+      setRatio(el.naturalWidth / el.naturalHeight);
+    }
+  }, [active]);
+
   if (!list.length) return null;
 
   return (
-    <div className="relative w-full h-[260px] sm:h-[380px] lg:h-[480px] overflow-hidden bg-paper2">
+    <div
+      className="relative w-full overflow-hidden bg-paper2"
+      style={{ aspectRatio: ratio || undefined, minHeight: ratio ? undefined : ratio }}
+    >
       {list.map((b, i) => (
         // eslint-disable-next-line @next/next/no-img-element
         <img
           key={b._id || i}
+          ref={(el) => (imgRefs.current[i] = el)}
           src={mediaUrl(b.imageUrl)}
           alt={b.title || ''}
+          onLoad={(e) => {
+            if (i === active) setRatio(e.target.naturalWidth / e.target.naturalHeight);
+          }}
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${i === active ? 'opacity-100' : 'opacity-0'}`}
         />
       ))}
