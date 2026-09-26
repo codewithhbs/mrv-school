@@ -18,7 +18,7 @@ export default function AdmissionEnquiryForm() {
     e.preventDefault();
     setStatus({ state: 'submitting', message: '' });
     try {
-      const base = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5001/api';
+      const base = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://api.mrvpublicschool.com/api';
       const res = await fetch(`${base}/admission/enquiries`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
