@@ -5,12 +5,26 @@ import { uploadFile, apiGet } from '@/lib/api';
 import { Loader2, UploadCloud, CheckCircle2 } from 'lucide-react';
 import BlocksEditor from './BlocksEditor';
 import MediaItemsEditor from './MediaItemsEditor';
+import dynamic from 'next/dynamic';
+import { CharCounter, TagsInput, SlugField, FormHeading, SeoPreview } from './SeoFields';
+
+// Editor bundle (TipTap/ProseMirror) only loads on screens that use it.
+const RichTextEditor = dynamic(() => import('./RichTextEditor'), {
+  ssr: false,
+  loading: () => (
+    <div className="rounded-lg border border-line min-h-[360px] flex items-center justify-center text-slate">
+      <Loader2 className="w-5 h-5 animate-spin" />
+    </div>
+  ),
+});
 
 // Renders one form control based on a field config from lib/resourceConfigs.js,
 // and normalizes its value back through onChange. `list` fields are edited as
 // newline-separated text but stored/sent as arrays; `json` fields are edited
 // as raw JSON text and parsed on submit (see ResourceForm).
-export default function FormField({ field, value, onChange }) {
+// `values` is the whole form state — used by fields that depend on siblings
+// (slug generation, SEO preview).
+export default function FormField({ field, value, values, onChange }) {
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState('');
 
@@ -44,8 +58,10 @@ export default function FormField({ field, value, onChange }) {
             className="input min-h-[100px]"
             value={value ?? ''}
             required={field.required}
+            placeholder={field.placeholder}
             onChange={(e) => onChange(e.target.value)}
           />
+          {field.counter && <CharCounter value={value} min={field.counter[0]} max={field.counter[1]} />}
           {field.hint && <p className="text-xs text-slate mt-1">{field.hint}</p>}
         </div>
       );
@@ -125,6 +141,30 @@ export default function FormField({ field, value, onChange }) {
     case 'blocks':
       return <BlocksEditor value={value} onChange={onChange} />;
 
+    case 'richtext':
+      return (
+        <RichTextEditor
+          label={field.label}
+          required={field.required}
+          hint={field.hint}
+          placeholder={field.placeholder}
+          value={value}
+          onChange={onChange}
+        />
+      );
+
+    case 'tags':
+      return <TagsInput field={field} value={value} onChange={onChange} />;
+
+    case 'slug':
+      return <SlugField field={field} value={value} values={values} onChange={onChange} />;
+
+    case 'heading':
+      return <FormHeading field={field} />;
+
+    case 'seoPreview':
+      return <SeoPreview field={field} values={values} />;
+
     case 'mediaItems':
       return <MediaItemsEditor value={value} onChange={onChange} />;
 
@@ -181,12 +221,14 @@ export default function FormField({ field, value, onChange }) {
         <div>
           {commonLabel}
           <input
-            type="text"
+            type={field.inputType || 'text'}
             className="input"
             value={value ?? ''}
             required={field.required}
+            placeholder={field.placeholder}
             onChange={(e) => onChange(e.target.value)}
           />
+          {field.counter && <CharCounter value={value} min={field.counter[0]} max={field.counter[1]} />}
           {field.hint && <p className="text-xs text-slate mt-1">{field.hint}</p>}
         </div>
       );

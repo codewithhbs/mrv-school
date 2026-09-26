@@ -20,8 +20,21 @@ const schema = new mongoose.Schema(
     subtitle: { type: String, trim: true },
     heroImage: { type: String },
     blocks: { type: [blockSchema], default: [] },
-    seoTitle: { type: String },
-    seoDescription: { type: String },
+    // --- SEO ---
+    seoTitle: { type: String, trim: true },
+    seoDescription: { type: String, trim: true },
+    focusKeyword: { type: String, trim: true },
+    metaKeywords: { type: [String], default: [] },
+    canonicalUrl: {
+      type: String,
+      trim: true,
+      validate: {
+        validator: (v) => !v || /^(https?:\/\/[^\s]+|\/[^\s]*)$/i.test(v),
+        message: 'Canonical URL must be a full URL (https://...) or a path starting with /',
+      },
+    },
+    ogImage: { type: String },
+    noIndex: { type: Boolean, default: false },
     isPublished: { type: Boolean, default: true, index: true },
   },
   { timestamps: true }

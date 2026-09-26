@@ -1,11 +1,12 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import { apiGet, apiPost, apiPut, apiDelete } from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
 import FormField from './FormField';
+import { slugify } from '@/lib/site';
 import Topbar from './Topbar';
-import { Plus, Pencil, Trash2, X, Loader2, Search } from 'lucide-react';
+import { Plus, Pencil, Trash2, Loader2, Search, ArrowLeft, Save, Search as SeoIcon } from 'lucide-react';
 
 function formatCellDate(value, withTime) {
   if (!value) return '—';
@@ -20,20 +21,47 @@ function getNestedValue(obj, path) {
   return path.split('.').reduce((acc, key) => (acc && typeof acc === 'object' ? acc[key] : undefined), obj);
 }
 
+// Layout-only field types — they render in the form but carry no value.
+const DISPLAY_ONLY = new Set(['heading', 'seoPreview']);
+const valueFields = (fields) => fields.filter((f) => !DISPLAY_ONLY.has(f.type));
+const emptyFor = (f) => (f.type === 'list' || f.type === 'tags' ? [] : '');
+
 function buildDefaultValues(fields) {
   const values = {};
-  fields.forEach((f) => {
+  valueFields(fields).forEach((f) => {
     if (f.default !== undefined) values[f.name] = f.default;
     else if (f.type === 'boolean') values[f.name] = false;
-    else if (f.type === 'list') values[f.name] = [];
-    else values[f.name] = '';
+    else values[f.name] = emptyFor(f);
   });
   return values;
 }
 
+// Splits a field list into cards: every `heading` field starts a new card.
+function groupIntoCards(fields) {
+  const cards = [];
+  let current = { heading: null, fields: [] };
+  fields.forEach((f) => {
+    if (f.type === 'heading') {
+      if (current.heading || current.fields.length) cards.push(current);
+      current = { heading: f, fields: [] };
+    } else {
+      current.fields.push(f);
+    }
+  });
+  if (current.heading || current.fields.length) cards.push(current);
+  return cards;
+}
+
+function singular(title) {
+  if (title.endsWith('ies')) return `${title.slice(0, -3)}y`;
+  if (title.endsWith('s') && !title.endsWith('ss')) return title.slice(0, -1);
+  return title;
+}
+
 // Generic CRUD admin screen driven entirely by a resourceConfigs entry.
-// Handles listing (with search + pagination), create, edit, and delete
-// against the matching backend REST endpoint.
+// List view (search + pagination) and an inline full-width create/edit view
+// that replaces the list inside the dashboard content area.
+// Fields marked `side: true` render in a sticky right-hand column.
 export default function ResourceAdmin({ config }) {
   const { hasRole } = useAuth();
   const [items, setItems] = useState([]);
@@ -48,11 +76,19 @@ export default function ResourceAdmin({ config }) {
   const [formValues, setFormValues] = useState({});
   const [formError, setFormError] = useState('');
   const [saving, setSaving] = useState(false);
+  const [slugTouched, setSlugTouched] = useState(false);
+  const initialValuesRef = useRef('');
 
   const [deletingId, setDeletingId] = useState(null);
 
   const canWrite = hasRole(...(config.writeRoles || ['admin']));
   const canDelete = hasRole(...(config.deleteRoles || ['admin']));
+
+  const { mainCards, sideCards } = useMemo(() => {
+    const main = config.fields.filter((f) => !f.side);
+    const side = config.fields.filter((f) => f.side);
+    return { mainCards: groupIntoCards(main), sideCards: groupIntoCards(side) };
+  }, [config.fields]);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -72,22 +108,58 @@ export default function ResourceAdmin({ config }) {
 
   useEffect(() => { load(); }, [load]);
 
-  function openCreate() {
-    setEditingItem(null);
-    setFormValues(buildDefaultValues(config.fields));
+  function openForm(values, item) {
+    setEditingItem(item);
+    setFormValues(values);
+    initialValuesRef.current = JSON.stringify(values);
     setFormError('');
     setFormOpen(true);
+    if (typeof window !== 'undefined') window.scrollTo({ top: 0 });
+  }
+
+  function openCreate() {
+    setSlugTouched(false);
+    openForm(buildDefaultValues(config.fields), null);
   }
 
   function openEdit(item) {
-    setEditingItem(item);
     const values = {};
-    config.fields.forEach((f) => {
-      values[f.name] = item[f.name] ?? (f.default !== undefined ? f.default : f.type === 'list' ? [] : '');
+    valueFields(config.fields).forEach((f) => {
+      values[f.name] = item[f.name] ?? (f.default !== undefined ? f.default : emptyFor(f));
     });
-    setFormValues(values);
-    setFormError('');
-    setFormOpen(true);
+    setSlugTouched(true); // never auto-rewrite the URL of an existing record
+    openForm(values, item);
+  }
+
+  const isDirty = formOpen && JSON.stringify(formValues) !== initialValuesRef.current;
+
+  function closeForm() {
+    if (isDirty && !window.confirm('You have unsaved changes. Discard them?')) return;
+    setFormOpen(false);
+    if (typeof window !== 'undefined') window.scrollTo({ top: 0 });
+  }
+
+  // Warn before leaving the tab with unsaved edits.
+  useEffect(() => {
+    if (!isDirty) return undefined;
+    const handler = (e) => { e.preventDefault(); e.returnValue = ''; };
+    window.addEventListener('beforeunload', handler);
+    return () => window.removeEventListener('beforeunload', handler);
+  }, [isDirty]);
+
+  // Updates one field; while creating, slug fields follow their source field
+  // (usually the title) until the editor types in the slug themselves.
+  function handleFieldChange(field, val) {
+    if (field.type === 'slug') setSlugTouched(true);
+    setFormValues((prev) => {
+      const next = { ...prev, [field.name]: val };
+      if (!slugTouched) {
+        config.fields
+          .filter((f) => f.type === 'slug' && (f.source || 'title') === field.name)
+          .forEach((f) => { next[f.name] = slugify(val); });
+      }
+      return next;
+    });
   }
 
   async function handleSubmit(e) {
@@ -108,6 +180,9 @@ export default function ResourceAdmin({ config }) {
         if (f.type === 'number' && payload[f.name] === '') {
           delete payload[f.name];
         }
+        if (f.type === 'datetime' && payload[f.name] === '') {
+          payload[f.name] = null;
+        }
       });
 
       if (editingItem) {
@@ -115,16 +190,20 @@ export default function ResourceAdmin({ config }) {
       } else {
         await apiPost(config.endpoint, payload);
       }
+      initialValuesRef.current = JSON.stringify(formValues);
       setFormOpen(false);
+      if (typeof window !== 'undefined') window.scrollTo({ top: 0 });
       await load();
     } catch (err) {
       setFormError(err.message || 'Save failed');
+      if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' });
     } finally {
       setSaving(false);
     }
   }
 
   async function handleDelete(id) {
+    if (!window.confirm('Delete this record? This cannot be undone.')) return;
     setDeletingId(id);
     try {
       await apiDelete(`${config.endpoint}/${id}`);
@@ -136,6 +215,97 @@ export default function ResourceAdmin({ config }) {
     }
   }
 
+  function renderCard(card, key) {
+    const visible = card.fields.filter((f) => !f.showIf || f.showIf(formValues));
+    if (!visible.length) return null;
+    return (
+      <section key={key} className="card">
+        {card.heading && (
+          <div className="px-6 py-4 border-b border-line">
+            <h3 className="font-display font-bold text-[15px] text-ink flex items-center gap-2">
+              {card.heading.icon === 'seo' && <SeoIcon className="w-4 h-4 text-red" />}
+              {card.heading.label}
+            </h3>
+            {card.heading.hint && <p className="text-xs text-slate mt-0.5">{card.heading.hint}</p>}
+          </div>
+        )}
+        <div className="p-6 space-y-5">
+          {visible.map((field) => (
+            <FormField
+              key={field.name}
+              field={field}
+              value={formValues[field.name]}
+              values={formValues}
+              onChange={(val) => handleFieldChange(field, val)}
+            />
+          ))}
+        </div>
+      </section>
+    );
+  }
+
+  // ---------------- Create / Edit view ----------------
+  if (formOpen) {
+    const itemLabel = singular(config.title);
+    const hasSide = sideCards.length > 0;
+
+    return (
+      <>
+        <Topbar title={config.title} description={config.description} />
+
+        <form onSubmit={handleSubmit} className="px-8 pt-8">
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
+            <div className="flex items-center gap-3 min-w-0">
+              <button type="button" onClick={closeForm} className="btn-secondary !px-2.5" title="Back to list">
+                <ArrowLeft className="w-4 h-4" />
+              </button>
+              <div className="min-w-0">
+                <h2 className="font-display font-bold text-lg text-ink truncate">
+                  {editingItem ? `Edit ${itemLabel}` : `Add ${itemLabel}`}
+                </h2>
+                {editingItem && (formValues.title || editingItem.title) && (
+                  <p className="text-xs text-slate truncate">{formValues.title || editingItem.title}</p>
+                )}
+              </div>
+              {isDirty && <span className="badge-new shrink-0">Unsaved</span>}
+            </div>
+            <div className="flex gap-3">
+              <button type="button" onClick={closeForm} className="btn-secondary">Cancel</button>
+              <button type="submit" disabled={saving} className="btn-primary">
+                {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+                {saving ? 'Saving…' : 'Save'}
+              </button>
+            </div>
+          </div>
+
+          {formError && (
+            <div className="text-sm text-red bg-red-50 border border-red/20 rounded-lg px-4 py-3 mb-5">{formError}</div>
+          )}
+
+          <div className={hasSide ? 'grid gap-6 items-start xl:grid-cols-[minmax(0,1fr)_400px]' : ''}>
+            <div className="space-y-6 min-w-0">
+              {mainCards.map((card, i) => renderCard(card, `m${i}`))}
+            </div>
+            {hasSide && (
+              <aside className="space-y-6 min-w-0 xl:sticky xl:top-[96px] xl:max-h-[calc(100vh-180px)] xl:overflow-y-auto xl:pr-1">
+                {sideCards.map((card, i) => renderCard(card, `s${i}`))}
+              </aside>
+            )}
+          </div>
+
+          <div className="sticky bottom-0 z-20 -mx-8 mt-8 flex justify-end gap-3 px-8 py-3 bg-white/95 backdrop-blur border-t border-line">
+            <button type="button" onClick={closeForm} className="btn-secondary">Cancel</button>
+            <button type="submit" disabled={saving} className="btn-primary min-w-[120px]">
+              {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+              {saving ? 'Saving…' : editingItem ? 'Update' : 'Save'}
+            </button>
+          </div>
+        </form>
+      </>
+    );
+  }
+
+  // ---------------- List view ----------------
   return (
     <>
       <Topbar title={config.title} description={config.description} />
@@ -230,42 +400,6 @@ export default function ResourceAdmin({ config }) {
           </div>
         )}
       </div>
-
-      {formOpen && (
-        <div className="fixed inset-0 z-40 flex justify-end">
-          <div className="absolute inset-0 bg-ink/40" onClick={() => setFormOpen(false)} />
-          <form onSubmit={handleSubmit} className="relative w-full max-w-lg bg-white h-full overflow-y-auto shadow-2xl flex flex-col">
-            <div className="px-6 py-5 border-b border-line flex items-center justify-between sticky top-0 bg-white z-10">
-              <h2 className="font-display font-bold text-lg">{editingItem ? `Edit ${config.title.slice(0, -1) || config.title}` : `Add ${config.title.slice(0, -1) || config.title}`}</h2>
-              <button type="button" onClick={() => setFormOpen(false)} className="p-1.5 rounded-md hover:bg-paper">
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <div className="p-6 space-y-4 flex-1">
-              {formError && <div className="text-sm text-red bg-red-50 border border-red/20 rounded-lg px-3.5 py-2.5">{formError}</div>}
-              {config.fields.map((field) => (
-                (!field.showIf || field.showIf(formValues)) && (
-                  <FormField
-                    key={field.name}
-                    field={field}
-                    value={formValues[field.name]}
-                    onChange={(val) => setFormValues((prev) => ({ ...prev, [field.name]: val }))}
-                  />
-                )
-              ))}
-            </div>
-
-            <div className="px-6 py-4 border-t border-line sticky bottom-0 bg-white flex gap-3">
-              <button type="button" onClick={() => setFormOpen(false)} className="btn-secondary flex-1">Cancel</button>
-              <button type="submit" disabled={saving} className="btn-primary flex-1">
-                {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
-                {saving ? 'Saving…' : 'Save'}
-              </button>
-            </div>
-          </form>
-        </div>
-      )}
     </>
   );
 }

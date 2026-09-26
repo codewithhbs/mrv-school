@@ -14,7 +14,7 @@ export default function ContactForm() {
     e.preventDefault();
     setStatus({ state: 'submitting', message: '' });
     try {
-      const base = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://api.mrvpublicschool.com/api';
+      const base = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5001/api';
       const res = await fetch(`${base}/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

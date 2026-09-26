@@ -4,6 +4,8 @@
 // of the backend's crudFactory + buildCrudRouter, so adding a new module here
 // is a config addition, not a new page.
 
+import { cmsPagePath } from './site';
+
 export const resourceConfigs = {
   banners: {
     title: 'Banners',
@@ -43,15 +45,59 @@ export const resourceConfigs = {
       { key: 'isPublished', label: 'Published', type: 'boolean' },
     ],
     fields: [
-      { name: 'title', label: 'Title', type: 'text', required: true },
-      { name: 'slug', label: 'Slug', type: 'text', required: true, hint: 'Unique, lowercase, e.g. vision-mission' },
+      // ---- main column ----
+      { name: '_details', type: 'heading', label: 'Page Details' },
+      { name: 'title', label: 'Title', type: 'text', required: true, hint: 'Shown as the H1 heading on the page.' },
+      {
+        name: 'slug',
+        label: 'Slug',
+        type: 'text',
+        required: true,
+        hint: 'Unique, lowercase, e.g. about-history. This is linked to the website route — do NOT change it on existing pages.',
+      },
       { name: 'group', label: 'Group', type: 'select', required: true, options: ['about', 'academics', 'admission', 'facilities', 'student-life', 'parents-corner', 'students-corner'] },
       { name: 'subtitle', label: 'Subtitle', type: 'text' },
-      { name: 'heroImage', label: 'Hero Image', type: 'image' },
+
+      { name: '_blocks', type: 'heading', label: 'Content Blocks', hint: 'Headings become H2s on the site — use them for sub-sections and include the focus keyword in one.' },
       { name: 'blocks', label: 'Content Blocks', type: 'blocks' },
-      { name: 'seoTitle', label: 'SEO Title', type: 'text' },
-      { name: 'seoDescription', label: 'SEO Description', type: 'textarea' },
-      { name: 'isPublished', label: 'Published', type: 'boolean', default: true },
+
+      { name: '_seo', type: 'heading', icon: 'seo', label: 'SEO Settings', hint: 'Controls how this page appears on Google and when shared on WhatsApp / Facebook.' },
+      { name: 'focusKeyword', label: 'Focus Keyword', type: 'text', placeholder: 'e.g. best cbse school in ghaziabad', hint: 'The main search phrase this page should rank for.' },
+      { name: 'seoTitle', label: 'SEO Title (Meta Title)', type: 'text', counter: [30, 60], hint: 'Leave empty to use the page title. Put the focus keyword near the start.' },
+      { name: 'seoDescription', label: 'Meta Description', type: 'textarea', counter: [120, 160], hint: 'Include the focus keyword + a reason to click. Leave empty to auto-generate from the content.' },
+      { name: 'metaKeywords', label: 'Keywords', type: 'tags', maxTags: 15, placeholder: 'Type a keyword and press Enter', hint: 'Related search phrases / secondary keywords.' },
+      {
+        name: 'canonicalUrl',
+        label: 'Canonical URL',
+        type: 'text',
+        inputType: 'url',
+        placeholder: 'Leave empty to use this page’s own URL',
+        hint: 'Only fill this if the same content lives at another URL that should rank instead (full https:// URL).',
+      },
+      { name: 'ogImage', label: 'Social Share Image (OG Image)', type: 'image', hint: 'Optional — 1200×630 recommended. Falls back to the main image.' },
+      { name: 'noIndex', label: 'Hide from search engines (noindex)', type: 'boolean', default: false },
+
+      // ---- right column ----
+      { name: '_publish', type: 'heading', label: 'Publish', side: true },
+      { name: 'isPublished', label: 'Published', type: 'boolean', default: true, side: true },
+
+      { name: '_hero', type: 'heading', label: 'Media', side: true },
+      { name: 'heroImage', label: 'Hero Image', type: 'image', side: true },
+
+      { name: '_seoPreview_h', type: 'heading', icon: 'seo', label: 'SEO Preview & Score', side: true },
+      {
+        name: '_seoPreview',
+        type: 'seoPreview',
+        side: true,
+        titleField: 'seoTitle',
+        descField: 'seoDescription',
+        summaryField: 'subtitle',
+        contentField: 'blocks',
+        contentType: 'blocks',
+        imageField: 'heroImage',
+        checkSlug: false,
+        path: (v) => cmsPagePath(v.slug, v.group),
+      },
     ],
   },
 
@@ -135,21 +181,62 @@ export const resourceConfigs = {
     columns: [
       { key: 'title', label: 'Title' },
       { key: 'type', label: 'Type' },
+      { key: 'eventDate', label: 'Date', type: 'date' },
       { key: 'isPublished', label: 'Published', type: 'boolean' },
     ],
     fields: [
+      // ---- main column ----
+      { name: '_content', type: 'heading', label: 'Content' },
       { name: 'type', label: 'Type', type: 'select', required: true, options: ['news', 'event', 'circular', 'holiday', 'achievement'] },
-      { name: 'title', label: 'Title', type: 'text', required: true },
-      { name: 'slug', label: 'Slug', type: 'text', required: true, hint: 'Unique, lowercase, used in the URL' },
-      { name: 'summary', label: 'Summary', type: 'textarea' },
-      { name: 'content', label: 'Full Content', type: 'textarea' },
-      { name: 'image', label: 'Image', type: 'image' },
-      { name: 'attachmentUrl', label: 'Attachment (PDF/notice)', type: 'document' },
-      { name: 'eventDate', label: 'Event/Publish Date', type: 'datetime' },
-      { name: 'eventEndDate', label: 'Event End Date', type: 'datetime' },
-      { name: 'location', label: 'Location', type: 'text' },
-      { name: 'isFeatured', label: 'Featured', type: 'boolean', default: false },
-      { name: 'isPublished', label: 'Published', type: 'boolean', default: true },
+      { name: 'title', label: 'Title', type: 'text', required: true, hint: 'Shown as the H1 heading on the page.' },
+      {
+        name: 'slug',
+        label: 'URL Slug',
+        type: 'slug',
+        source: 'title',
+        prefix: '/news-events/',
+        hint: 'Auto-filled from the title. Short, lowercase, hyphen-separated — include the focus keyword. Changing it on a live post breaks old links.',
+      },
+      { name: 'summary', label: 'Summary / Excerpt', type: 'textarea', counter: [80, 200], hint: 'Shown on the listing cards. Also used as meta description if that is left empty.' },
+      { name: 'content', label: 'Full Content', type: 'richtext', placeholder: 'Write the full news / event details here…' },
+
+      { name: '_seo', type: 'heading', icon: 'seo', label: 'SEO Settings', hint: 'Controls how this page appears on Google and when shared on WhatsApp / Facebook.' },
+      { name: 'focusKeyword', label: 'Focus Keyword', type: 'text', placeholder: 'e.g. best cbse school in ghaziabad', hint: 'The main search phrase this page should rank for.' },
+      { name: 'metaTitle', label: 'SEO Title (Meta Title)', type: 'text', counter: [30, 60], hint: 'Leave empty to use the page title. Put the focus keyword near the start.' },
+      { name: 'metaDescription', label: 'Meta Description', type: 'textarea', counter: [120, 160], hint: 'Include the focus keyword + a reason to click. Leave empty to auto-generate from the content.' },
+      { name: 'metaKeywords', label: 'Keywords', type: 'tags', maxTags: 15, placeholder: 'Type a keyword and press Enter', hint: 'Related search phrases / secondary keywords.' },
+      {
+        name: 'canonicalUrl',
+        label: 'Canonical URL',
+        type: 'text',
+        inputType: 'url',
+        placeholder: 'Leave empty to use this page’s own URL',
+        hint: 'Only fill this if the same content lives at another URL that should rank instead (full https:// URL).',
+      },
+      { name: 'ogImage', label: 'Social Share Image (OG Image)', type: 'image', hint: 'Optional — 1200×630 recommended. Falls back to the main image.' },
+      { name: 'noIndex', label: 'Hide from search engines (noindex)', type: 'boolean', default: false },
+
+      // ---- right column ----
+      { name: '_publish', type: 'heading', label: 'Publish', side: true },
+      { name: 'isPublished', label: 'Published', type: 'boolean', default: true, side: true },
+      { name: 'isFeatured', label: 'Featured', type: 'boolean', default: false, side: true },
+      { name: 'eventDate', label: 'Event/Publish Date', type: 'datetime', side: true },
+      { name: 'eventEndDate', label: 'Event End Date', type: 'datetime', side: true, showIf: (v) => v.type === 'event' },
+      { name: 'location', label: 'Location', type: 'text', side: true, showIf: (v) => v.type === 'event' },
+
+      { name: '_media', type: 'heading', label: 'Featured Image & Attachment', side: true },
+      { name: 'image', label: 'Featured Image', type: 'image', side: true },
+      { name: 'imageAlt', label: 'Image Alt Text', type: 'text', side: true, hint: 'Describe the image (Google Images & accessibility).' },
+      { name: 'attachmentUrl', label: 'Attachment (PDF/notice)', type: 'document', side: true },
+
+      { name: '_seoPreview_h', type: 'heading', icon: 'seo', label: 'SEO Preview & Score', side: true },
+      {
+        name: '_seoPreview',
+        type: 'seoPreview',
+        side: true,
+        basePath: '/news-events',
+        imageAltField: 'imageAlt',
+      },
     ],
   },
 

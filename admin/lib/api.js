@@ -6,7 +6,7 @@
 //   the admin panel and the backend API share the same registrable domain
 //   (e.g. admin.mrvps.org calling api.mrvps.org, or both on localhost in dev).
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://api.mrvpublicschool.com/api';
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5001/api';
 
 let accessToken = null;
 let refreshPromise = null;

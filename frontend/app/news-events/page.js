@@ -4,6 +4,7 @@ import NewsCard from '@/components/NewsCard';
 import Link from 'next/link';
 import { getNewsEvents } from '@/lib/api';
 import PageHero from '@/components/PageHero';
+import { SITE_NAME, absoluteUrl } from '@/lib/seo';
 
 const TABS = [
   { key: '', label: 'All' },
@@ -13,6 +14,30 @@ const TABS = [
   { key: 'holiday', label: 'Holidays' },
   { key: 'achievement', label: 'Achievements' },
 ];
+
+const TYPE_META = {
+  news: 'Latest News',
+  event: 'Upcoming & Past Events',
+  circular: 'Circulars & Notices',
+  holiday: 'Holiday Notices',
+  achievement: 'Student & School Achievements',
+};
+
+export async function generateMetadata({ searchParams }) {
+  const type = TYPE_META[searchParams?.type] ? searchParams.type : '';
+  const title = type ? `${TYPE_META[type]} | ${SITE_NAME}` : `News & Events | ${SITE_NAME}`;
+  const description = type
+    ? `${TYPE_META[type]} from ${SITE_NAME} — stay updated with the latest from our school.`
+    : `Latest news, events, circulars, holiday notices and achievements from ${SITE_NAME}.`;
+  const url = absoluteUrl(type ? `/news-events?type=${type}` : '/news-events');
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: { type: 'website', url, title, description, siteName: SITE_NAME, locale: 'en_IN' },
+    twitter: { card: 'summary', title, description },
+  };
+}
 
 export default async function NewsEventsPage({ searchParams }) {
   const activeType = searchParams?.type || '';
