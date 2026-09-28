@@ -63,7 +63,7 @@ export default function Navbar({ settings }) {
   const [open, setOpen] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const phone = settings?.phones?.[0] || '+91 00000 00000';
+  const phone = settings?.phones?.[1] || '+91 00000 00000';
   const email = settings?.emails?.[0] || 'info@mrvps.org';
   const logo = mediaUrl(settings?.logoUrl);
 
@@ -92,19 +92,19 @@ export default function Navbar({ settings }) {
 
       {/* Main nav */}
       <div className="bg-white/95 backdrop-blur border-b border-line shadow-sm">
-        <div className="container-max flex items-center justify-between py-3">
+        <div className="container-max flex items-center justify-between py-1">
           <Link href="/" className="flex items-center gap-3 shrink-0">
             {logo ? (
-              <Image src={logo} alt={settings?.schoolName || 'School logo'} width={44} height={44} className="w-11 h-11 object-contain rounded-full" unoptimized />
+              <Image src={'https://i.ibb.co/PG9x21z5/Whats-App-Image-2026-09-28-at-14-58-11.jpg'} alt={settings?.schoolName || 'School logo'} width={44} height={44} className="w-24 h-24 object-contain rounded-full" unoptimized />
             ) : (
               <div className="seal w-11 h-11 text-red bg-paper2">
                 <span className="font-display font-bold text-lg text-red">M</span>
               </div>
             )}
-            <div className="leading-tight hidden sm:block">
+            {/* <div className="leading-tight hidden sm:block">
               <div className="font-display font-bold text-lg text-ink">{settings?.schoolName || 'M.R. Vivekananda Public School'}</div>
               <div className="eyebrow text-slate">{settings?.tagline || 'Excellence in Education'}</div>
-            </div>
+            </div> */}
           </Link>
 
           <nav className="hidden lg:flex items-center gap-1">
