@@ -65,12 +65,12 @@ export default async function HomePage() {
       <Section bg="white">
         <div className="grid lg:grid-cols-[1fr_1.4fr] gap-14 items-center">
           <div className="relative">
-            <div className="w-full aspect-[4/5] rounded-card bg-paper2 border-4 border-white shadow-cardHover overflow-hidden">
+            <div className="w-full aspect-[16/12] rounded-card bg-paper2 border-4 border-white shadow-cardHover overflow-hidden">
               <Image
                 src="/images/principal-photo.png"
                 alt="Principal, MRVPS"
-                width={500}
-                height={625}
+                width={625}
+                height={500}
                 className="w-full h-full object-cover"
               />
             </div>
