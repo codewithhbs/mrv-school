@@ -95,7 +95,7 @@ export default function Navbar({ settings }) {
         <div className="container-max flex items-center justify-between py-1">
           <Link href="/" className="flex items-center gap-3 shrink-0">
             {logo ? (
-              <Image src={'https://i.ibb.co/PG9x21z5/Whats-App-Image-2026-09-28-at-14-58-11.jpg'} alt={settings?.schoolName || 'School logo'} width={44} height={44} className="w-24 h-24 object-contain rounded-full" unoptimized />
+              <Image src={'/images/logo.png'} alt={settings?.schoolName || 'School logo'} width={44} height={44} className="w-24 h-24 object-contain rounded-full" unoptimized />
             ) : (
               <div className="seal w-11 h-11 text-red bg-paper2">
                 <span className="font-display font-bold text-lg text-red">M</span>
