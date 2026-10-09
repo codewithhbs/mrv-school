@@ -44,3 +44,38 @@ export function decodeEntities(str) {
 export function jsonLd(data) {
   return { __html: JSON.stringify(data).replace(/</g, '\\u003c') };
 }
+
+export const DEFAULT_FAVICON = 'https://api.mrvpublicschool.com/uploads/1786537169042-f9dad1a72b9f289e.png';
+export const SCHOOL_ADDRESS = '36B, Krishna Park Extn, New Mahavir Nagar, New Delhi, Delhi 110018';
+export const GOOGLE_SITE_VERIFICATION = '1teTPrdRBcbsASdixQrEF97bH-540RgYUhziOX1wafQ';
+
+// Public URL of a CMS page: "about-history" (group "about") → "/about/history", else "/<slug>".
+export function cmsPagePath(p) {
+  if (!p?.slug) return '/';
+  if (p.group && p.slug.startsWith(`${p.group}-`)) return `/${p.group}/${p.slug.slice(p.group.length + 1)}`;
+  return `/${p.slug}`;
+}
+
+const DEFAULT_OG_IMAGE = 'https://api.mrvpublicschool.com/uploads/1786537169042-f9dad1a72b9f289e.png';
+
+// Full metadata (title, description, self canonical, OG, Twitter) for static pages.
+export function staticPageMeta(title, description, path, { noIndex = false } = {}) {
+  const url = absoluteUrl(path);
+  const fullTitle = `${title} | ${SITE_NAME}`;
+  return {
+    title: fullTitle,
+    description,
+    alternates: { canonical: url },
+    ...(noIndex ? { robots: { index: false, follow: false } } : {}),
+    openGraph: {
+      type: 'website',
+      url,
+      title: fullTitle,
+      description,
+      siteName: SITE_NAME,
+      locale: 'en_IN',
+      images: [{ url: DEFAULT_OG_IMAGE, alt: SITE_NAME }],
+    },
+    twitter: { card: 'summary_large_image', title: fullTitle, description, images: [DEFAULT_OG_IMAGE] },
+  };
+}

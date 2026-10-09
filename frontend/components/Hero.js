@@ -1,6 +1,7 @@
 import Button from './Button';
 import { mediaUrl } from '@/lib/media';
 import SealBadge from './SealBadge';
+import { absoluteUrl } from '@/lib/seo';
 
 const STATS = [
   { n: '25+', l: 'Years' },
@@ -26,8 +27,7 @@ export default function Hero({ banners, settings }) {
   return (
     <div className="relative overflow-hidden bg-paper2">
       <div
-        className="absolute inset-0 opacity-[0.04] pointer-events-none"
-        style={{ backgroundImage: 'radial-gradient(circle, #A31621 1px, transparent 1px)', backgroundSize: '24px 24px' }}
+        className="absolute inset-0 opacity-[0.04] pointer-events-none bg-dot-pattern"
       />
       <div className="pointer-events-none absolute -left-24 -top-24 w-80 h-80 rounded-full border border-red/10" />
       <div className="pointer-events-none absolute -left-10 -top-10 w-56 h-56 rounded-full border border-dashed border-gold/20" />
@@ -44,7 +44,7 @@ export default function Hero({ banners, settings }) {
           <p className="mt-6 text-lg text-slate leading-relaxed max-w-lg">{subtitle}</p>
           <div className="mt-9 flex flex-wrap gap-4">
             <Button href={banner?.ctaLink || '/admission'}>{banner?.ctaText || 'Apply for Admission'}</Button>
-            <Button href="/about" variant="outline">Explore the School</Button>
+            <Button href={absoluteUrl('/about')} variant="outline">Explore the School</Button>
           </div>
         </div>
 

@@ -1,8 +1,9 @@
 import Link from 'next/link';
+import { absoluteUrl } from '@/lib/seo';
 
 // crumbs: [{ label, href? }] — last item has no href (current page)
 export default function Breadcrumb({ crumbs = [] }) {
-  const items = [{ label: 'Home', href: '/' }, ...crumbs];
+  const items = [{ label: 'Home', href: absoluteUrl('/') }, ...crumbs];
 
   return (
     <nav aria-label="Breadcrumb" className="flex items-center flex-wrap gap-1.5 text-sm">

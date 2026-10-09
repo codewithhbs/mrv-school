@@ -51,11 +51,13 @@ export const resourceConfigs = {
       {
         name: 'slug',
         label: 'Slug',
-        type: 'text',
+        type: 'slug',
+        source: 'title',
+        prefix: '/',
         required: true,
-        hint: 'Unique, lowercase, e.g. about-history. This is linked to the website route — do NOT change it on existing pages.',
+        hint: 'Website URL: slug "about-my-page" + group "about" → /about/my-page. Any other slug → /<slug> (e.g. "summer-camp" → /summer-camp). Do NOT change it on existing pages.',
       },
-      { name: 'group', label: 'Group', type: 'select', required: true, options: ['about', 'academics', 'admission', 'facilities', 'student-life', 'parents-corner', 'students-corner'] },
+      { name: 'group', label: 'Group', type: 'select', required: true, default: 'general', options: ['general', 'about', 'academics', 'admission', 'facilities', 'student-life', 'parents-corner', 'students-corner'] },
       { name: 'subtitle', label: 'Subtitle', type: 'text' },
 
       { name: '_blocks', type: 'heading', label: 'Content Blocks', hint: 'Headings become H2s on the site — use them for sub-sections and include the focus keyword in one.' },

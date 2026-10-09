@@ -1,5 +1,5 @@
 import { getAllNewsEventsForSitemap, getAllPagesForSitemap } from '@/lib/api';
-import { absoluteUrl } from '@/lib/seo';
+import { absoluteUrl, cmsPagePath } from '@/lib/seo';
 
 export const revalidate = 3600;
 
@@ -12,11 +12,6 @@ const STATIC_ROUTES = [
   '/downloads', '/careers', '/alumni', '/contact',
 ];
 
-// "about-history" (group "about") → "/about/history"
-function cmsPagePath(p) {
-  if (p.group && p.slug?.startsWith(`${p.group}-`)) return `/${p.group}/${p.slug.slice(p.group.length + 1)}`;
-  return `/${p.slug}`;
-}
 
 export default async function sitemap() {
   const now = new Date();
@@ -32,6 +27,16 @@ export default async function sitemap() {
     priority: path === '/' ? 1 : path === '/admission' || path === '/news-events' ? 0.9 : 0.7,
   }));
 
+  // Admin-created CMS pages served by app/[...slug]
+  const extraCms = cmsPages
+    .filter((p) => p.slug && !STATIC_ROUTES.includes(cmsPagePath(p)) && !excluded(p))
+    .map((p) => ({
+      url: absoluteUrl(cmsPagePath(p)),
+      lastModified: new Date(p.updatedAt || now),
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    }));
+
   const news = (await getAllNewsEventsForSitemap())
     .filter((n) => n.slug && !n.noIndex && (!n.canonicalUrl || absoluteUrl(n.canonicalUrl) === absoluteUrl(`/news-events/${n.slug}`)))
     .map((n) => ({
@@ -41,5 +46,5 @@ export default async function sitemap() {
       priority: n.isFeatured ? 0.8 : 0.6,
     }));
 
-  return [...staticEntries, ...news];
+  return [...staticEntries, ...extraCms, ...news];
 }

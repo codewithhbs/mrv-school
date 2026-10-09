@@ -33,7 +33,7 @@ export default function HeroBanner({ banners }) {
   return (
     <div
       className="relative w-full overflow-hidden bg-paper2"
-      style={{ aspectRatio: ratio || undefined, minHeight: ratio ? undefined : ratio }}
+      style={ratio ? { aspectRatio: ratio } : undefined}
     >
       {list.map((b, i) => (
         // eslint-disable-next-line @next/next/no-img-element

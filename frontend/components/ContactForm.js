@@ -1,12 +1,14 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const initialState = { name: '', email: '', phone: '', subject: '', message: '' };
 
 export default function ContactForm() {
   const [form, setForm] = useState(initialState);
   const [status, setStatus] = useState({ state: 'idle', message: '' });
+  const router = useRouter();
 
   const onChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
@@ -25,7 +27,8 @@ export default function ContactForm() {
         setStatus({ state: 'error', message: json?.message || 'Something went wrong. Please try again.' });
         return;
       }
-      setStatus({ state: 'success', message: "Message sent. We'll get back to you soon." });
+      setStatus({ state: 'idle', message: '' });
+      router.push('/thank-you?type=contact');
       setForm(initialState);
     } catch (err) {
       setStatus({ state: 'error', message: 'Could not reach the server. Please try again.' });

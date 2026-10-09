@@ -5,15 +5,18 @@ import NewsCard from '@/components/NewsCard';
 import EmptyState from '@/components/EmptyState';
 import Link from 'next/link';
 import PageHero from '@/components/PageHero';
+import { absoluteUrl, staticPageMeta } from '@/lib/seo';
+
+export const metadata = staticPageMeta('Parents Corner', 'Resources, circulars and updates for MRVPS parents.', '/parents-corner');
 
 const LINKS = [
-  { label: 'Parent Login', desc: 'Access the parent portal for attendance, homework, exam schedule, results, and fee status.', href: '/portal/login' },
-  { label: 'Fee Status', desc: "Check your child's fee status and payment history.", href: '/portal/login' },
-  { label: 'Attendance', desc: "Track your child's daily attendance record.", href: '/portal/login' },
-  { label: 'Homework', desc: 'View daily homework and assignments.', href: '/portal/login' },
-  { label: 'School Calendar', desc: 'Term dates, holidays, and exam schedule.', href: '/academics/calendar' },
-  { label: 'PTM Schedule', desc: 'Upcoming Parent-Teacher Meeting dates — also available in the portal.', href: '/portal/login' },
-  { label: 'Download Forms', desc: 'Leave applications, TC requests, and more.', href: '/downloads' },
+  { label: 'Parent Login', desc: 'Access the parent portal for attendance, homework, exam schedule, results, and fee status.', href: absoluteUrl('/portal/login') },
+  { label: 'Fee Status', desc: "Check your child's fee status and payment history.", href: absoluteUrl('/portal/login') },
+  { label: 'Attendance', desc: "Track your child's daily attendance record.", href: absoluteUrl('/portal/login') },
+  { label: 'Homework', desc: 'View daily homework and assignments.', href: absoluteUrl('/portal/login') },
+  { label: 'School Calendar', desc: 'Term dates, holidays, and exam schedule.', href: absoluteUrl('/academics/calendar') },
+  { label: 'PTM Schedule', desc: 'Upcoming Parent-Teacher Meeting dates — also available in the portal.', href: absoluteUrl('/portal/login') },
+  { label: 'Download Forms', desc: 'Leave applications, TC requests, and more.', href: absoluteUrl('/downloads') },
 ];
 
 export default async function ParentsCornerPage() {

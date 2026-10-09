@@ -3,6 +3,9 @@ import EmptyState from '@/components/EmptyState';
 import { getFacilities } from '@/lib/api';
 import { mediaUrl } from '@/lib/media';
 import PageHero from '@/components/PageHero';
+import { staticPageMeta } from '@/lib/seo';
+
+export const metadata = staticPageMeta('Facilities', 'Classrooms, labs, library, sports and other facilities at MRVPS, New Delhi.', '/facilities');
 
 export default async function FacilitiesPage() {
   const facilities = await getFacilities();

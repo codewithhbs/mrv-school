@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const CLASSES = ['Nursery', 'LKG', 'UKG', 'Class 1', 'Class 2', 'Class 3', 'Class 4', 'Class 5', 'Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10', 'Class 11', 'Class 12'];
 
@@ -11,6 +12,7 @@ const initialState = {
 export default function AdmissionEnquiryForm() {
   const [form, setForm] = useState(initialState);
   const [status, setStatus] = useState({ state: 'idle', message: '' });
+  const router = useRouter();
 
   const onChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
@@ -29,7 +31,8 @@ export default function AdmissionEnquiryForm() {
         setStatus({ state: 'error', message: json?.message || 'Something went wrong. Please try again.' });
         return;
       }
-      setStatus({ state: 'success', message: 'Enquiry submitted. Our admissions team will contact you shortly.' });
+      setStatus({ state: 'idle', message: '' });
+      router.push('/thank-you?type=admission');
       setForm(initialState);
     } catch (err) {
       setStatus({ state: 'error', message: 'Could not reach the server. Please check your connection and try again.' });

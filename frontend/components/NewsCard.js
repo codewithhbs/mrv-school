@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { mediaUrl } from '@/lib/media';
+import { absoluteUrl } from '@/lib/seo';
 
 const TYPE_LABEL = { news: 'News', event: 'Event', circular: 'Circular', holiday: 'Holiday', achievement: 'Achievement' };
 
@@ -8,7 +9,7 @@ export default function NewsCard({ item }) {
   const dateStr = date ? new Date(date).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) : '';
 
   return (
-    <Link href={`/news-events/${item.slug}`} className="group block bg-white rounded-card border border-line overflow-hidden hover:shadow-cardHover transition-shadow duration-200">
+    <Link href={absoluteUrl(`/news-events/${item.slug}`)} className="group block bg-white rounded-card border border-line overflow-hidden hover:shadow-cardHover transition-shadow duration-200">
       <div className="aspect-[16/10] bg-paper2 overflow-hidden">
         {item.image ? (
           // eslint-disable-next-line @next/next/no-img-element

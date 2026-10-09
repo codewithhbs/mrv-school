@@ -41,8 +41,8 @@ async function apiPost(path, body) {
 // --- Typed helpers used across pages ---
 export const getSettings = () => apiGet('/settings');
 export const getBanners = () => apiGet('/banners');
-export const getPageBySlug = async (slug) => {
-  const list = await apiGet(`/pages?filter[slug]=${slug}&limit=1`);
+export const getPageBySlug = async (slug, opts) => {
+  const list = await apiGet(`/pages?filter[slug]=${encodeURIComponent(slug)}&limit=1`, opts);
   return Array.isArray(list) && list[0] ? list[0] : null;
 };
 // CMS pages for the sitemap (to drop noindex / externally-canonical pages).
@@ -69,7 +69,7 @@ export const getNewsEventBySlug = async (slug) => {
 };
 export const getGalleryAlbums = () => apiGet('/gallery?limit=30');
 export const getTestimonials = () => apiGet('/testimonials?limit=20');
-export const getDownloads = () => apiGet('/downloads?limit=50');
+export const getDownloads = () => apiGet('/downloads?limit=50&filter[isActive]=true');
 export const getCareerOpenings = () => apiGet('/careers/openings?limit=20');
 export const getFAQs = (category) => apiGet(`/faqs?limit=50${category ? `&filter[category]=${category}` : ''}`);
 export const getFeeStructure = () => apiGet('/fee-structure?limit=20');

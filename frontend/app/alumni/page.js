@@ -5,6 +5,9 @@ import AlumniRegistrationForm from '@/components/AlumniRegistrationForm';
 import SealBadge from '@/components/SealBadge';
 import { getAlumniStories } from '@/lib/api';
 import PageHero from '@/components/PageHero';
+import { staticPageMeta } from '@/lib/seo';
+
+export const metadata = staticPageMeta('Alumni', 'MRVPS alumni stories and alumni registration.', '/alumni');
 
 export default async function AlumniPage() {
   const stories = await getAlumniStories();

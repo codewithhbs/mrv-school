@@ -1,15 +1,18 @@
 import Section from '@/components/Section';
 import Link from 'next/link';
 import PageHero from '@/components/PageHero';
+import { absoluteUrl, staticPageMeta } from '@/lib/seo';
+
+export const metadata = staticPageMeta('Students Corner', 'Resources, timetables and updates for MRVPS students.', '/students-corner');
 
 const LINKS = [
-  { label: 'Student Login', desc: 'Access your student portal.', href: '/portal/login' },
-  { label: 'Assignments', desc: 'View homework and assignments set by your teachers.', href: '/portal/login' },
-  { label: 'Study Materials', desc: 'Notes, worksheets, and reference material.', href: '/portal/login' },
-  { label: 'Exam Schedule', desc: 'Upcoming test and examination dates.', href: '/portal/login' },
-  { label: 'Results', desc: 'Check your term and examination results.', href: '/portal/login' },
-  { label: 'Library Resources', desc: 'Browse the school library catalogue.', href: '/facilities' },
-  { label: 'Downloads', desc: 'Forms, admit cards, and school documents.', href: '/downloads' },
+  { label: 'Student Login', desc: 'Access your student portal.', href: absoluteUrl('/portal/login') },
+  { label: 'Assignments', desc: 'View homework and assignments set by your teachers.', href: absoluteUrl('/portal/login') },
+  { label: 'Study Materials', desc: 'Notes, worksheets, and reference material.', href: absoluteUrl('/portal/login') },
+  { label: 'Exam Schedule', desc: 'Upcoming test and examination dates.', href: absoluteUrl('/portal/login') },
+  { label: 'Results', desc: 'Check your term and examination results.', href: absoluteUrl('/portal/login') },
+  { label: 'Library Resources', desc: 'Browse the school library catalogue.', href: absoluteUrl('/facilities') },
+  { label: 'Downloads', desc: 'Forms, admit cards, and school documents.', href: absoluteUrl('/downloads') },
 ];
 
 export default function StudentsCornerPage() {

@@ -64,6 +64,8 @@ app.use('/api', apiLimiter);
 
 // --- Static file serving for uploads ---
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// Legacy download links (/downloads/<file>.pdf) — drop PDFs into src/downloads/
+app.use('/downloads', express.static(path.join(__dirname, 'downloads')));
 
 // --- API routes ---
 app.use('/api', routes);

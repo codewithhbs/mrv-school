@@ -3,6 +3,7 @@ import PageHero from '@/components/PageHero';
 import PageBlocks from '@/components/PageBlocks';
 import { getPageBySlug } from '@/lib/api';
 import { cmsPageMetadata, CmsPageSchema } from '@/lib/pageSeo';
+import { absoluteUrl } from '@/lib/seo';
 
 export async function generateMetadata() {
   return cmsPageMetadata('about-principals-message', '/about/principals-message', "Principal's Message");
@@ -13,8 +14,8 @@ export default async function Page() {
   const title = page?.title || "Principal's Message";
   return (
     <>
-      <CmsPageSchema page={page} path="/about/principals-message" title={title} crumbs={[{ label: 'About', href: '/about' }, { label: title }]} />
-      <PageHero title={title} eyebrow="About" crumbs={[{ label: 'About', href: '/about' }, { label: title }]} />
+      <CmsPageSchema page={page} path="/about/principals-message" title={title} crumbs={[{ label: 'About', href: absoluteUrl('/about') }, { label: title }]} />
+      <PageHero title={title} eyebrow="About" crumbs={[{ label: 'About', href: absoluteUrl('/about') }, { label: title }]} />
       <Section bg="white">
         <PageBlocks page={page} fallbackText="A message from our Principal will be published here." />
       </Section>

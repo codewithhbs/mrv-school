@@ -4,6 +4,9 @@ import EmptyState from '@/components/EmptyState';
 import { getNewsEvents } from '@/lib/api';
 import NewsCard from '@/components/NewsCard';
 import PageHero from '@/components/PageHero';
+import { staticPageMeta } from '@/lib/seo';
+
+export const metadata = staticPageMeta('Student Life', 'Co-curricular activities, clubs, sports and events that shape student life at MRVPS.', '/student-life');
 
 const AREAS = [
   { title: 'Clubs & Activities', desc: 'Debate, science, art, and coding clubs meet weekly to nurture interests beyond the classroom.' },

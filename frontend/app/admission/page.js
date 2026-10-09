@@ -3,6 +3,9 @@ import SectionHeader from '@/components/SectionHeader';
 import AdmissionEnquiryForm from '@/components/AdmissionEnquiryForm';
 import Link from 'next/link';
 import PageHero from '@/components/PageHero';
+import { absoluteUrl, staticPageMeta } from '@/lib/seo';
+
+export const metadata = staticPageMeta('Admission', 'Admission process at M.R. Vivekananda Public School, New Delhi — eligibility, steps and enquiry form.', '/admission');
 
 const STEPS = [
   {
@@ -144,9 +147,9 @@ export default function AdmissionPage() {
             </div>
 
             <div className="flex gap-4 mt-6 flex-wrap">
-              <Link href="/admission/fees" className="font-semibold text-sm text-red hover:text-red-dark">Fee Structure →</Link>
-              <Link href="/admission/scholarships" className="font-semibold text-sm text-red hover:text-red-dark">Scholarships →</Link>
-              <Link href="/admission/faq" className="font-semibold text-sm text-red hover:text-red-dark">FAQs →</Link>
+              <Link href={absoluteUrl('/admission/fees')} className="font-semibold text-sm text-red hover:text-red-dark">Fee Structure →</Link>
+              <Link href={absoluteUrl('/admission/scholarships')} className="font-semibold text-sm text-red hover:text-red-dark">Scholarships →</Link>
+              <Link href={absoluteUrl('/admission/faq')} className="font-semibold text-sm text-red hover:text-red-dark">FAQs →</Link>
             </div>
           </div>
 

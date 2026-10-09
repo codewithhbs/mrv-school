@@ -3,6 +3,9 @@ import EmptyState from '@/components/EmptyState';
 import { getDownloads } from '@/lib/api';
 import { mediaUrl } from '@/lib/media';
 import PageHero from '@/components/PageHero';
+import { staticPageMeta } from '@/lib/seo';
+
+export const metadata = staticPageMeta('Downloads', 'Download admission forms, prospectus, holiday list, academic calendar and TC request form.', '/downloads');
 
 const CATEGORY_LABEL = {
   'admission-form': 'Admission Form',
@@ -16,7 +19,7 @@ const CATEGORY_LABEL = {
 
 export default async function DownloadsPage() {
   const downloads = await getDownloads();
-  const grouped = (downloads || []).reduce((acc, d) => {
+  const grouped = (downloads || []).filter((d) => d.fileUrl && d.isActive !== false).reduce((acc, d) => {
     acc[d.category] = acc[d.category] || [];
     acc[d.category].push(d);
     return acc;

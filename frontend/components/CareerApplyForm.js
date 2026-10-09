@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const initialState = { name: '', email: '', phone: '', coverNote: '' };
 
@@ -8,6 +9,7 @@ export default function CareerApplyForm({ openingId }) {
   const [form, setForm] = useState(initialState);
   const [resumeFile, setResumeFile] = useState(null);
   const [status, setStatus] = useState({ state: 'idle', message: '' });
+  const router = useRouter();
 
   const onChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
   const base = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://api.mrvpublicschool.com/api';
@@ -39,7 +41,8 @@ export default function CareerApplyForm({ openingId }) {
         setStatus({ state: 'error', message: applyJson?.message || 'Could not submit application. Please try again.' });
         return;
       }
-      setStatus({ state: 'success', message: 'Application submitted. Our HR team will reach out if there is a match.' });
+      setStatus({ state: 'idle', message: '' });
+      router.push('/thank-you?type=career');
       setForm(initialState);
       setResumeFile(null);
     } catch (err) {

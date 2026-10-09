@@ -4,6 +4,9 @@ import EmptyState from '@/components/EmptyState';
 import CareerOpeningCard from '@/components/CareerOpeningCard';
 import { getCareerOpenings } from '@/lib/api';
 import PageHero from '@/components/PageHero';
+import { staticPageMeta } from '@/lib/seo';
+
+export const metadata = staticPageMeta('Careers', 'Current teaching and staff openings at M.R. Vivekananda Public School. Apply online.', '/careers');
 
 export default async function CareersPage() {
   const openings = await getCareerOpenings();

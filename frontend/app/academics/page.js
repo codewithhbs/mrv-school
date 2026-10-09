@@ -5,6 +5,9 @@ import Button from '@/components/Button';
 import Link from 'next/link';
 import { getAcademicPrograms } from '@/lib/api';
 import PageHero from '@/components/PageHero';
+import { absoluteUrl, staticPageMeta } from '@/lib/seo';
+
+export const metadata = staticPageMeta('Academics', 'CBSE curriculum at MRVPS from Pre-Primary to Senior Secondary — levels, subjects and teaching approach.', '/academics');
 
 const LEVEL_LABEL = {
   'pre-primary': 'Pre-Primary',
@@ -57,9 +60,9 @@ export default async function AcademicsPage() {
         <SectionHeader eyebrow="More on Academics" title="Dive Deeper" />
         <div className="grid sm:grid-cols-3 gap-5">
           {[
-            { label: 'Teaching Methodology', href: '/academics/methodology' },
-            { label: 'Examination System', href: '/academics/examinations' },
-            { label: 'Academic Calendar', href: '/academics/calendar' },
+            { label: 'Teaching Methodology', href: absoluteUrl('/academics/methodology') },
+            { label: 'Examination System', href: absoluteUrl('/academics/examinations') },
+            { label: 'Academic Calendar', href: absoluteUrl('/academics/calendar') },
           ].map((s) => (
             <Link key={s.href} href={s.href} className="bg-white rounded-card border border-line p-6 hover:shadow-cardHover hover:border-red/30 transition-all font-display font-semibold text-ink">
               {s.label} →
@@ -67,7 +70,7 @@ export default async function AcademicsPage() {
           ))}
         </div>
         <div className="mt-8">
-          <Button href="/admission">Apply for Admission</Button>
+          <Button href={absoluteUrl('/admission')}>Apply for Admission</Button>
         </div>
       </Section>
     </>

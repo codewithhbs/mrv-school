@@ -2,13 +2,16 @@ import Section from '@/components/Section';
 import PageHero from '@/components/PageHero';
 import EmptyState from '@/components/EmptyState';
 import { getScholarships } from '@/lib/api';
+import { absoluteUrl, staticPageMeta } from '@/lib/seo';
+
+export const metadata = staticPageMeta('Scholarships', 'Scholarships and fee concessions available at M.R. Vivekananda Public School.', '/admission/scholarships');
 
 export default async function ScholarshipsPage() {
   const scholarships = await getScholarships();
 
   return (
     <>
-      <PageHero eyebrow="Admission" title="Scholarship Information" description="MRVPS recognizes and supports merit and need through the following scholarships." crumbs={[{ label: 'Admission', href: '/admission' }, { label: 'Scholarships' }]} />
+      <PageHero eyebrow="Admission" title="Scholarship Information" description="MRVPS recognizes and supports merit and need through the following scholarships." crumbs={[{ label: 'Admission', href: absoluteUrl('/admission') }, { label: 'Scholarships' }]} />
       <Section bg="white">
       {scholarships?.length ? (
         <div className="grid sm:grid-cols-2 gap-6">

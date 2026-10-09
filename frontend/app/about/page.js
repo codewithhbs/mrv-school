@@ -2,15 +2,18 @@ import Section from '@/components/Section';
 import SectionHeader from '@/components/SectionHeader';
 import Link from 'next/link';
 import PageHero from '@/components/PageHero';
+import { absoluteUrl, staticPageMeta } from '@/lib/seo';
+
+export const metadata = staticPageMeta('About Us', 'Learn about M.R. Vivekananda Public School — our overview, vision, history, leadership and campus in New Delhi.', '/about');
 
 const SUBPAGES = [
-  { label: 'Vision & Mission', href: '/about/vision-mission', desc: 'What drives every decision we make.' },
-  { label: 'History', href: '/about/history', desc: "The story of MRVPS's founding and growth." },
-  { label: "Chairman's Message", href: '/about/chairmans-message', desc: 'A note from our Chairman.' },
-  { label: "Principal's Message", href: '/about/principals-message', desc: 'A welcome from our Principal.' },
-  { label: 'School Leadership', href: '/about/leadership', desc: 'The people guiding MRVPS forward.' },
-  { label: 'Infrastructure', href: '/about/infrastructure', desc: 'A campus built for learning.' },
-  { label: 'School Rules & Policies', href: '/about/rules-policies', desc: 'Our code of conduct and policies.' },
+  { label: 'Vision & Mission', href: absoluteUrl('/about/vision-mission'), desc: 'What drives every decision we make.' },
+  { label: 'History', href: absoluteUrl('/about/history'), desc: "The story of MRVPS's founding and growth." },
+  { label: "Chairman's Message", href: absoluteUrl('/about/chairmans-message'), desc: 'A note from our Chairman.' },
+  { label: "Principal's Message", href: absoluteUrl('/about/principals-message'), desc: 'A welcome from our Principal.' },
+  { label: 'School Leadership', href: absoluteUrl('/about/leadership'), desc: 'The people guiding MRVPS forward.' },
+  { label: 'Infrastructure', href: absoluteUrl('/about/infrastructure'), desc: 'A campus built for learning.' },
+  { label: 'School Rules & Policies', href: absoluteUrl('/about/rules-policies'), desc: 'Our code of conduct and policies.' },
 ];
 
 export default function AboutPage() {

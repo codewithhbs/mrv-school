@@ -3,6 +3,9 @@ import EmptyState from '@/components/EmptyState';
 import { getGalleryAlbums } from '@/lib/api';
 import PageHero from '@/components/PageHero';
 import GalleryGrid from '@/components/Gallerygrid';
+import { staticPageMeta } from '@/lib/seo';
+
+export const metadata = staticPageMeta('Gallery', 'Photos and videos of events, celebrations and campus life at MRVPS.', '/gallery');
 // import GalleryGrid from '@/components/GalleryGrid';
 
 export default async function GalleryPage() {

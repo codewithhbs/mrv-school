@@ -19,6 +19,9 @@ import {
 } from '@/lib/api';
 import Image from 'next/image';
 import TestimonialsMarquee from '@/components/TestimonialsMarquee';
+import { absoluteUrl } from '@/lib/seo';
+import { PhoneLinks, EmailLinks } from '@/components/ContactLinks';
+import { SCHOOL_ADDRESS } from '@/lib/seo';
 
 const WHY_CHOOSE = [
   { title: 'Experienced Faculty', desc: 'Qualified, dedicated educators who mentor every child individually.', icon: '🎓', big: true },
@@ -57,7 +60,7 @@ export default async function HomePage() {
           <p className="font-display text-base sm:text-lg">
             Admissions for <span className="text-gold-light font-semibold">2026–27</span> are now open — Pre-Primary to Senior Secondary.
           </p>
-          <Button href="/admission" variant="gold">Enquire Now</Button>
+          <Button href={absoluteUrl('/admission')} variant="gold">Enquire Now</Button>
         </div>
       </div>
 
@@ -89,7 +92,7 @@ export default async function HomePage() {
               At M.R. Vivekananda Public School, our role is to nurture that spark of curiosity, confidence, and creativity in every child. We believe that true education goes beyond textbooks and examinations — it is about helping students discover their strengths, develop strong values, and become responsible, compassionate, and confident individuals.
               Through rigorous academics, caring mentorship, innovative learning experiences, and a supportive school environment, we strive to provide every student with the right opportunities to learn, explore, question, and grow. Our dedicated faculty works closely with students to encourage independent thinking while ensuring that each child receives the guidance and encouragement they need to reach their full potential.
             </p>
-            <Button href="/about/principals-message" variant="ghost" className="mt-6 px-0">
+            <Button href={absoluteUrl('/about/principals-message')} variant="ghost" className="mt-6 px-0">
               Read the full message →
             </Button>
           </div>
@@ -113,7 +116,7 @@ export default async function HomePage() {
                 </li>
               ))}
             </ul>
-            <Button href="/about">Learn More About Us</Button>
+            <Button href={absoluteUrl('/about')}>Learn More About Us</Button>
           </div>
           <div className="relative">
             <div className="grid grid-cols-2 gap-4">
@@ -178,7 +181,7 @@ export default async function HomePage() {
         {programs?.length ? (
           <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
             {[...programs].sort((a, b) => LEVEL_ORDER.indexOf(a.level) - LEVEL_ORDER.indexOf(b.level)).map((p, i) => (
-              <Link key={p._id} href="/academics" className="group bg-white rounded-card border border-line p-6 hover:shadow-cardHover hover:-translate-y-1 transition-all">
+              <Link key={p._id} href={absoluteUrl('/academics')} className="group bg-white rounded-card border border-line p-6 hover:shadow-cardHover hover:-translate-y-1 transition-all">
                 <div className="font-mono text-xs text-gold-dark mb-3">0{i + 1}</div>
                 <div className="eyebrow text-red mb-2">{p.ageGroup || p.level}</div>
                 <h3 className="font-display font-semibold text-ink group-hover:text-red transition-colors">{p.title}</h3>
@@ -189,7 +192,7 @@ export default async function HomePage() {
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
             {LEVEL_ORDER.map((lvl, i) => (
-              <Link key={lvl} href="/academics" className="group bg-white rounded-card border border-line p-6 hover:shadow-cardHover hover:-translate-y-1 transition-all">
+              <Link key={lvl} href={absoluteUrl('/academics')} className="group bg-white rounded-card border border-line p-6 hover:shadow-cardHover hover:-translate-y-1 transition-all">
                 <div className="font-mono text-xs text-gold-dark mb-3">0{i + 1}</div>
                 <h3 className="font-display font-semibold text-ink group-hover:text-red transition-colors">{LEVEL_LABEL[lvl]}</h3>
                 <p className="text-sm text-slate mt-2">Curriculum details available on the Academics page.</p>
@@ -203,7 +206,7 @@ export default async function HomePage() {
       <Section bg="white">
         <div className="flex items-end justify-between mb-2">
           <SectionHeader eyebrow="Stay Updated" title="News & Upcoming Events" />
-          <Button href="/news-events" variant="ghost" className="hidden sm:inline-flex mb-12">View all →</Button>
+          <Button href={absoluteUrl('/news-events')} variant="ghost" className="hidden sm:inline-flex mb-12">View all →</Button>
         </div>
         {(news?.length || events?.length) ? (
           <div className="grid md:grid-cols-3 gap-6">
@@ -218,14 +221,14 @@ export default async function HomePage() {
       <Section bg="paper2">
         <div className="flex items-end justify-between mb-2">
           <SectionHeader eyebrow="Campus Life" title="Moments from MRVPS" />
-          <Button href="/gallery" variant="ghost" className="hidden sm:inline-flex mb-12">View gallery →</Button>
+          <Button href={absoluteUrl('/gallery')} variant="ghost" className="hidden sm:inline-flex mb-12">View gallery →</Button>
         </div>
         {gallery?.length ? (
           <div className="columns-2 md:columns-4 gap-4 [&>*]:mb-4">
             {gallery.slice(0, 8).map((album, i) => (
               <Link
                 key={album._id}
-                href="/gallery"
+                href={absoluteUrl('/gallery')}
                 className={`group relative rounded-card overflow-hidden bg-white border border-line block break-inside-avoid ${i % 3 === 0 ? 'aspect-[3/4]' : 'aspect-square'}`}
               >
                 {album.coverImage ? (
@@ -272,14 +275,14 @@ export default async function HomePage() {
         <SectionHeader eyebrow="Quick Access" title="Everything You Need, One Click Away" />
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {[
-            { label: 'Admission Enquiry', href: '/admission' },
-            { label: 'Fee Structure', href: '/admission/fees' },
-            { label: 'Academic Calendar', href: '/academics/calendar' },
-            { label: 'Downloads', href: '/downloads' },
-            { label: 'Parents Corner', href: '/parents-corner' },
-            { label: 'Students Corner', href: '/students-corner' },
-            { label: 'Careers', href: '/careers' },
-            { label: 'Contact Us', href: '/contact' },
+            { label: 'Admission Enquiry', href: absoluteUrl('/admission') },
+            { label: 'Fee Structure', href: absoluteUrl('/admission/fees') },
+            { label: 'Academic Calendar', href: absoluteUrl('/academics/calendar') },
+            { label: 'Downloads', href: absoluteUrl('/downloads') },
+            { label: 'Parents Corner', href: absoluteUrl('/parents-corner') },
+            { label: 'Students Corner', href: absoluteUrl('/students-corner') },
+            { label: 'Careers', href: absoluteUrl('/careers') },
+            { label: 'Contact Us', href: absoluteUrl('/contact') },
           ].map((q) => (
             <Link key={q.label} href={q.href} className="flex items-center justify-between rounded-card border border-white/15 px-5 py-4 hover:border-gold hover:bg-white/5 transition-colors">
               <span className="font-medium text-sm">{q.label}</span>
@@ -295,12 +298,12 @@ export default async function HomePage() {
           <div>
             <SectionHeader eyebrow="Visit Us" title="Find MRVPS" />
             <div className="space-y-4 text-slate">
-              <p><strong className="text-ink">Address:</strong> {settings?.address || 'Address to be updated in admin panel.'}</p>
-              <p><strong className="text-ink">Phone:</strong> {(settings?.phones || []).join(', ') || 'Add a phone number in settings.'}</p>
-              <p><strong className="text-ink">Email:</strong> {(settings?.emails || []).join(', ') || 'Add an email in settings.'}</p>
+              <p><strong className="text-ink">Address:</strong> {settings?.address || SCHOOL_ADDRESS}</p>
+              <p><strong className="text-ink">Phone:</strong> <PhoneLinks phones={settings?.phones} fallback="Add a phone number in settings." /></p>
+              <p><strong className="text-ink">Email:</strong> <EmailLinks emails={settings?.emails} fallback="Add an email in settings." /></p>
               <p><strong className="text-ink">Office Hours:</strong> {settings?.officeHours || '8:00 AM – 3:00 PM, Mon–Sat'}</p>
             </div>
-            <Button href="/contact" className="mt-6">Get in Touch</Button>
+            <Button href={absoluteUrl('/contact')} className="mt-6">Get in Touch</Button>
           </div>
           <div className="rounded-card overflow-hidden border border-line aspect-video bg-white">
             {settings?.mapEmbedUrl ? (

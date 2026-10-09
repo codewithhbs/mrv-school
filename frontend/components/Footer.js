@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { mediaUrl } from '@/lib/media';
+import { absoluteUrl, SCHOOL_ADDRESS } from '@/lib/seo';
+import { telHref } from '@/components/ContactLinks';
 
 export default function Footer({ settings }) {
   const year = new Date().getFullYear();
@@ -29,31 +31,31 @@ export default function Footer({ settings }) {
         <div>
           <div className="eyebrow text-gold mb-4">Explore</div>
           <ul className="space-y-2.5 text-sm text-white/70">
-            <li><Link href="/about" className="hover:text-white transition-colors">About Us</Link></li>
-            <li><Link href="/academics" className="hover:text-white transition-colors">Academics</Link></li>
-            <li><Link href="/admission" className="hover:text-white transition-colors">Admission</Link></li>
-            <li><Link href="/facilities" className="hover:text-white transition-colors">Facilities</Link></li>
-            <li><Link href="/gallery" className="hover:text-white transition-colors">Gallery</Link></li>
+            <li><Link href={absoluteUrl('/about')} className="hover:text-white transition-colors">About Us</Link></li>
+            <li><Link href={absoluteUrl('/academics')} className="hover:text-white transition-colors">Academics</Link></li>
+            <li><Link href={absoluteUrl('/admission')} className="hover:text-white transition-colors">Admission</Link></li>
+            <li><Link href={absoluteUrl('/facilities')} className="hover:text-white transition-colors">Facilities</Link></li>
+            <li><Link href={absoluteUrl('/gallery')} className="hover:text-white transition-colors">Gallery</Link></li>
           </ul>
         </div>
 
         <div>
           <div className="eyebrow text-gold mb-4">Quick Links</div>
           <ul className="space-y-2.5 text-sm text-white/70">
-            <li><Link href="/parents-corner" className="hover:text-white transition-colors">Parents Corner</Link></li>
-            <li><Link href="/students-corner" className="hover:text-white transition-colors">Students Corner</Link></li>
-            <li><Link href="/careers" className="hover:text-white transition-colors">Careers</Link></li>
-            <li><Link href="/downloads" className="hover:text-white transition-colors">Downloads</Link></li>
-            <li><Link href="/alumni" className="hover:text-white transition-colors">Alumni</Link></li>
+            <li><Link href={absoluteUrl('/parents-corner')} className="hover:text-white transition-colors">Parents Corner</Link></li>
+            <li><Link href={absoluteUrl('/students-corner')} className="hover:text-white transition-colors">Students Corner</Link></li>
+            <li><Link href={absoluteUrl('/careers')} className="hover:text-white transition-colors">Careers</Link></li>
+            <li><Link href={absoluteUrl('/downloads')} className="hover:text-white transition-colors">Downloads</Link></li>
+            <li><Link href={absoluteUrl('/alumni')} className="hover:text-white transition-colors">Alumni</Link></li>
           </ul>
         </div>
 
         <div>
           <div className="eyebrow text-gold mb-4">Reach Us</div>
           <ul className="space-y-2.5 text-sm text-white/70">
-            <li>{settings?.address || 'School Address, City, State — PIN'}</li>
-            {(settings?.phones || []).map((p) => <li key={p}>{p}</li>)}
-            {(settings?.emails || []).map((e) => <li key={e}>{e}</li>)}
+            <li>{settings?.address || SCHOOL_ADDRESS}</li>
+            {(settings?.phones || []).map((p) => <li key={p}><a href={telHref(p)} className="hover:text-gold-light transition-colors">{p}</a></li>)}
+            {(settings?.emails || []).map((e) => <li key={e}><a href={`mailto:${e}`} className="hover:text-gold-light transition-colors">{e}</a></li>)}
           </ul>
         </div>
       </div>

@@ -140,7 +140,7 @@ export default async function NewsEventDetail({ params }) {
       <PageHero
         eyebrow={`${TYPE_LABEL[item.type] || 'Update'}${dateStr ? ` · ${dateStr}` : ''}`}
         title={decodeEntities(item.title)}
-        crumbs={[{ label: 'News & Events', href: '/news-events' }, { label: decodeEntities(item.title) }]}
+        crumbs={[{ label: 'News & Events', href: absoluteUrl('/news-events') }, { label: decodeEntities(item.title) }]}
       />
       <Section bg="white">
         <article className="max-w-3xl mx-auto">

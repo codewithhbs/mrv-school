@@ -39,12 +39,13 @@ const SchoolSettings = require('../models/SchoolSettings');
       schoolName: 'M.R. Vivekananda Public School',
       tagline: 'Where curiosity becomes character.',
       board: 'CBSE',
-      address: 'New Mahavir Nagar, Vikaspuri (East), Tilak Nagar, New Delhi',
+      address: '36B, Krishna Park Extn, New Mahavir Nagar, New Delhi, Delhi 110018',
+      faviconUrl: '/uploads/1786537169042-f9dad1a72b9f289e.png',
       phones: ['011-25993692', '+91-9971390224'],
       emails: ['info@mrvps.org'],
       officeHours: '8:00 AM – 3:00 PM, Mon–Sat',
       mapEmbedUrl:
-        'https://maps.google.com/maps?q=MRV%20Public%20School%2C%20New%20Mahavir%20Nagar%2C%20Vikaspuri%20%28East%29%2C%20New%20Mahavir%20Nagar%2C%20Tilak%20Nagar%2C%20Delhi&t=m&z=14&output=embed&iwloc=near',
+        'https://maps.google.com/maps?q=36B%2C%20Krishna%20Park%20Extn%2C%20New%20Mahavir%20Nagar%2C%20New%20Delhi%2C%20Delhi%20110018&t=m&z=15&output=embed&iwloc=near',
       socialLinks: {
         facebook: 'https://www.facebook.com/mrvpublicschool',
         instagram: 'https://www.instagram.com/mrvpublicschool/',
