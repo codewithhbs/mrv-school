@@ -47,7 +47,7 @@ export function jsonLd(data) {
 
 export const DEFAULT_FAVICON = 'https://api.mrvpublicschool.com/uploads/1786537169042-f9dad1a72b9f289e.png';
 export const SCHOOL_ADDRESS = '36B, Krishna Park Extn, New Mahavir Nagar, New Delhi, Delhi 110018';
-export const GOOGLE_SITE_VERIFICATION = '1teTPrdRBcbsASdixQrEF97bH-540RgYUhziOX1wafQ';
+export const GOOGLE_SITE_VERIFICATION = 'google49b6e607940dee24';
 
 // Public URL of a CMS page: "about-history" (group "about") → "/about/history", else "/<slug>".
 export function cmsPagePath(p) {
