@@ -23,7 +23,7 @@ export default function PageBlocks({ page, fallbackText }) {
         <img
           src={heroImage}
           alt={page.title}
-          className="w-full aspect-[16/9] object-cover rounded-card mb-10 border border-line shadow-card"
+          className="w-full object-cover rounded-card mb-10 border border-line shadow-card"
         />
       )}
 
