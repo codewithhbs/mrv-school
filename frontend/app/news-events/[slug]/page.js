@@ -2,6 +2,7 @@ import Section from '@/components/Section';
 import PageHero from '@/components/PageHero';
 import { getNewsEventBySlug, getSettings } from '@/lib/api';
 import { mediaUrl } from '@/lib/media';
+import RichContent from '@/lib/richHtml';
 import { SITE_NAME, absoluteUrl, isHtml, htmlToText, truncate, decodeEntities, jsonLd } from '@/lib/seo';
 import { notFound } from 'next/navigation';
 
@@ -157,7 +158,7 @@ export default async function NewsEventDetail({ params }) {
 
           {isHtml(body) ? (
             // Content is sanitized server-side (backend/src/middleware/richText.js) before it is stored.
-            <div className="rich-content" dangerouslySetInnerHTML={{ __html: body }} />
+            <RichContent html={body} />
           ) : (
             <div className="text-slate leading-relaxed whitespace-pre-line">{decodeEntities(body)}</div>
           )}

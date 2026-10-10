@@ -1,6 +1,7 @@
 // Metadata + structured data for block-based CMS pages (About, Academics, …).
 import { getPageBySlug, getSettings } from '@/lib/api';
 import { mediaUrl } from '@/lib/media';
+import { richHtmlToText } from '@/lib/richHtml';
 import { SITE_NAME, absoluteUrl, truncate, decodeEntities, jsonLd } from '@/lib/seo';
 
 function blocksToText(blocks) {
@@ -17,7 +18,7 @@ function blocksToText(blocks) {
 function pageSeo(page, fallbackTitle, fallbackDescription) {
   const title = decodeEntities(page?.seoTitle || (page?.title ? `${page.title} | ${SITE_NAME}` : `${fallbackTitle} | ${SITE_NAME}`));
   const description = truncate(
-    decodeEntities(page?.seoDescription || page?.subtitle || blocksToText(page?.blocks) || fallbackDescription || ''),
+    decodeEntities(page?.seoDescription || page?.subtitle || richHtmlToText(page?.content) || blocksToText(page?.blocks) || fallbackDescription || ''),
     160
   );
   const image = mediaUrl(page?.ogImage || page?.heroImage);

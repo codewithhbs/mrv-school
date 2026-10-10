@@ -60,7 +60,10 @@ export const resourceConfigs = {
       { name: 'group', label: 'Group', type: 'select', required: true, default: 'general', options: ['general', 'about', 'academics', 'admission', 'facilities', 'student-life', 'parents-corner', 'students-corner'] },
       { name: 'subtitle', label: 'Subtitle', type: 'text' },
 
-      { name: '_blocks', type: 'heading', label: 'Content Blocks', hint: 'Headings become H2s on the site — use them for sub-sections and include the focus keyword in one.' },
+      { name: '_content', type: 'heading', label: 'Page Content', hint: 'Write or paste (from Google Docs / Word) the full page. H2 = section, H3 = sub-section. Include the focus keyword in one H2.' },
+      { name: 'content', label: 'Page Content', type: 'richtext', placeholder: 'Write or paste the full page content here…' },
+
+      { name: '_blocks', type: 'heading', label: 'Extra Blocks (optional)', hint: 'Legacy blocks — shown below the main content. Use for CTA buttons or image galleries.' },
       { name: 'blocks', label: 'Content Blocks', type: 'blocks' },
 
       { name: '_seo', type: 'heading', icon: 'seo', label: 'SEO Settings', hint: 'Controls how this page appears on Google and when shared on WhatsApp / Facebook.' },
@@ -94,8 +97,8 @@ export const resourceConfigs = {
         titleField: 'seoTitle',
         descField: 'seoDescription',
         summaryField: 'subtitle',
-        contentField: 'blocks',
-        contentType: 'blocks',
+        contentField: 'content',
+        contentType: 'page',
         imageField: 'heroImage',
         checkSlug: false,
         path: (v) => cmsPagePath(v.slug, v.group),

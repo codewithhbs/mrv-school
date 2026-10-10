@@ -11,13 +11,14 @@ const SANITIZE_OPTIONS = {
     'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'br', 'hr', 'strong', 'b', 'em', 'i', 'u', 's', 'strike',
     'a', 'ul', 'ol', 'li', 'blockquote', 'code', 'pre', 'span', 'sub', 'sup',
     'img', 'figure', 'figcaption',
-    'table', 'thead', 'tbody', 'tr', 'th', 'td',
+    'table', 'caption', 'colgroup', 'col', 'thead', 'tbody', 'tfoot', 'tr', 'th', 'td',
   ],
   allowedAttributes: {
     a: ['href', 'title', 'target', 'rel'],
     img: ['src', 'alt', 'title', 'width', 'height', 'loading'],
-    th: ['colspan', 'rowspan'],
-    td: ['colspan', 'rowspan'],
+    th: ['colspan', 'rowspan', 'colwidth'],
+    td: ['colspan', 'rowspan', 'colwidth'],
+    col: ['span'],
     '*': ['style'],
   },
   allowedStyles: {

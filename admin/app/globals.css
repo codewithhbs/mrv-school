@@ -47,6 +47,11 @@
 .rte-content img.ProseMirror-selectednode { outline: 3px solid #E8A93B; }
 .rte-content hr { border: 0; border-top: 1px solid #E5E4EA; margin: 1.25rem 0; }
 .rte-content code { background: #F7F7F9; padding: 0.1rem 0.3rem; border-radius: 0.25rem; font-size: 0.85em; }
+.rte-content table { width: 100%; border-collapse: collapse; table-layout: fixed; margin: 1rem 0; }
+.rte-content th, .rte-content td { border: 1px solid #D9D3C7; padding: 0.45rem 0.6rem; vertical-align: top; position: relative; }
+.rte-content th { background: #1C1B1F; color: #fff; font-weight: 600; text-align: left; }
+.rte-content td > p, .rte-content th > p { margin: 0; }
+.rte-content .selectedCell::after { content: ''; position: absolute; inset: 0; background: rgba(232,169,59,0.25); pointer-events: none; }
 .rte-content p.is-editor-empty:first-child::before {
   content: attr(data-placeholder); color: #8B8A93; float: left; height: 0; pointer-events: none;
 }

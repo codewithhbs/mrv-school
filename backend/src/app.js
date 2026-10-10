@@ -48,9 +48,10 @@ app.use(mongoSanitize());
 // Rich-text HTML fields are captured before xss-clean and restored afterwards
 // through an allow-list HTML sanitizer (see middleware/richText.js).
 app.use('/api/news-events', captureRichText(['content']));
+app.use('/api/pages', captureRichText(['content']));
 app.use(xssClean());
 app.use('/api/news-events', restoreRichText, normalizeNewsEventBody, normalizeSeoFields);
-app.use('/api/pages', normalizeSeoFields);
+app.use('/api/pages', restoreRichText, normalizeSeoFields);
 app.use(hpp());
 
 app.use(compression());

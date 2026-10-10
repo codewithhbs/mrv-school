@@ -8,10 +8,15 @@ import Link from '@tiptap/extension-link';
 import Image from '@tiptap/extension-image';
 import TextAlign from '@tiptap/extension-text-align';
 import Placeholder from '@tiptap/extension-placeholder';
+import Table from '@tiptap/extension-table';
+import TableRow from '@tiptap/extension-table-row';
+import TableHeader from '@tiptap/extension-table-header';
+import TableCell from '@tiptap/extension-table-cell';
 import {
   Bold, Italic, Underline as UnderlineIcon, Strikethrough, Heading2, Heading3, Heading4, Pilcrow,
   List, ListOrdered, Quote, Minus, Link2, Unlink, ImagePlus, AlignLeft, AlignCenter, AlignRight,
   AlignJustify, Undo2, Redo2, Code2, RemoveFormatting, Loader2,
+  Table as TableIcon, Rows3, Columns3, Trash2, PanelTop,
 } from 'lucide-react';
 import { uploadFile, API_BASE_URL } from '@/lib/api';
 import { htmlToText } from '@/lib/site';
@@ -80,6 +85,10 @@ export default function RichTextEditor({ label, required, hint, value, onChange,
       Image.configure({ inline: false }),
       TextAlign.configure({ types: ['heading', 'paragraph'] }),
       Placeholder.configure({ placeholder: placeholder || 'Write the full article here…' }),
+      Table.configure({ resizable: false, HTMLAttributes: {} }),
+      TableRow,
+      TableHeader,
+      TableCell,
     ],
     content: toEditorHtml(value),
     editorProps: { attributes: { class: 'rte-content focus:outline-none' } },
@@ -181,6 +190,17 @@ export default function RichTextEditor({ label, required, hint, value, onChange,
               <ToolbarButton title="Insert image" disabled={uploading} onClick={() => fileRef.current?.click()}>
                 {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <ImagePlus className="w-4 h-4" />}
               </ToolbarButton>
+              <ToolbarButton title="Insert table" onClick={() => editor.chain().focus().insertTable({ rows: 3, cols: 2, withHeaderRow: true }).run()}><TableIcon className="w-4 h-4" /></ToolbarButton>
+              {editor.isActive('table') && (
+                <>
+                  <ToolbarButton title="Add row below" onClick={() => editor.chain().focus().addRowAfter().run()}><Rows3 className="w-4 h-4" /></ToolbarButton>
+                  <ToolbarButton title="Add column right" onClick={() => editor.chain().focus().addColumnAfter().run()}><Columns3 className="w-4 h-4" /></ToolbarButton>
+                  <ToolbarButton title="Toggle header row" onClick={() => editor.chain().focus().toggleHeaderRow().run()}><PanelTop className="w-4 h-4" /></ToolbarButton>
+                  <ToolbarButton title="Delete row" onClick={() => editor.chain().focus().deleteRow().run()}><span className="text-[10px] font-bold px-0.5">−R</span></ToolbarButton>
+                  <ToolbarButton title="Delete column" onClick={() => editor.chain().focus().deleteColumn().run()}><span className="text-[10px] font-bold px-0.5">−C</span></ToolbarButton>
+                  <ToolbarButton title="Delete table" onClick={() => editor.chain().focus().deleteTable().run()}><Trash2 className="w-4 h-4" /></ToolbarButton>
+                </>
+              )}
               <ToolbarButton title="Clear formatting" onClick={() => editor.chain().focus().unsetAllMarks().clearNodes().run()}><RemoveFormatting className="w-4 h-4" /></ToolbarButton>
               <Divider />
               <ToolbarButton title="Undo" disabled={!editor.can().undo()} onClick={() => editor.chain().focus().undo().run()}><Undo2 className="w-4 h-4" /></ToolbarButton>
@@ -211,7 +231,7 @@ export default function RichTextEditor({ label, required, hint, value, onChange,
         )}
 
         <div className="flex items-center justify-between px-3 py-1.5 border-t border-line text-[11px] text-slate">
-          <span>Use H2/H3 for sub-headings — the page title is already the H1.</span>
+          <span>Use H2 for sections, H3 for sub-sections — page title is already the H1. Paste from Google Docs keeps headings, lists, bold, links &amp; tables.</span>
           <span className={wordCount && wordCount < 300 ? 'text-gold-dark' : ''}>{wordCount} words</span>
         </div>
       </div>

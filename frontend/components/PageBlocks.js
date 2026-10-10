@@ -1,9 +1,12 @@
 // Renders the flexible `blocks` array from the Page model (backend).
 // Block types: heading, paragraph, image, list, quote, table, cta
+// `page.content` (rich HTML from the admin editor) renders first, blocks after.
 import { mediaUrl } from '@/lib/media';
+import RichContent, { richHtmlToText } from '@/lib/richHtml';
 
 export default function PageBlocks({ page, fallbackText }) {
-  if (!page || !page.blocks?.length) {
+  const hasContent = !!richHtmlToText(page?.content);
+  if (!page || (!hasContent && !page.blocks?.length)) {
     return (
       <div className="max-w-3xl">
         <p className="text-slate leading-relaxed text-lg">
@@ -13,11 +16,11 @@ export default function PageBlocks({ page, fallbackText }) {
     );
   }
 
-  const sorted = [...page.blocks].sort((a, b) => (a.order || 0) - (b.order || 0));
+  const sorted = [...(page.blocks || [])].sort((a, b) => (a.order || 0) - (b.order || 0));
   const heroImage = mediaUrl(page.heroImage);
 
   return (
-    <div className="">
+    <div className="max-w-4xl">
       {heroImage && (
         // eslint-disable-next-line @next/next/no-img-element
         <img
@@ -27,7 +30,10 @@ export default function PageBlocks({ page, fallbackText }) {
         />
       )}
 
-      <div className="space-y-6">
+      {hasContent && <RichContent html={page.content} className="page-content" />}
+
+      {sorted.length > 0 && (
+      <div className={`space-y-6 ${hasContent ? 'mt-10' : ''}`}>
         {sorted.map((block, i) => {
           switch (block.type) {
             case 'heading':
@@ -137,6 +143,7 @@ export default function PageBlocks({ page, fallbackText }) {
           }
         })}
       </div>
+      )}
     </div>
   );
 }

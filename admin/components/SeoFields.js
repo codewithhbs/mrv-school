@@ -201,14 +201,19 @@ const ICON = {
 // Field config options (all optional):
 //   titleField / descField     – where the SEO title & description live (default metaTitle / metaDescription)
 //   summaryField               – description fallback (default summary)
-//   contentField, contentType  – 'html' (default) or 'blocks'
+//   contentField, contentType  – 'html' (default), 'blocks', or 'page' (html content + blocks)
 //   imageField, imageAltField  – featured image (+ alt) used for the image checks
 //   path(values)               – public URL path; default `${basePath}/${slug}`
 //   checkSlug                  – include "keyword in slug" check (default true)
 export function SeoPreview({ field, values }) {
   const v = values || {};
   const rawContent = v[field.contentField || 'content'];
-  const html = field.contentType === 'blocks' ? blocksToHtml(rawContent) : rawContent || '';
+  const html =
+    field.contentType === 'blocks'
+      ? blocksToHtml(rawContent)
+      : field.contentType === 'page'
+        ? `${rawContent || ''}${blocksToHtml(v.blocks)}`
+        : rawContent || '';
   const n = {
     title: String(v[field.titleField || 'metaTitle'] || v.title || '').trim(),
     desc: String(v[field.descField || 'metaDescription'] || v[field.summaryField || 'summary'] || '').trim(),
