@@ -29,6 +29,32 @@ export default async function ContactPage() {
               <p><strong className="text-ink">Email:</strong> <EmailLinks emails={settings?.emails} fallback="Add an email in settings." /></p>
               <p><strong className="text-ink">Office Hours:</strong> {settings?.officeHours || '8:00 AM – 3:00 PM, Mon–Sat'}</p>
             </div>
+            <div className="flex items-center gap-3 mb-8">
+              <a
+                href="https://www.instagram.com/mrvpublicschool7"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="w-10 h-10 rounded-full border border-line flex items-center justify-center text-slate hover:text-gold hover:border-gold transition-colors"
+              >
+                <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" />
+                </svg>
+              </a>
+              <a
+                href="https://www.facebook.com/mrvschool/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="w-10 h-10 rounded-full border border-line flex items-center justify-center text-slate hover:text-gold hover:border-gold transition-colors"
+              >
+                <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor">
+                  <path d="M13.5 21v-8h2.7l.4-3.2h-3.1V7.8c0-.9.3-1.5 1.6-1.5h1.7V3.4c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.1v2.4H7.7V13h2.7v8h3.1z" />
+                </svg>
+              </a>
+            </div>
             <div className="rounded-card overflow-hidden border border-line aspect-video bg-paper">
               {settings?.mapEmbedUrl ? (
                 <iframe src={settings.mapEmbedUrl} className="w-full h-full" loading="lazy" title="School location map" />
