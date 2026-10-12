@@ -61,7 +61,7 @@ export default async function CmsPage({ params }) {
   return (
     <>
       <CmsPageSchema page={page} path={path} title={page.title} crumbs={crumbs} />
-      <PageHero title={page.title} eyebrow={groupLabel} description={page.subtitle} crumbs={crumbs} />
+      {/* <PageHero title={page.title} eyebrow={groupLabel} description={page.subtitle} crumbs={crumbs} /> */}
       <Section bg="white">
         <PageBlocks page={page} />
       </Section>

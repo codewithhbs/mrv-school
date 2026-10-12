@@ -20,7 +20,7 @@ export default function PageBlocks({ page, fallbackText }) {
   const heroImage = mediaUrl(page.heroImage);
 
   return (
-    <div className="max-w-4xl">
+    <div className="">
       {heroImage && (
         // eslint-disable-next-line @next/next/no-img-element
         <img
