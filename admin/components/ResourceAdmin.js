@@ -24,7 +24,7 @@ function getNestedValue(obj, path) {
 // Layout-only field types — they render in the form but carry no value.
 const DISPLAY_ONLY = new Set(['heading', 'seoPreview']);
 const valueFields = (fields) => fields.filter((f) => !DISPLAY_ONLY.has(f.type));
-const emptyFor = (f) => (f.type === 'list' || f.type === 'tags' ? [] : '');
+const emptyFor = (f) => (f.type === 'list' || f.type === 'tags' || f.type === 'blocks' ? [] : '');
 
 function buildDefaultValues(fields) {
   const values = {};
