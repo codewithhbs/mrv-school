@@ -21,7 +21,7 @@ export default async function ContactPage() {
 
       <Section bg="white">
         <div className="grid lg:grid-cols-2 gap-14">
-          <div>
+          <div> 
             <SectionHeader eyebrow="Reach Us" title="School Address & Contact Details" />
             <div className="space-y-4 text-slate mb-8">
               <p><strong className="text-ink">Address:</strong> {settings?.address || SCHOOL_ADDRESS}</p>
