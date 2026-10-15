@@ -68,6 +68,7 @@ export default function Footer({ settings }) {
           <span className="flex items-center gap-4">
             <Link href={absoluteUrl('/privacy-policy')} className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href={absoluteUrl('/cookie-policy')} className="hover:text-white transition-colors">Cookie Policy</Link>
+            <Link href={absoluteUrl('/disclaimer')} className="hover:text-white transition-colors">Disclaimer</Link>
           </span>
           <span className="font-mono">{settings?.affiliationNumber ? `Affiliation No. ${settings.affiliationNumber}` : ''}</span>
         </div>
