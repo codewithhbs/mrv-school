@@ -3,6 +3,7 @@ const AppError = require('../utils/AppError');
 const CareerOpening = require('../models/CareerOpening');
 const CareerApplication = require('../models/CareerApplication');
 const { logAudit } = require('../utils/audit');
+const { notifyTeam } = require('../utils/mailer');
 
 // POST /api/careers/:openingId/apply (public, expects resume uploaded via /api/uploads first)
 const apply = asyncHandler(async (req, res) => {
@@ -16,6 +17,7 @@ const apply = asyncHandler(async (req, res) => {
     opening: opening._id, name, email, phone, resumeUrl, coverNote,
   });
   await logAudit({ req, action: 'CREATE', resource: 'CareerApplication', resourceId: application._id.toString() });
+  notifyTeam(`New Career Application - ${opening.title}`, { name, email, phone, resumeUrl, coverNote }, email);
   res.status(201).json({ success: true, message: 'Application submitted successfully.', data: { id: application._id } });
 });
 

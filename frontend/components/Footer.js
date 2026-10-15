@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { mediaUrl } from '@/lib/media';
 import { absoluteUrl, SCHOOL_ADDRESS } from '@/lib/seo';
 import { telHref } from '@/components/ContactLinks';
+import SocialIcons from '@/components/SocialIcons';
 
 export default function Footer({ settings }) {
   const year = new Date().getFullYear();
@@ -57,38 +58,17 @@ export default function Footer({ settings }) {
             {(settings?.phones || []).map((p) => <li key={p}><a href={telHref(p)} className="hover:text-gold-light transition-colors">{p}</a></li>)}
             {(settings?.emails || []).map((e) => <li key={e}><a href={`mailto:${e}`} className="hover:text-gold-light transition-colors">{e}</a></li>)}
           </ul>
-          <div className="flex items-center gap-3 mt-5">
-            <a
-              href="https://www.instagram.com/mrvpublicschool7"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram"
-              className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/70 hover:text-gold hover:border-gold transition-colors"
-            >
-              <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="3" width="18" height="18" rx="5" />
-                <circle cx="12" cy="12" r="4" />
-                <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" />
-              </svg>
-            </a>
-            <a
-              href="https://www.facebook.com/mrvschool/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Facebook"
-              className="w-9 h-9 rounded-full border border-white/20 flex items-center justify-center text-white/70 hover:text-gold hover:border-gold transition-colors"
-            >
-              <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor">
-                <path d="M13.5 21v-8h2.7l.4-3.2h-3.1V7.8c0-.9.3-1.5 1.6-1.5h1.7V3.4c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.1v2.4H7.7V13h2.7v8h3.1z" />
-              </svg>
-            </a>
-          </div>
+          <SocialIcons className="mt-5" />
         </div>
       </div>
 
       <div className="border-t border-white/10">
         <div className="container-max py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/50">
           <span>© {year} {settings?.schoolName || 'M.R. Vivekananda Public School'}. All rights reserved.</span>
+          <span className="flex items-center gap-4">
+            <Link href={absoluteUrl('/privacy-policy')} className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href={absoluteUrl('/cookie-policy')} className="hover:text-white transition-colors">Cookie Policy</Link>
+          </span>
           <span className="font-mono">{settings?.affiliationNumber ? `Affiliation No. ${settings.affiliationNumber}` : ''}</span>
         </div>
       </div>

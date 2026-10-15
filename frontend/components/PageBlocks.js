@@ -4,8 +4,12 @@
 import { mediaUrl } from "@/lib/media";
 import RichContent, { richHtmlToText } from "@/lib/richHtml";
 
-export default function PageBlocks({ page, fallbackText }) {
+export default function PageBlocks({ page, fallbackText, defaultContent }) {
   const hasContent = !!richHtmlToText(page?.content);
+  if ((!page || (!hasContent && !page.blocks?.length)) && defaultContent) {
+    // Nothing published from the admin panel yet: show the default content shipped with the site.
+    return <RichContent html={defaultContent} className="page-content" />;
+  }
   if (!page || (!hasContent && !page.blocks?.length)) {
     return (
       <div className="max-w-3xl">

@@ -2,10 +2,12 @@ const asyncHandler = require('../middleware/asyncHandler');
 const AppError = require('../utils/AppError');
 const AlumniRegistration = require('../models/AlumniRegistration');
 const { logAudit } = require('../utils/audit');
+const { notifyTeam } = require('../utils/mailer');
 
 const register = asyncHandler(async (req, res) => {
   const reg = await AlumniRegistration.create(req.body);
   await logAudit({ req, action: 'CREATE', resource: 'AlumniRegistration', resourceId: reg._id.toString() });
+  notifyTeam('New Alumni Registration', req.body, req.body.email);
   res.status(201).json({ success: true, message: 'Registered successfully.', data: { id: reg._id } });
 });
 

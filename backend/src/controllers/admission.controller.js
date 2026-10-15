@@ -2,11 +2,13 @@ const asyncHandler = require('../middleware/asyncHandler');
 const AppError = require('../utils/AppError');
 const AdmissionEnquiry = require('../models/AdmissionEnquiry');
 const { logAudit } = require('../utils/audit');
+const { notifyTeam } = require('../utils/mailer');
 
 // POST /api/admission/enquiries  (public)
 const submitEnquiry = asyncHandler(async (req, res) => {
   const enquiry = await AdmissionEnquiry.create(req.body);
   await logAudit({ req, action: 'CREATE', resource: 'AdmissionEnquiry', resourceId: enquiry._id.toString() });
+  notifyTeam('New Admission Enquiry', req.body, req.body.email);
   res.status(201).json({ success: true, message: 'Enquiry submitted successfully. Our team will contact you soon.', data: { id: enquiry._id } });
 });
 

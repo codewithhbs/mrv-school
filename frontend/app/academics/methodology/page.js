@@ -4,6 +4,7 @@ import PageBlocks from '@/components/PageBlocks';
 import { getPageBySlug } from '@/lib/api';
 import { cmsPageMetadata, CmsPageSchema } from '@/lib/pageSeo';
 import { absoluteUrl } from '@/lib/seo';
+import { DEFAULT_PAGE_CONTENT } from '@/lib/defaultPageContent';
 
 export async function generateMetadata() {
   return cmsPageMetadata('academics-methodology', '/academics/methodology', 'Teaching Methodology');
@@ -17,7 +18,7 @@ export default async function Page() {
       <CmsPageSchema page={page} path="/academics/methodology" title={title} crumbs={[{ label: 'Academics', href: absoluteUrl('/academics') }, { label: title }]} />
       <PageHero title={title} eyebrow="Academics" crumbs={[{ label: 'Academics', href: absoluteUrl('/academics') }, { label: title }]} />
       <Section bg="white">
-        <PageBlocks page={page} fallbackText="Details of our teaching methodology will be published here." />
+        <PageBlocks page={page} fallbackText="Details of our teaching methodology will be published here." defaultContent={DEFAULT_PAGE_CONTENT['academics-methodology']} />
       </Section>
     </>
   );

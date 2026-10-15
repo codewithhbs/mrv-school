@@ -4,12 +4,13 @@ import { absoluteUrl, cmsPagePath } from '@/lib/seo';
 export const revalidate = 3600;
 
 const STATIC_ROUTES = [
-  '/', '/about', '/about/history', '/about/vision-mission', '/about/chairmans-message', '/about/principals-message',
+  '/', '/about', '/about/history', '/about/vision-mission', '/about/chairmans-message', '/about/principals-message', '/about/managers-message', '/about/vice-principals-message',
   '/about/leadership', '/about/infrastructure', '/about/rules-policies',
   '/academics', '/academics/methodology', '/academics/examinations', '/academics/calendar',
   '/admission', '/admission/fees', '/admission/scholarships', '/admission/faq',
   '/facilities', '/faculty', '/gallery', '/news-events', '/student-life', '/students-corner', '/parents-corner',
   '/downloads', '/careers', '/alumni', '/contact',
+  '/privacy-policy', '/cookie-policy', '/disclaimer',
 ];
 
 

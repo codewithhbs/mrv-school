@@ -30,7 +30,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 /* Eyebrow label style — used for section kickers throughout the site */
 .eyebrow {
-  font-family: var(--font-plex-mono);
+  font-family: var(--font-manrope), system-ui, sans-serif;
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -82,7 +82,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .rich-content p:last-child { margin-bottom: 0; }
 
 .rich-content h2, .rich-content h3, .rich-content h4, .rich-content h5, .rich-content h6 {
-  font-family: var(--font-petrona), Georgia, serif; color: #1C1B1F; font-weight: 700; line-height: 1.3; scroll-margin-top: 6rem;
+  font-family: var(--font-manrope), system-ui, sans-serif; color: #1C1B1F; font-weight: 700; line-height: 1.3; scroll-margin-top: 6rem;
 }
 .rich-content h2 {
   font-size: 1.5rem; margin: 2.6em 0 0.9em; padding-bottom: 0.6rem; border-bottom: 1px solid #E7E1D6;
@@ -138,10 +138,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .rich-content th + th, .rich-content td + td, .rich-content th + td, .rich-content td + th { border-left: 1px solid #E7E1D6; }
 .rich-content th p, .rich-content td p { margin: 0; }
 .rich-content tr:first-child > * { border-top: 0; }
-.rich-content th { background: #1C1B1F; color: #fff; font-family: var(--font-petrona), Georgia, serif; font-weight: 600; font-size: 1rem; }
+.rich-content th { background: #1C1B1F; color: #fff; font-family: var(--font-manrope), system-ui, sans-serif; font-weight: 600; font-size: 1rem; }
 .rich-content th strong, .rich-content th b { color: #fff; }
 /* Pasted tables without <th>: style first row as header */
-.rich-content table:not(:has(th)) tr:first-child > td { background: #1C1B1F; color: #fff; font-family: var(--font-petrona), Georgia, serif; font-weight: 600; }
+.rich-content table:not(:has(th)) tr:first-child > td { background: #1C1B1F; color: #fff; font-family: var(--font-manrope), system-ui, sans-serif; font-weight: 600; }
 .rich-content table:not(:has(th)) tr:first-child > td * { color: #fff; }
 .rich-content tbody tr:nth-child(even) > td { background: #FBF8F3; }
 .rich-content td:first-child { color: #1C1B1F; font-weight: 600; width: 34%; }

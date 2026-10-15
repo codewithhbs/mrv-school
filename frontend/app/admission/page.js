@@ -78,11 +78,10 @@ export default function AdmissionPage() {
       />
 
       <Section bg="white" id="process">
-        <SectionHeader eyebrow="How It Works" title="Admission Process" />
+        <SectionHeader eyebrow="How It Works" title="Admission Process at M.R. Vivekananda Public School" />
         <p className="text-sm text-slate leading-relaxed max-w-3xl mb-10">
-          At MRV Public School, we believe that the admission process should be simple, transparent, and
-          parent-friendly. The process is designed to help parents understand our school's culture, values, and
-          educational approach while ensuring the right academic fit for every child.
+          M.R. Vivekananda Public School follows a structured, transparent, and parent-friendly admission workflow
+          for classes ranging from Pre-Primary up to Senior Secondary.
         </p>
 
         <div className="relative max-w-3xl">

@@ -4,6 +4,7 @@ import PageBlocks from '@/components/PageBlocks';
 import { getPageBySlug } from '@/lib/api';
 import { cmsPageMetadata, CmsPageSchema } from '@/lib/pageSeo';
 import { absoluteUrl } from '@/lib/seo';
+import { DEFAULT_PAGE_CONTENT } from '@/lib/defaultPageContent';
 
 export async function generateMetadata() {
   return cmsPageMetadata('about-vision-mission', '/about/vision-mission', 'Vision & Mission');
@@ -17,7 +18,7 @@ export default async function Page() {
       <CmsPageSchema page={page} path="/about/vision-mission" title={title} crumbs={[{ label: 'About', href: absoluteUrl('/about') }, { label: title }]} />
       <PageHero title={title} eyebrow="About" crumbs={[{ label: 'About', href: absoluteUrl('/about') }, { label: title }]} />
       <Section bg="white">
-        <PageBlocks page={page} fallbackText="Our vision and mission statements will be published here from the admin panel." />
+        <PageBlocks page={page} fallbackText="Our vision and mission statements will be published here from the admin panel." defaultContent={DEFAULT_PAGE_CONTENT['about-vision-mission']} />
       </Section>
     </>
   );

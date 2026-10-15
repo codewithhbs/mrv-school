@@ -2,10 +2,12 @@ const asyncHandler = require('../middleware/asyncHandler');
 const AppError = require('../utils/AppError');
 const ContactMessage = require('../models/ContactMessage');
 const { logAudit } = require('../utils/audit');
+const { notifyTeam } = require('../utils/mailer');
 
 const submitMessage = asyncHandler(async (req, res) => {
   const msg = await ContactMessage.create(req.body);
   await logAudit({ req, action: 'CREATE', resource: 'ContactMessage', resourceId: msg._id.toString() });
+  notifyTeam('New Contact Message', req.body, req.body.email);
   res.status(201).json({ success: true, message: 'Message sent successfully.', data: { id: msg._id } });
 });
 

@@ -16,6 +16,8 @@ const NAV = [
       { label: 'History', href: absoluteUrl('/about/history') },
       { label: "Chairman's Message", href: absoluteUrl('/about/chairmans-message') },
       { label: "Principal's Message", href: absoluteUrl('/about/principals-message') },
+      { label: "Manager's Message", href: absoluteUrl('/about/managers-message') },
+      { label: "Vice Principal's Message", href: absoluteUrl('/about/vice-principals-message') },
       { label: 'School Leadership', href: absoluteUrl('/about/leadership') },
       { label: 'Infrastructure', href: absoluteUrl('/about/infrastructure') },
       { label: 'School Rules & Policies', href: absoluteUrl('/about/rules-policies') },
@@ -96,7 +98,7 @@ export default function Navbar({ settings }) {
         <div className="container-max flex items-center justify-between py-1">
           <Link href={absoluteUrl('/')} className="flex items-center gap-3 shrink-0">
             {logo ? (
-              <Image src={'/images/logo.png'} alt={settings?.schoolName || 'School logo'} width={44} height={44} className="w-24 h-24 object-contain rounded-full" unoptimized />
+              <Image src={ `https://api.mrvpublicschool.com${settings?.logoUrl}` || '/images/logo.png'} alt={settings?.schoolName || 'School logo'} width={44} height={44} className="w-24 h-24 object-contain rounded-full" unoptimized />
             ) : (
               <div className="seal w-11 h-11 text-red bg-paper2">
                 <span className="font-display font-bold text-lg text-red">M</span>

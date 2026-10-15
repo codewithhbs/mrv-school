@@ -42,7 +42,7 @@ const SchoolSettings = require('../models/SchoolSettings');
       address: '36B, Krishna Park Extn, New Mahavir Nagar, New Delhi, Delhi 110018',
       faviconUrl: '/uploads/1786537169042-f9dad1a72b9f289e.png',
       phones: ['011-25993692', '+91-9971390224'],
-      emails: ['info@mrvps.org'],
+      emails: ['info@mrvps.org', 'VPMRVPS@gmail.com'],
       officeHours: '8:00 AM – 3:00 PM, Mon–Sat',
       mapEmbedUrl:
         'https://maps.google.com/maps?q=36B%2C%20Krishna%20Park%20Extn%2C%20New%20Mahavir%20Nagar%2C%20New%20Delhi%2C%20Delhi%20110018&t=m&z=15&output=embed&iwloc=near',

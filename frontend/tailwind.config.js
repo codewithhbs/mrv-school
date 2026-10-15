@@ -25,9 +25,9 @@ module.exports = {
         line: '#E7E1D6',
       },
       fontFamily: {
-        display: ['var(--font-petrona)', 'Georgia', 'serif'],
+        display: ['var(--font-manrope)', 'system-ui', 'sans-serif'],
         body: ['var(--font-manrope)', 'system-ui', 'sans-serif'],
-        mono: ['var(--font-plex-mono)', 'monospace'],
+        mono: ['var(--font-manrope)', 'system-ui', 'sans-serif'],
       },
       maxWidth: {
         container: '1280px',
