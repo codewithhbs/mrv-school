@@ -64,7 +64,12 @@ if (process.env.NODE_ENV !== 'test') {
 app.use('/api', apiLimiter);
 
 // --- Static file serving for uploads ---
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// Uploaded files (e.g. resumes) may be previewed in an iframe by the admin panel (CORS_ORIGINS).
+app.use('/uploads', (req, res, next) => {
+  res.removeHeader('X-Frame-Options');
+  res.setHeader('Content-Security-Policy', `frame-ancestors 'self' ${allowedOrigins.join(' ')}`.trim());
+  next();
+}, express.static(path.join(__dirname, 'uploads')));
 // Legacy download links (/downloads/<file>.pdf) — drop PDFs into src/downloads/
 app.use('/downloads', express.static(path.join(__dirname, 'downloads')));
 

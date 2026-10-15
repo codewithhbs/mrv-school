@@ -1,9 +1,43 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
-import { apiGet, apiPut } from '@/lib/api';
+import { apiGet, apiPut, API_BASE_URL } from '@/lib/api';
 import Topbar from './Topbar';
-import { X, Loader2, Eye } from 'lucide-react';
+import { X, Loader2, Eye, FileText, ExternalLink } from 'lucide-react';
+
+const MEDIA_ORIGIN = API_BASE_URL.replace(/\/api\/?$/, '');
+const fileUrl = (u) => (/^https?:\/\//i.test(u) ? u : `${MEDIA_ORIGIN}${u.startsWith('/') ? '' : '/'}${u}`);
+
+// Resume preview: PDF/image shown inline, other formats as a file card. Clicking opens it in a new tab.
+function ResumePreview({ url }) {
+  if (!url) return <p className="text-sm text-ink bg-paper rounded-lg px-3.5 py-2.5">—</p>;
+  const href = fileUrl(url);
+  const ext = (href.split('?')[0].split('.').pop() || '').toLowerCase();
+  const isPdf = ext === 'pdf';
+  const isImg = ['png', 'jpg', 'jpeg', 'webp', 'gif'].includes(ext);
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" title="Open resume in new tab"
+      className="group relative block rounded-lg border border-line bg-paper overflow-hidden hover:border-red transition-colors">
+      {isPdf ? (
+        <iframe src={`${href}#toolbar=0&navpanes=0&view=FitH`} title="Resume preview" className="w-full h-72 pointer-events-none bg-white" />
+      ) : isImg ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={href} alt="Resume preview" className="w-full max-h-72 object-contain bg-white" />
+      ) : (
+        <div className="flex items-center gap-3 px-4 py-6">
+          <FileText className="w-8 h-8 text-red shrink-0" />
+          <div className="min-w-0">
+            <div className="text-sm font-semibold text-ink">Resume (.{ext || 'file'})</div>
+            <div className="text-xs text-slate">Preview not available for this format</div>
+          </div>
+        </div>
+      )}
+      <span className="absolute top-2 right-2 inline-flex items-center gap-1 bg-ink/80 text-white text-xs font-medium rounded-full px-2.5 py-1 group-hover:bg-red transition-colors">
+        <ExternalLink className="w-3 h-3" /> Open
+      </span>
+    </a>
+  );
+}
 
 function StatusBadge({ status }) {
   const tone =
@@ -148,10 +182,11 @@ export default function ReviewQueue({ config }) {
               </div>
               {config.detailFields.map((key) => (
                 <div key={key}>
-                  <label className="label">{key.replace(/([A-Z])/g, ' $1')}</label>
+                  <label className="label">{key === 'resumeUrl' ? 'Resume' : key.replace(/([A-Z])/g, ' $1')}</label>
+                  {key === 'resumeUrl' ? (<ResumePreview url={detailItem[key]} />) : (
                   <p className="text-sm text-ink bg-paper rounded-lg px-3.5 py-2.5 whitespace-pre-wrap break-words">
                     {detailItem[key] || '—'}
-                  </p>
+                  </p>)}
                 </div>
               ))}
             </div>
