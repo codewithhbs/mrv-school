@@ -112,7 +112,7 @@ export default async function HomePage() {
             <Kicker>About MRV Public School</Kicker>
             <Title>Every Child Carries<br />a Unique Spark</Title>
             <p className="mt-5 text-slate leading-relaxed max-w-xl">
-              AtMRV Public School, we believe that education is not just about academics, but about building confident, kind and responsible citizens.
+              At MRV Public School, we believe that education is not just about academics, but about building confident, kind and responsible citizens.
               Our school provides a nurturing environment where students are encouraged to explore, learn and grow. With a dedicated faculty, modern infrastructure and a value-based approach,
               we prepare our students for a brighter future.
             </p>

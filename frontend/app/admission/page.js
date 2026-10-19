@@ -5,7 +5,7 @@ import Link from 'next/link';
 import PageHero from '@/components/PageHero';
 import { absoluteUrl, staticPageMeta } from '@/lib/seo';
 
-export const metadata = staticPageMeta('Admission', 'Admission process atMRV Public School, New Delhi — eligibility, steps and enquiry form.', '/admission');
+export const metadata = staticPageMeta('Admission', 'Admission process At MRV Public School, New Delhi — eligibility, steps and enquiry form.', '/admission');
 
 const STEPS = [
   {
@@ -78,7 +78,7 @@ export default function AdmissionPage() {
       />
 
       <Section bg="white" id="process">
-        <SectionHeader eyebrow="How It Works" title="Admission Process atMRV Public School" />
+        <SectionHeader eyebrow="How It Works" title="Admission Process At MRV Public School" />
         <p className="text-sm text-slate leading-relaxed max-w-3xl mb-10">
          MRV Public School follows a structured, transparent, and parent-friendly admission workflow
           for classes ranging from Pre-Primary up to Senior Secondary.
