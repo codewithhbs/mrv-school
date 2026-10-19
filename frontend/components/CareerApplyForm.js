@@ -12,7 +12,7 @@ export default function CareerApplyForm({ openingId }) {
   const router = useRouter();
 
   const onChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
-  const base = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5001/api';
+  const base = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://api.mrvpublicschool.com/api';
 
   const onSubmit = async (e) => {
     e.preventDefault();
