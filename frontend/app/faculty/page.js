@@ -34,7 +34,8 @@ function FacultyGrid({ members }) {
 }
 
 export default async function FacultyPage() {
-  const faculty = await getFaculty();
+  const raw = await getFaculty();
+  const faculty = raw ? [...raw].sort((a, b) => (a.order ?? 999) - (b.order ?? 999)) : raw;
   const leadership = faculty?.filter((f) => f.category === 'leadership') || [];
   const teaching = faculty?.filter((f) => f.category === 'teaching') || [];
   const admin = faculty?.filter((f) => f.category === 'administrative') || [];
