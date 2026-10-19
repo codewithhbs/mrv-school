@@ -4,6 +4,7 @@ import PageBlocks from '@/components/PageBlocks';
 import { getPageBySlug } from '@/lib/api';
 import { cmsPageMetadata, CmsPageSchema } from '@/lib/pageSeo';
 import { absoluteUrl } from '@/lib/seo';
+import { DEFAULT_PAGE_CONTENT } from '@/lib/defaultPageContent';
 
 export async function generateMetadata() {
   return cmsPageMetadata('about-history', '/about/history', 'Our History');
@@ -17,7 +18,7 @@ export default async function Page() {
       <CmsPageSchema page={page} path="/about/history" title={title} crumbs={[{ label: 'About', href: absoluteUrl('/about') }, { label: title }]} />
       <PageHero title={title} eyebrow="About" crumbs={[{ label: 'About', href: absoluteUrl('/about') }, { label: title }]} />
       <Section bg="white">
-        <PageBlocks page={page} fallbackText="The story of how MRVPS was founded and how it has grown over the years will appear here." />
+        <PageBlocks page={page} fallbackText="The story of how MRVPS was founded and how it has grown over the years will appear here." defaultContent={DEFAULT_PAGE_CONTENT['about-history']} />
       </Section>
     </>
   );

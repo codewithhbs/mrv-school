@@ -47,7 +47,7 @@ export default async function RootLayout({ children }) {
   const settings = await getSettings();
 
   return (
-    <html lang="en" className={manrope.variable}>
+    <html lang="en" className={`${manrope.variable}`}>
       <head>
         {/* Google Tag Manager */}
         <script

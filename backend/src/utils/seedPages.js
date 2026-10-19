@@ -8,6 +8,12 @@ const Page = require('../models/Page');
 
 const PAGES = [
   {
+    "slug": "about-history",
+    "group": "about",
+    "title": "Our History",
+    "content": "<h2>About The School</h2><p>MRV Public School was instituted in the year 1982 by Shri O P Babbar, a noble man with a vision in mind to secure the future of the students. This sagacious steersperson has had an untiring journey in contributions in all aspects in the field of education. MRV chain of schools have taken shape and flourished to become a bandwagon in the field of providing high quality education under the directorship of Dr. Pranavi Luthra who has displayed qualities of alacrity and having granite resolution.</p><p>M R Vivekananda — the School Committed for organizational excellence, its motto M- Morality, R-Righteousness and V-Vision is reflected in the school's philosophy of \"We are what our thoughts have made us\" and \"Learn by humility, by reverence, by inquiry and by service.\" The school has been serving the Society in the field of education for the last 40 years. MRV is a school with a difference, a temple of learning with a Research, Training and Innovation Division. The guided members who have brought the school on the path of progress with their visionary approach and lofty ideas are constantly involved in latest innovations pertaining to education.</p><p>MRV is a socially responsible school where social and moral responsibilities are inculcated, practiced and assessed. The doctrine of all-round development, having social etiquettes, nurturing the inquisitive spirit of children, diversifying their minds to scientific temperament are the reasons why the students excel in their careers. MRV has decided to work for making harmonious learned society. Our motive is 'Education for Social Change'. The Research Centre organizes trainings for parents, teachers and academic heads periodically.</p><p>Our team of educationists, professionals, management experts and group of educational innovators are focussed for bringing change in the students and the society. Under the leadership of Dr. Pranavi Luthra, Director Education (Research, Training &amp; Innovation) everyone is motivated and work together for students to explore a dreamland for themselves beyond everyone's imagination.</p>"
+  },
+  {
     "slug": "about-vision-mission",
     "group": "about",
     "title": "Vision & Mission",

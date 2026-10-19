@@ -30,7 +30,7 @@ cp .env.example .env      # then edit secrets — never commit .env
 # start local MongoDB, then:
 npm run seed               # creates the first superadmin using SEED_SUPERADMIN_* in .env
 npm run seed:demo          # optional — fills every collection with realistic demo content
-npm run dev                 # nodemon, https://api.mrvpublicschool.com
+npm run dev                 # nodemon, http://localhost:5001
 ```
 After seeding, remove `SEED_SUPERADMIN_EMAIL` / `SEED_SUPERADMIN_PASSWORD` from `.env`.
 

@@ -4,7 +4,7 @@
 // own httpOnly refresh cookie — completely separate session from any staff
 // login, by design.
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://api.mrvpublicschool.com/api';
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5001/api';
 
 let accessToken = null;
 let refreshPromise = null;

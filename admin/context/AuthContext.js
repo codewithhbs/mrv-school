@@ -22,7 +22,7 @@ export function AuthProvider({ children }) {
     (async () => {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL || 'https://api.mrvpublicschool.com/api'}/auth/refresh`,
+          `${process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5001/api'}/auth/refresh`,
           { method: 'POST', credentials: 'include' }
         );
         if (res.ok) {

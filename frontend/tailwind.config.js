@@ -4,28 +4,37 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        // `red` token = brand primary (now navy). Name kept so all pages re-theme.
         red: {
-          DEFAULT: '#A31621',
-          dark: '#7A0F18',
-          deep: '#5C0B12',
-          50: '#FBEAEB',
+          DEFAULT: '#0B3B8C',
+          dark: '#082C6B',
+          deep: '#061F4D',
+          50: '#EAF1FD',
+        },
+        navy: {
+          DEFAULT: '#0A2A66',
+          dark: '#071D49',
+          deep: '#05153A',
+          light: '#1E4FA8',
         },
         gold: {
-          DEFAULT: '#E8A93B',
-          light: '#F6D89C',
-          dark: '#C4842A',
+          DEFAULT: '#F5B716',
+          light: '#FFD76A',
+          dark: '#D99A00',
         },
-        ink: '#1C1B1F',
-        paper: '#FBF8F3',
-        paper2: '#F4EEE2',
+        accent: { pink: '#E5486B', teal: '#14A38B', sky: '#2F80ED' },
+        ink: '#0A1F44',
+        paper: '#F6F8FC',
+        paper2: '#FFF7E8',
         slate: {
-          DEFAULT: '#5B5A63',
-          light: '#8B8A93',
+          DEFAULT: '#55607A',
+          light: '#8A93A8',
         },
-        line: '#E7E1D6',
+        line: '#E3E8F1',
       },
       fontFamily: {
         display: ['var(--font-manrope)', 'system-ui', 'sans-serif'],
+        script: ['var(--font-manrope)', 'system-ui', 'sans-serif'],
         body: ['var(--font-manrope)', 'system-ui', 'sans-serif'],
         mono: ['var(--font-manrope)', 'system-ui', 'sans-serif'],
       },
@@ -33,11 +42,11 @@ module.exports = {
         container: '1280px',
       },
       boxShadow: {
-        card: '0 1px 2px rgba(28,27,31,0.04), 0 8px 24px rgba(28,27,31,0.06)',
-        cardHover: '0 4px 8px rgba(28,27,31,0.06), 0 16px 40px rgba(163,22,33,0.12)',
+        card: '0 1px 2px rgba(10,31,68,0.04), 0 8px 24px rgba(10,31,68,0.07)',
+        cardHover: '0 4px 8px rgba(10,31,68,0.06), 0 18px 40px rgba(11,59,140,0.16)',
       },
       borderRadius: {
-        card: '0.875rem',
+        card: '1rem',
       },
       keyframes: {
         marquee: {

@@ -45,7 +45,7 @@ export function jsonLd(data) {
   return { __html: JSON.stringify(data).replace(/</g, '\\u003c') };
 }
 
-export const DEFAULT_FAVICON = 'https://api.mrvpublicschool.com/uploads/1786537169042-f9dad1a72b9f289e.png';
+export const DEFAULT_FAVICON = 'http://localhost:5001/uploads/1786537169042-f9dad1a72b9f289e.png';
 export const SCHOOL_ADDRESS = '36B, Krishna Park Extn, New Mahavir Nagar, New Delhi, Delhi 110018';
 export const GOOGLE_SITE_VERIFICATION = 'google49b6e607940dee24';
 
@@ -56,7 +56,7 @@ export function cmsPagePath(p) {
   return `/${p.slug}`;
 }
 
-const DEFAULT_OG_IMAGE = 'https://api.mrvpublicschool.com/uploads/1786537169042-f9dad1a72b9f289e.png';
+const DEFAULT_OG_IMAGE = 'http://localhost:5001/uploads/1786537169042-f9dad1a72b9f289e.png';
 
 // Full metadata (title, description, self canonical, OG, Twitter) for static pages.
 export function staticPageMeta(title, description, path, { noIndex = false } = {}) {
