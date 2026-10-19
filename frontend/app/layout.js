@@ -20,7 +20,7 @@ export async function generateMetadata() {
   const title = settings?.seoDefaultTitle || settings?.schoolName || SITE_NAME;
   const description =
     settings?.seoDefaultDescription ||
-    'M.R. Vivekananda Public School (MRVPS) — a CBSE-affiliated school committed to academic excellence, character building, and holistic development.';
+    'MRV Public School (MRVPS) — a CBSE-affiliated school committed to academic excellence, character building, and holistic development.';
   const ogImage = mediaUrl(settings?.ogImageUrl || settings?.logoUrl) || DEFAULT_FAVICON;
 
   return {

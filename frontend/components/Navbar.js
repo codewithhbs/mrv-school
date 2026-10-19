@@ -70,7 +70,7 @@ export default function Navbar({ settings }) {
   const email = settings?.emails?.[0] || 'info@mrvpublicschool.com';
   const address = settings?.shortAddress || 'New Mahavir Nagar, New Delhi';
   const logo = settings?.logoUrl ? mediaUrl(settings.logoUrl) : '/images/logo.png';
-  const name = settings?.schoolName || 'M.R. Vivekananda Public School';
+  const name = settings?.schoolName || 'MRV Public School';
 
   const isActive = (href) => {
     try {

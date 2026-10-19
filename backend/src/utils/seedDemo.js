@@ -135,7 +135,7 @@ async function upsertMany(Model, matchKeyFn, docs) {
       group: 'about',
       title: 'Our History',
       blocks: [
-        { type: 'paragraph', data: { text: 'M.R. Vivekananda Public School was founded with a simple belief: that every child learns best in an environment built on curiosity, discipline, and care. Since then, the school has grown into a full CBSE institution serving West Delhi, guided by the same founding values.' }, order: 0 },
+        { type: 'paragraph', data: { text: 'MRV Public School was founded with a simple belief: that every child learns best in an environment built on curiosity, discipline, and care. Since then, the school has grown into a full CBSE institution serving West Delhi, guided by the same founding values.' }, order: 0 },
         { type: 'paragraph', data: { text: 'What began as a small neighbourhood school has expanded its infrastructure, faculty, and academic programs over the years, while staying true to its child-centric philosophy.' }, order: 1 },
       ],
       isPublished: true,

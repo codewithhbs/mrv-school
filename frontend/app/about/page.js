@@ -30,7 +30,7 @@ export default function AboutPage() {
       <PageHero
         eyebrow="About MRVPS"
         title="Rooted in Values, Focused on Excellence"
-        description="M.R. Vivekananda Public School is a CBSE-affiliated institution offering an education that balances academic rigor with character and creativity — from Pre-Primary through Senior Secondary."
+        description="MRV Public School is a CBSE-affiliated institution offering an education that balances academic rigor with character and creativity — from Pre-Primary through Senior Secondary."
         crumbs={[{ label: 'About' }]}
       />
 

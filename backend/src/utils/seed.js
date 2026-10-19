@@ -36,7 +36,7 @@ const SchoolSettings = require('../models/SchoolSettings');
   if (!settings) {
     await SchoolSettings.create({
       key: 'singleton',
-      schoolName: 'M.R. Vivekananda Public School',
+      schoolName: 'MRV Public School',
       tagline: 'Where curiosity becomes character.',
       board: 'CBSE',
       address: '36B, Krishna Park Extn, New Mahavir Nagar, New Delhi, Delhi 110018',
@@ -51,7 +51,7 @@ const SchoolSettings = require('../models/SchoolSettings');
         instagram: 'https://www.instagram.com/mrvpublicschool/',
         youtube: 'https://www.youtube.com/channel/UCy7fs-gH4PR5EUsDxoUJovg',
       },
-      seoDefaultTitle: 'M.R. Vivekananda Public School — CBSE, New Delhi',
+      seoDefaultTitle: 'MRV Public School — CBSE, New Delhi',
       seoDefaultDescription:
         'MRVPS is a CBSE-affiliated school in West Delhi focused on child-centric, technology-enabled learning from Pre-Primary to Senior Secondary.',
       footerText: 'A CBSE-affiliated institution dedicated to academic excellence, values, and holistic growth.',

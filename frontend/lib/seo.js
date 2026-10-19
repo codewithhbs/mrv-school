@@ -1,6 +1,6 @@
 // SEO helpers shared by public pages.
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://mrvpublicschool.com').replace(/\/+$/, '');
-export const SITE_NAME = 'M.R. Vivekananda Public School';
+export const SITE_NAME = 'MRV Public School';
 
 export function absoluteUrl(path = '/') {
   if (!path) return SITE_URL;

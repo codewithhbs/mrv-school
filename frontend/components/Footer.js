@@ -24,7 +24,7 @@ function Ico({ d }) {
 export default function Footer({ settings }) {
   const year = new Date().getFullYear();
   const logo = settings?.logoUrl ? mediaUrl(settings.logoUrl) : '/images/logo.png';
-  const name = settings?.schoolName || 'M.R. Vivekananda Public School';
+  const name = settings?.schoolName || 'MRV Public School';
 
   return (
     <footer className="bg-navy-deep text-white relative overflow-hidden">

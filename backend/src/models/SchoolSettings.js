@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const schema = new mongoose.Schema(
   {
     key: { type: String, default: 'singleton', unique: true },
-    schoolName: { type: String, default: 'M.R. Vivekananda Public School' },
+    schoolName: { type: String, default: 'MRV Public School' },
     tagline: { type: String },
     logoUrl: { type: String },
     faviconUrl: { type: String },

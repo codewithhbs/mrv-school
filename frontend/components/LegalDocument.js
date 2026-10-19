@@ -50,7 +50,7 @@ export default function LegalDocument({ sections, lastUpdated, settings, closing
                 if (b.t === 'contact') {
                   return (
                     <div key={i} className="bg-paper2 border border-line rounded-card p-5 text-sm text-slate space-y-1.5">
-                      <p className="font-semibold text-ink">{settings?.schoolName || 'M.R. Vivekananda Public School'}</p>
+                      <p className="font-semibold text-ink">{settings?.schoolName || 'MRV Public School'}</p>
                       <p>{settings?.address || SCHOOL_ADDRESS}</p>
                       {settings?.phones?.length > 0 && <p><strong className="text-ink">Phone:</strong> <PhoneLinks phones={settings.phones} /></p>}
                       <p><strong className="text-ink">Email:</strong> <EmailLinks emails={settings?.emails?.length ? settings.emails : ['info@mrvps.org']} /></p>
