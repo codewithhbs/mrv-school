@@ -1,6 +1,6 @@
 # MRVPS School — Backend (Phase 1)
 
-Node.js + Express + MongoDB backend for M.R. Vivekananda Public School website.
+Node.js + Express + MongoDB backend forMRV Public School website.
 Covers **all** modules in the provided sitemap PDF: Home content, About, Academics,
 Admission, Facilities, Student Life, Faculty, Gallery, News & Events, Parents/Students
 Corner content, Alumni, Career, Downloads, Contact.

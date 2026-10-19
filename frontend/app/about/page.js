@@ -4,7 +4,7 @@ import Link from 'next/link';
 import PageHero from '@/components/PageHero';
 import { absoluteUrl, staticPageMeta } from '@/lib/seo';
 
-export const metadata = staticPageMeta('About Us', 'Learn about M.R. Vivekananda Public School — our overview, vision, history, leadership and campus in New Delhi.', '/about');
+export const metadata = staticPageMeta('About Us', 'Learn aboutMRV Public School — our overview, vision, history, leadership and campus in New Delhi.', '/about');
 
 const PILLARS = [
   { title: 'Holistic Growth', desc: 'Integrating academics with sports, arts, cultural activities, and value education.' },
@@ -35,9 +35,9 @@ export default function AboutPage() {
       />
 
       <Section bg="white" id="overview">
-        <SectionHeader eyebrow="School Overview" title="Overview of M.R. Vivekananda Public School" />
+        <SectionHeader eyebrow="School Overview" title="Overview ofMRV Public School" />
         <p className="text-slate leading-relaxed max-w-3xl">
-          M.R. Vivekananda Public School, located in West Delhi, is a prominent co-educational institution affiliated with the
+         MRV Public School, located in West Delhi, is a prominent co-educational institution affiliated with the
           Central Board of Secondary Education (CBSE). Founded on the core principles of curiosity, discipline, and care, the
           school has evolved from a small neighbourhood institution into a well-established campus equipped with modern
           educational infrastructure and comprehensive academic programs.

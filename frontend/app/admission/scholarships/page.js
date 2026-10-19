@@ -4,7 +4,7 @@ import EmptyState from '@/components/EmptyState';
 import { getScholarships } from '@/lib/api';
 import { absoluteUrl, staticPageMeta } from '@/lib/seo';
 
-export const metadata = staticPageMeta('Scholarships', 'Scholarships and fee concessions available at M.R. Vivekananda Public School.', '/admission/scholarships');
+export const metadata = staticPageMeta('Scholarships', 'Scholarships and fee concessions available atMRV Public School.', '/admission/scholarships');
 
 export default async function ScholarshipsPage() {
   const scholarships = await getScholarships();

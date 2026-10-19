@@ -5,7 +5,7 @@ import { getSettings } from '@/lib/api';
 import { staticPageMeta } from '@/lib/seo';
 import { DISCLAIMER, POLICY_LAST_UPDATED } from '@/lib/legalContent';
 
-export const metadata = staticPageMeta('Disclaimer', 'Website disclaimer of M.R. Vivekananda Public School covering information accuracy, admissions, liability, intellectual property and user conduct.', '/disclaimer');
+export const metadata = staticPageMeta('Disclaimer', 'Website disclaimer ofMRV Public School covering information accuracy, admissions, liability, intellectual property and user conduct.', '/disclaimer');
 
 export default async function Page() {
   const settings = await getSettings();

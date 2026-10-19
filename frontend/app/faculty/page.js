@@ -7,7 +7,7 @@ import { mediaUrl } from '@/lib/media';
 import PageHero from '@/components/PageHero';
 import { staticPageMeta } from '@/lib/seo';
 
-export const metadata = staticPageMeta('Our Faculty', 'Meet the qualified and experienced teachers of M.R. Vivekananda Public School.', '/faculty');
+export const metadata = staticPageMeta('Our Faculty', 'Meet the qualified and experienced teachers ofMRV Public School.', '/faculty');
 
 const CATEGORY_LABEL = { leadership: 'Leadership', teaching: 'Teaching Staff', administrative: 'Administrative Staff' };
 

@@ -65,7 +65,7 @@ export default function PortalLoginPage() {
         </div>
 
         <div className="relative text-xs text-white/40">
-          &copy; {new Date().getFullYear()} M.R. Vivekananda Public School
+          &copy; {new Date().getFullYear()}MRV Public School
         </div>
       </div>
 

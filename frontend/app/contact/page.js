@@ -6,7 +6,7 @@ import PageHero from '@/components/PageHero';
 import { PhoneLinks, EmailLinks } from '@/components/ContactLinks';
 import { SCHOOL_ADDRESS, staticPageMeta } from '@/lib/seo';
 
-export const metadata = staticPageMeta('Contact Us', 'Contact M.R. Vivekananda Public School — 36B, Krishna Park Extn, New Mahavir Nagar, New Delhi 110018. Phone, email and map.', '/contact');
+export const metadata = staticPageMeta('Contact Us', 'ContactMRV Public School — 36B, Krishna Park Extn, New Mahavir Nagar, New Delhi 110018. Phone, email and map.', '/contact');
 
 export default async function ContactPage() {
   const settings = await getSettings();

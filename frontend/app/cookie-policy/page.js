@@ -5,7 +5,7 @@ import { getSettings } from '@/lib/api';
 import { staticPageMeta } from '@/lib/seo';
 import { COOKIE_POLICY, POLICY_LAST_UPDATED } from '@/lib/legalContent';
 
-export const metadata = staticPageMeta('Cookie Policy', 'How M.R. Vivekananda Public School uses cookies and similar technologies on its website, and how you can manage your preferences.', '/cookie-policy');
+export const metadata = staticPageMeta('Cookie Policy', 'HowMRV Public School uses cookies and similar technologies on its website, and how you can manage your preferences.', '/cookie-policy');
 
 export default async function Page() {
   const settings = await getSettings();

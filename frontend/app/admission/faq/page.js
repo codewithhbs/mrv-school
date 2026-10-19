@@ -5,7 +5,7 @@ import EmptyState from '@/components/EmptyState';
 import { getFAQs } from '@/lib/api';
 import { absoluteUrl, staticPageMeta } from '@/lib/seo';
 
-export const metadata = staticPageMeta('Admission FAQs', 'Frequently asked questions about admissions at M.R. Vivekananda Public School.', '/admission/faq');
+export const metadata = staticPageMeta('Admission FAQs', 'Frequently asked questions about admissions atMRV Public School.', '/admission/faq');
 
 export default async function FAQPage() {
   const faqs = await getFAQs();

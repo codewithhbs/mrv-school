@@ -5,7 +5,7 @@ import { getSettings } from '@/lib/api';
 import { staticPageMeta } from '@/lib/seo';
 import { PRIVACY_POLICY, POLICY_LAST_UPDATED, PRIVACY_CLOSING } from '@/lib/legalContent';
 
-export const metadata = staticPageMeta('Privacy Policy', 'How M.R. Vivekananda Public School collects, uses, stores and protects personal information shared through its website.', '/privacy-policy');
+export const metadata = staticPageMeta('Privacy Policy', 'HowMRV Public School collects, uses, stores and protects personal information shared through its website.', '/privacy-policy');
 
 export default async function Page() {
   const settings = await getSettings();
