@@ -25,7 +25,7 @@ function FacultyGrid({ members }) {
             )}
           </div>
           <h3 className="font-display font-semibold text-ink">{m.name}</h3>
-          <p className="text-sm text-red font-medium mt-0.5">{m.designation}</p>
+          <p className="text-sm text-red font-bold mt-0.5">{m.designation}</p>
           {/* {m.qualification && <p className="text-xs text-slate mt-2 font-mono">{m.qualification}</p>} */}
         </div>
       ))}
