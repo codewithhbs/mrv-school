@@ -5,7 +5,7 @@ const auditLogSchema = new mongoose.Schema(
     actor: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     actorEmail: { type: String },
     action: { type: String, required: true }, // e.g. "CREATE", "UPDATE", "DELETE", "LOGIN", "LOGIN_FAILED"
-    resource: { type: String, required: true }, // e.g. "NewsEvent", "Auth"
+    resource: { type: String, required: true }, // e.g. "Blog", "Auth"
     resourceId: { type: String },
     ip: { type: String },
     userAgent: { type: String },

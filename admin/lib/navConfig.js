@@ -21,7 +21,7 @@ export const navGroups = [
       { label: 'Academic Programs', href: '/dashboard/academic-programs', icon: GraduationCap, roles: ['admin', 'content_editor'] },
       { label: 'Facilities', href: '/dashboard/facilities', icon: Building2, roles: ['admin', 'content_editor'] },
       { label: 'Faculty', href: '/dashboard/faculty', icon: Users, roles: ['admin', 'content_editor'] },
-      { label: 'News & Events', href: '/dashboard/news-events', icon: Newspaper, roles: ['admin', 'content_editor'] },
+      { label: 'Blog', href: '/dashboard/blog', icon: Newspaper, roles: ['admin', 'content_editor'] },
       { label: 'Gallery', href: '/dashboard/gallery', icon: Images, roles: ['admin', 'content_editor'] },
       { label: 'Testimonials', href: '/dashboard/testimonials', icon: Quote, roles: ['admin', 'content_editor'] },
       { label: 'Downloads', href: '/dashboard/downloads', icon: Download, roles: ['admin', 'content_editor'] },

@@ -2,7 +2,7 @@
 
 Node.js + Express + MongoDB backend forMRV Public School website.
 Covers **all** modules in the provided sitemap PDF: Home content, About, Academics,
-Admission, Facilities, Student Life, Faculty, Gallery, News & Events, Parents/Students
+Admission, Facilities, Student Life, Faculty, Gallery, Blog, Parents/Students
 Corner content, Alumni, Career, Downloads, Contact.
 
 Status: **Phase 1 complete and tested** (models load clean, app boots clean).
@@ -37,7 +37,7 @@ After seeding, remove `SEED_SUPERADMIN_EMAIL` / `SEED_SUPERADMIN_PASSWORD` from 
 ### `npm run seed:demo` — full realistic demo data
 Run this after `npm run seed` to populate every collection with plausible, realistic
 content in one shot — banners, About Us pages, all 5 academic program levels, 12
-facilities, 10 faculty members, a mix of news/events/circulars/holidays/achievements,
+facilities, 10 faculty members, a set of blog posts across categories,
 gallery albums, testimonials, downloads, FAQs, fee structure, scholarships, alumni
 stories, career openings, a couple of admission enquiries and contact messages, **5
 students across different classes**, portal logins, 15 days of attendance history,
@@ -74,7 +74,7 @@ src/
 ## Models (32)
 `User`, `RefreshToken`, `AuditLog`, `Banner`, `Page` (block-based, powers all About Us /
 Academics / Admission static subpages), `AcademicProgram`, `Facility`, `FacultyMember`,
-`NewsEvent` (news/event/circular/holiday/achievement — one model, `type` field),
+`Blog` (blog posts — `category` field: General, Academics, Achievements, Sports, Events, Celebrations, Admissions, Parenting, Student Life, Announcements),
 `GalleryAlbum` (photo + video items, virtual tour flag), `Testimonial`, `DownloadItem`,
 `CareerOpening`, `CareerApplication`, `AdmissionEnquiry`, `ContactMessage`, `FAQ`,
 `FeeStructure`, `ScholarshipInfo`, `AlumniStory`, `AlumniRegistration`, `SchoolSettings`
@@ -145,7 +145,7 @@ All routes are under `/api`.
 **CMS (generic REST pattern: `GET /` list+search+pagination, `GET /:id`, `POST /`,
 `PUT /:id`, `DELETE /:id`; GET is public, writes need `admin`/`content_editor`, delete
 needs `admin`)**:
-`/banners`, `/pages`, `/academic-programs`, `/facilities`, `/faculty`, `/news-events`,
+`/banners`, `/pages`, `/academic-programs`, `/facilities`, `/faculty`, `/blogs`,
 `/gallery`, `/testimonials`, `/downloads`, `/careers/openings`, `/faqs`,
 `/fee-structure`, `/scholarships`, `/alumni/stories`
 
@@ -179,9 +179,9 @@ before trusting it in production. Recommended next steps before Phase 2:
 ## Phase 2 — Public Website (Next.js + Tailwind)
 Not started. Will consume this API for: Home, About Us (+7 subpages), Academics
 (+5 levels), Admission (+FAQ/fees/scholarships), Facilities, Student Life, Faculty,
-Gallery, News & Events, Parents/Students Corner, Alumni, Career, Downloads, Contact —
+Gallery, Blog, Parents/Students Corner, Alumni, Career, Downloads, Contact —
 using the `Page` model's block renderer for static-ish subpages and dedicated
-components for the collection-backed sections (news, gallery, faculty, etc.).
+components for the collection-backed sections (blog, gallery, faculty, etc.).
 
 ## Phase 3 — Admin Panel (Next.js + Tailwind)
 Not started. Will be a role-aware dashboard: sidebar driven by `req.user.role`,
@@ -189,3 +189,15 @@ CRUD screens per module reusing the consistent `{data, pagination}` REST shape,
 a rich block editor for `Page`, media library backed by `/uploads`, and dedicated
 review queues for Admission Enquiries / Contact Messages / Career Applications /
 Alumni Registrations.
+
+## Migrating from News & Events to Blog
+
+The old `NewsEvent` module (`/api/news-events`) has been replaced by `Blog` (`/api/blogs`).
+On an existing database run once after deploying:
+
+```bash
+npm run migrate:blog
+```
+
+This copies `newsevents` → `blogs` (type → category, eventDate → publishedAt) and
+renames the `news-events` admin permission to `blog`. The old collection is kept as a backup.

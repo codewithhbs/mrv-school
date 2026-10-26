@@ -50,21 +50,21 @@ export const getAllPagesForSitemap = () => apiGet('/pages?limit=100', { revalida
 export const getAcademicPrograms = () => apiGet('/academic-programs?limit=20');
 export const getFacilities = () => apiGet('/facilities?limit=50');
 export const getFaculty = (category) => apiGet(`/faculty?limit=50${category ? `&filter[category]=${category}` : ''}`);
-export const getNewsEvents = (type, limit = 6) =>
-  apiGet(`/news-events?limit=${limit}&filter[isPublished]=true${type ? `&filter[type]=${type}` : ''}`);
-// All published news/events for the sitemap (API caps limit at 100 per page).
-export const getAllNewsEventsForSitemap = async () => {
+export const getBlogs = (category, limit = 6) =>
+  apiGet(`/blogs?limit=${limit}&filter[isPublished]=true${category ? `&filter[category]=${encodeURIComponent(category)}` : ''}`);
+// All published blog posts for the sitemap (API caps limit at 100 per page).
+export const getAllBlogsForSitemap = async () => {
   const all = [];
   for (let page = 1; page <= 20; page += 1) {
-    const batch = await apiGet(`/news-events?limit=100&page=${page}&filter[isPublished]=true`, { revalidate: 3600 });
+    const batch = await apiGet(`/blogs?limit=100&page=${page}&filter[isPublished]=true`, { revalidate: 3600 });
     if (!Array.isArray(batch) || !batch.length) break;
     all.push(...batch);
     if (batch.length < 100) break;
   }
   return all;
 };
-export const getNewsEventBySlug = async (slug) => {
-  const list = await apiGet(`/news-events?filter[slug]=${encodeURIComponent(slug)}&limit=1`);
+export const getBlogBySlug = async (slug) => {
+  const list = await apiGet(`/blogs?filter[slug]=${encodeURIComponent(slug)}&limit=1`);
   return Array.isArray(list) && list[0] ? list[0] : null;
 };
 export const getGalleryAlbums = () => apiGet('/gallery?limit=30');

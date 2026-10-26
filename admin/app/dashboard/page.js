@@ -10,7 +10,7 @@ import { Inbox, Mail, Newspaper, Users, FileCheck2, UsersRound, Loader2 } from '
 const STAT_CARDS = [
   { key: 'admission-enquiries', label: 'Admission Enquiries', endpoint: '/admission/enquiries', href: '/dashboard/admission-enquiries', icon: Inbox, roles: ['admin', 'admissions_officer'] },
   { key: 'contact-messages', label: 'Contact Messages', endpoint: '/contact', href: '/dashboard/contact-messages', icon: Mail, roles: ['admin'] },
-  { key: 'news-events', label: 'News & Events Published', endpoint: '/news-events', href: '/dashboard/news-events', icon: Newspaper, roles: ['admin', 'content_editor'] },
+  { key: 'blog', label: 'Blog Posts', endpoint: '/blogs', href: '/dashboard/blog', icon: Newspaper, roles: ['admin', 'content_editor'] },
   { key: 'faculty', label: 'Faculty Profiles', endpoint: '/faculty', href: '/dashboard/faculty', icon: Users, roles: ['admin', 'content_editor'] },
   { key: 'career-applications', label: 'Career Applications', endpoint: '/careers/applications', href: '/dashboard/career-applications', icon: FileCheck2, roles: ['admin'] },
   { key: 'alumni-registrations', label: 'Alumni Registrations', endpoint: '/alumni/registrations', href: '/dashboard/alumni-registrations', icon: UsersRound, roles: ['admin'] },

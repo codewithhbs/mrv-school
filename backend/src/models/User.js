@@ -10,7 +10,7 @@ const ROLES = ['superadmin', 'admin', 'content_editor', 'admissions_officer', 't
 // A non-empty array RESTRICTS the user to only those modules, even if their
 // role would otherwise allow more (superadmin always has full access).
 const PERMISSION_MODULES = [
-  'banners', 'pages', 'academic-programs', 'facilities', 'faculty', 'news-events',
+  'banners', 'pages', 'academic-programs', 'facilities', 'faculty', 'blog',
   'gallery', 'testimonials', 'downloads', 'faqs', 'fee-structure', 'scholarships',
   'alumni-stories', 'career-openings', 'students', 'portal-accounts', 'attendance',
   'homework', 'study-materials', 'exam-schedule', 'results', 'ptm-schedule',

@@ -3,7 +3,7 @@
 Next.js 14 (App Router, JavaScript) + Tailwind CSS. Consumes the `mrvps-backend` API
 and covers every section from the sitemap PDF — Home, About (+7 subpages), Academics
 (+3 subpages), Admission (+FAQ/fees/scholarships), Facilities, Faculty, Gallery,
-News & Events, Student Life, Parents Corner, Students Corner, Alumni, Careers,
+Blog, Student Life, Parents Corner, Students Corner, Alumni, Careers,
 Downloads, Contact, plus a real logged-in Parent/Student Portal. 35 routes total.
 
 ## Parent/Student Portal (`/portal`)

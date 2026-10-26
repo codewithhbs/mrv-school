@@ -12,7 +12,7 @@ const path = require('path');
 const routes = require('./routes');
 const { notFound, errorHandler } = require('./middleware/errorHandler');
 const { apiLimiter } = require('./middleware/rateLimiters');
-const { captureRichText, restoreRichText, normalizeSeoFields, normalizeNewsEventBody } = require('./middleware/richText');
+const { captureRichText, restoreRichText, normalizeSeoFields, normalizeBlogBody } = require('./middleware/richText');
 
 const app = express();
 
@@ -47,10 +47,10 @@ app.use(cookieParser());
 app.use(mongoSanitize());
 // Rich-text HTML fields are captured before xss-clean and restored afterwards
 // through an allow-list HTML sanitizer (see middleware/richText.js).
-app.use('/api/news-events', captureRichText(['content']));
+app.use('/api/blogs', captureRichText(['content']));
 app.use('/api/pages', captureRichText(['content']));
 app.use(xssClean());
-app.use('/api/news-events', restoreRichText, normalizeNewsEventBody, normalizeSeoFields);
+app.use('/api/blogs', restoreRichText, normalizeBlogBody, normalizeSeoFields);
 app.use('/api/pages', restoreRichText, normalizeSeoFields);
 app.use(hpp());
 

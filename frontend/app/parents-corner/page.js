@@ -1,13 +1,13 @@
 import Section from '@/components/Section';
 import SectionHeader from '@/components/SectionHeader';
-import { getNewsEvents } from '@/lib/api';
-import NewsCard from '@/components/NewsCard';
+import { getBlogs } from '@/lib/api';
+import BlogCard from '@/components/BlogCard';
 import EmptyState from '@/components/EmptyState';
 import Link from 'next/link';
 import PageHero from '@/components/PageHero';
 import { absoluteUrl, staticPageMeta } from '@/lib/seo';
 
-export const metadata = staticPageMeta('Parents Corner', 'Resources, circulars and updates for MRVPS parents.', '/parents-corner');
+export const metadata = staticPageMeta('Parents Corner', 'Resources, portal access and blog updates for MRVPS parents.', '/parents-corner');
 
 const LINKS = [
   { label: 'Parent Login', desc: 'Access the parent portal for attendance, homework, exam schedule, results, and fee status.', href: absoluteUrl('/portal/login') },
@@ -20,7 +20,8 @@ const LINKS = [
 ];
 
 export default async function ParentsCornerPage() {
-  const circulars = await getNewsEvents('circular', 6);
+  const parenting = (await getBlogs('Parenting', 6)) || [];
+  const posts = parenting.length ? parenting : (await getBlogs(undefined, 6)) || [];
 
   return (
     <>
@@ -43,13 +44,18 @@ export default async function ParentsCornerPage() {
       </Section>
 
       <Section bg="paper2">
-        <SectionHeader eyebrow="Latest" title="Circulars" />
-        {circulars?.length ? (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {circulars.map((c) => <NewsCard key={c._id} item={c} />)}
-          </div>
+        <SectionHeader eyebrow="From Our Blog" title={parenting.length ? 'Tips & Reads for Parents' : 'Latest Blogs'} />
+        {posts.length ? (
+          <>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {posts.map((c) => <BlogCard key={c._id} item={c} />)}
+            </div>
+            <div className="mt-8 text-center">
+              <Link href={absoluteUrl('/blog')} className="text-sm font-semibold text-red hover:text-red-dark">View All Blogs →</Link>
+            </div>
+          </>
         ) : (
-          <EmptyState title="No circulars published yet" />
+          <EmptyState title="No blog posts published yet" />
         )}
       </Section>
     </>

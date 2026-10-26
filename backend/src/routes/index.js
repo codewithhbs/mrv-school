@@ -22,7 +22,7 @@ router.use('/portal-accounts', require('./portalAccounts.routes'));
 router.use('/attendance', require('./attendance.routes'));
 router.use('/', require('./academic.routes')); // students, homework, study-materials, exam-schedule, results, ptm-schedule, fee-records
 
-router.use('/', require('./cms.routes')); // banners, pages, academic-programs, facilities, faculty, news-events, gallery, testimonials, downloads, faqs, fee-structure, scholarships, alumni/stories
+router.use('/', require('./cms.routes')); // banners, pages, academic-programs, facilities, faculty, blogs, gallery, testimonials, downloads, faqs, fee-structure, scholarships, alumni/stories
 
 router.get('/health', (req, res) => res.json({ success: true, message: 'MRVPS API is healthy', time: new Date().toISOString() }));
 

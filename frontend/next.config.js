@@ -14,6 +14,9 @@ const nextConfig = {
         destination: 'https://mrvpublicschool.com/:path*',
         permanent: true,
       },
+      // Old "News & Events" URLs now live under /blog — keep Google rankings & shared links working.
+      { source: '/news-events', destination: '/blog', permanent: true },
+      { source: '/news-events/:slug', destination: '/blog/:slug', permanent: true },
     ];
   },
 };

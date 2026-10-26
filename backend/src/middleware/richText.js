@@ -62,7 +62,7 @@ function restoreRichText(req, res, next) {
 
 const isWrite = (req) => ['POST', 'PUT', 'PATCH'].includes(req.method) && req.body && typeof req.body === 'object';
 
-// Shared SEO cleanup for any resource with SEO fields (news-events, pages):
+// Shared SEO cleanup for any resource with SEO fields (blogs, pages):
 // keyword de-dupe, whitespace trimming.
 function normalizeSeoFields(req, res, next) {
   if (!isWrite(req)) return next();
@@ -84,8 +84,8 @@ function normalizeSeoFields(req, res, next) {
   next();
 }
 
-// News/events specific: slug fallback from title, empty dates.
-function normalizeNewsEventBody(req, res, next) {
+// Blog specific: slug fallback from title, empty publish date, tags cleanup.
+function normalizeBlogBody(req, res, next) {
   if (!isWrite(req)) return next();
   const b = req.body;
 
@@ -96,12 +96,19 @@ function normalizeNewsEventBody(req, res, next) {
     b.slug = slugify(String(b.title), { lower: true, strict: true, trim: true });
   }
 
-  // Empty date strings from the admin form would fail Date casting.
-  ['eventDate', 'eventEndDate'].forEach((f) => {
-    if (b[f] === '') b[f] = null;
-  });
+  // Empty date string from the admin form would fail Date casting — fall back to the schema default.
+  if (b.publishedAt === '' || b.publishedAt === null) delete b.publishedAt;
+
+  if (typeof b.tags === 'string') b.tags = b.tags.split(',');
+  if (Array.isArray(b.tags)) {
+    const seen = new Set();
+    b.tags = b.tags
+      .map((t) => String(t).trim())
+      .filter((t) => t && !seen.has(t.toLowerCase()) && seen.add(t.toLowerCase()))
+      .slice(0, 15);
+  }
 
   next();
 }
 
-module.exports = { captureRichText, restoreRichText, normalizeSeoFields, normalizeNewsEventBody, SANITIZE_OPTIONS };
+module.exports = { captureRichText, restoreRichText, normalizeSeoFields, normalizeBlogBody, SANITIZE_OPTIONS };

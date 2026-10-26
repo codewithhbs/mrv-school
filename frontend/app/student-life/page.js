@@ -1,8 +1,8 @@
 import Section from '@/components/Section';
 import SectionHeader from '@/components/SectionHeader';
 import EmptyState from '@/components/EmptyState';
-import { getNewsEvents } from '@/lib/api';
-import NewsCard from '@/components/NewsCard';
+import { getBlogs } from '@/lib/api';
+import BlogCard from '@/components/BlogCard';
 import PageHero from '@/components/PageHero';
 import { staticPageMeta } from '@/lib/seo';
 
@@ -20,7 +20,8 @@ const AREAS = [
 ];
 
 export default async function StudentLifePage() {
-  const events = await getNewsEvents('event', 3);
+  const studentLife = (await getBlogs('Student Life', 3)) || [];
+  const posts = studentLife.length ? studentLife : (await getBlogs(undefined, 3)) || [];
 
   return (
     <>
@@ -43,13 +44,13 @@ export default async function StudentLifePage() {
       </Section>
 
       <Section bg="paper2">
-        <SectionHeader eyebrow="Coming Up" title="Upcoming Events" />
-        {events?.length ? (
+        <SectionHeader eyebrow="From Our Blog" title="Stories from Student Life" />
+        {posts.length ? (
           <div className="grid md:grid-cols-3 gap-6">
-            {events.map((item) => <NewsCard key={item._id} item={item} />)}
+            {posts.map((item) => <BlogCard key={item._id} item={item} />)}
           </div>
         ) : (
-          <EmptyState title="No events scheduled yet" />
+          <EmptyState title="No blog posts yet" />
         )}
       </Section>
     </>

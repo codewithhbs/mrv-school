@@ -75,7 +75,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .container-max { padding-left: 2rem; padding-right: 2rem; }
 }
 
-/* ---------- Rich text content (CMS pages + News & Events) ---------- */
+/* ---------- Rich text content (CMS pages + Blog) ---------- */
 .rich-content { color: #4A5570; font-size: 1.0625rem; line-height: 1.8; overflow-wrap: break-word; }
 .rich-content > :first-child { margin-top: 0 !important; }
 .rich-content p { margin: 0 0 1.1em; }

@@ -10,7 +10,8 @@
     "seed": "node src/utils/seed.js",
     "seed:demo": "node src/utils/seedDemo.js",
     "seed:pages": "node src/utils/seedPages.js",
-    "fix:audit": "node src/utils/fixAudit.js"
+    "fix:audit": "node src/utils/fixAudit.js",
+    "migrate:blog": "node src/utils/migrateNewsToBlog.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

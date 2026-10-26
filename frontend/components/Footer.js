@@ -6,7 +6,7 @@ import SocialIcons from '@/components/SocialIcons';
 
 const QUICK = [
   ['Home', '/'], ['About Us', '/about'], ['Academics', '/academics'], ['Admissions', '/admission'],
-  ['Gallery', '/gallery'], ['News & Events', '/news-events'], ['Contact', '/contact'],
+  ['Gallery', '/gallery'], ['Blog', '/blog'], ['Contact', '/contact'],
 ];
 const PROGRAMS = [
   ['Parents Corner', '/parents-corner'], ['Students Corner', '/students-corner'], ['Careers', '/careers'],

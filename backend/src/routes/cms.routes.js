@@ -6,7 +6,7 @@ const Page = require('../models/Page');
 const AcademicProgram = require('../models/AcademicProgram');
 const Facility = require('../models/Facility');
 const FacultyMember = require('../models/FacultyMember');
-const NewsEvent = require('../models/NewsEvent');
+const Blog = require('../models/Blog');
 const GalleryAlbum = require('../models/GalleryAlbum');
 const Testimonial = require('../models/Testimonial');
 const DownloadItem = require('../models/DownloadItem');
@@ -23,7 +23,7 @@ router.use('/pages', buildCrudRouter(Page, 'Page', { searchFields: ['title', 'sl
 router.use('/academic-programs', buildCrudRouter(AcademicProgram, 'AcademicProgram', { permissionKey: 'academic-programs' }));
 router.use('/facilities', buildCrudRouter(Facility, 'Facility', { searchFields: ['name', 'category'], permissionKey: 'facilities' }));
 router.use('/faculty', buildCrudRouter(FacultyMember, 'FacultyMember', { searchFields: ['name', 'department'], permissionKey: 'faculty' }));
-router.use('/news-events', buildCrudRouter(NewsEvent, 'NewsEvent', { searchFields: ['title', 'summary'], permissionKey: 'news-events' }));
+router.use('/blogs', buildCrudRouter(Blog, 'Blog', { searchFields: ['title', 'summary', 'category'], defaultSort: '-publishedAt', permissionKey: 'blog' }));
 router.use('/gallery', buildCrudRouter(GalleryAlbum, 'GalleryAlbum', { searchFields: ['title', 'category'], permissionKey: 'gallery' }));
 router.use('/testimonials', buildCrudRouter(Testimonial, 'Testimonial', { permissionKey: 'testimonials' }));
 router.use('/downloads', buildCrudRouter(DownloadItem, 'DownloadItem', { searchFields: ['title'], permissionKey: 'downloads' }));

@@ -1,6 +1,6 @@
 import Hero from '@/components/Hero';
 import HeroBanner from '@/components/HeroBanner';
-import NewsCard from '@/components/NewsCard';
+import BlogCard from '@/components/BlogCard';
 import EmptyState from '@/components/EmptyState';
 import TestimonialsMarquee from '@/components/TestimonialsMarquee';
 import TestimonialCard from '@/components/TestimonialCard';
@@ -12,7 +12,7 @@ import {
   getSettings,
   getBanners,
   getAcademicPrograms,
-  getNewsEvents,
+  getBlogs,
   getGalleryAlbums,
   getTestimonials,
 } from '@/lib/api';
@@ -63,13 +63,11 @@ function ViewAll({ href, children }) {
 }
 
 export default async function HomePage() {
-  const [settings, banners, programs, news, events, circulars, gallery, testimonials] = await Promise.all([
+  const [settings, banners, programs, blogs, gallery, testimonials] = await Promise.all([
     getSettings(),
     getBanners(),
     getAcademicPrograms(),
-    getNewsEvents('news', 4),
-    getNewsEvents('event', 4),
-    getNewsEvents('circular', 4),
+    getBlogs(undefined, 4),
     getGalleryAlbums(),
     getTestimonials(),
   ]);
@@ -80,9 +78,7 @@ export default async function HomePage() {
         .map((p) => ({ key: p._id, title: p.title, sub: p.ageGroup || p.description, image: mediaUrl(p.image), href: absoluteUrl('/academics') }))
     : LEVEL_FALLBACK.map((p) => ({ key: p.level, title: p.title, sub: p.sub, image: null, href: absoluteUrl(p.href || '/academics') }));
 
-  const updates = [...(news || []), ...(events || []), ...(circulars || [])]
-    .sort((a, b) => new Date(b.eventDate || b.publishedAt || b.createdAt) - new Date(a.eventDate || a.publishedAt || a.createdAt))
-    .slice(0, 4);
+  const latestBlogs = (blogs || []).slice(0, 4);
 
   return (
     <>
@@ -203,23 +199,23 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* NEWS & EVENTS */}
+      {/* BLOG */}
       <section className="bg-paper py-16 md:py-20">
         <div className="container-max">
           <div className="flex items-end justify-between gap-4 mb-10">
             <div>
-              <Kicker>Latest Updates</Kicker>
-              <Title>News &amp; Events</Title>
-              <p className="mt-2 text-slate text-sm">Stay informed about our latest achievements, events and activities.</p>
+              <Kicker>From Our Blog</Kicker>
+              <Title>Latest Blogs</Title>
+              <p className="mt-2 text-slate text-sm">Stories, achievements, celebrations and insights from life at MRVPS.</p>
             </div>
-            <ViewAll href="/news-events">View All News &amp; Events</ViewAll>
+            <ViewAll href="/blog">View All Blogs</ViewAll>
           </div>
-          {updates.length ? (
+          {latestBlogs.length ? (
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {updates.map((item) => <NewsCard key={item._id} item={item} />)}
+              {latestBlogs.map((item) => <BlogCard key={item._id} item={item} />)}
             </div>
           ) : (
-            <EmptyState title="No announcements yet" description="Check back soon for the latest school news and events." />
+            <EmptyState title="No blog posts yet" description="Check back soon for stories and updates from our school." />
           )}
         </div>
       </section>

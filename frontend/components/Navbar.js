@@ -47,7 +47,7 @@ const NAV = [
   { label: 'Student Life', href: absoluteUrl('/student-life') },
   { label: 'Faculty', href: absoluteUrl('/faculty') },
   { label: 'Gallery', href: absoluteUrl('/gallery') },
-  { label: 'News & Events', href: absoluteUrl('/news-events') },
+  { label: 'Blog', href: absoluteUrl('/blog') },
   {
     label: 'More',
     href: absoluteUrl('/parents-corner'),

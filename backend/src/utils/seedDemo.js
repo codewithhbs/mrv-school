@@ -21,7 +21,7 @@ const Page = require('../models/Page');
 const AcademicProgram = require('../models/AcademicProgram');
 const Facility = require('../models/Facility');
 const FacultyMember = require('../models/FacultyMember');
-const NewsEvent = require('../models/NewsEvent');
+const Blog = require('../models/Blog');
 const GalleryAlbum = require('../models/GalleryAlbum');
 const Testimonial = require('../models/Testimonial');
 const DownloadItem = require('../models/DownloadItem');
@@ -282,13 +282,13 @@ async function upsertMany(Model, matchKeyFn, docs) {
     { name: 'Kavita Joshi', designation: 'Front Office Manager', category: 'administrative', department: 'Administration', order: 10, isActive: true },
   ]);
 
-  await upsertMany(NewsEvent, (d) => ({ slug: d.slug }), [
-    { type: 'news', slug: 'admission-2026-27-open', title: 'Admissions Open for 2026–27', summary: 'Applications now open for Pre-Primary through Senior Secondary.', content: 'MRVPS invites applications for the 2026–27 academic year across all classes. Interested parents can visit the Admission page for eligibility, documents required, and the enquiry form.', eventDate: new Date('2026-06-01'), isPublished: true, isFeatured: true },
-    { type: 'event', slug: 'annual-sports-day-2026', title: 'Annual Sports Day 2026', summary: 'A full day of athletics, team games, and house competitions.', content: 'Join us for the Annual Sports Day featuring track events, relay races, and inter-house competitions across all age groups.', eventDate: new Date('2026-11-14'), location: 'School Grounds', isPublished: true },
-    { type: 'event', slug: 'annual-day-function-2026', title: 'Annual Day Function', summary: 'Cultural performances celebrating the year\'s achievements.', content: 'The school\'s Annual Day will showcase dance, drama, and music performances by students across all classes.', eventDate: new Date('2026-12-20'), location: 'School Auditorium', isPublished: true, isFeatured: true },
-    { type: 'circular', slug: 'winter-break-circular-2026', title: 'Winter Break Circular', summary: 'School will remain closed for winter break from 25 Dec to 2 Jan.', content: 'This is to inform all parents that the school will observe winter break from December 25, 2026 to January 2, 2027. Classes resume January 3, 2027.', eventDate: new Date('2026-12-15'), isPublished: true },
-    { type: 'holiday', slug: 'republic-day-holiday-2027', title: 'Republic Day Holiday', summary: 'School closed on account of Republic Day.', content: 'The school will remain closed on January 26, 2027, on account of Republic Day.', eventDate: new Date('2027-01-26'), isPublished: true },
-    { type: 'achievement', slug: 'inter-school-science-quiz-winners', title: 'Inter-School Science Quiz — First Place', summary: 'Our Class 9–10 team won first place at the Delhi Inter-School Science Quiz.', content: 'Congratulations to our Class 9 and 10 students for winning first place at the Delhi Inter-School Science Quiz, competing against 24 schools.', eventDate: new Date('2026-09-10'), isPublished: true, isFeatured: true },
+  await upsertMany(Blog, (d) => ({ slug: d.slug }), [
+    { category: 'Admissions', slug: 'admission-2026-27-open', title: 'Admissions Open for 2026–27', summary: 'Applications now open for Pre-Primary through Senior Secondary.', content: '<p>MRVPS invites applications for the 2026–27 academic year across all classes. Interested parents can visit the Admission page for eligibility, documents required, and the enquiry form.</p>', tags: ['admissions', 'cbse school delhi'], publishedAt: new Date('2026-06-01'), isPublished: true, isFeatured: true },
+    { category: 'Sports', slug: 'annual-sports-day-2026', title: 'Annual Sports Day 2026: A Day of Grit and Teamwork', summary: 'A full day of athletics, team games, and house competitions.', content: '<p>Our Annual Sports Day featured track events, relay races, and inter-house competitions across all age groups.</p>', tags: ['sports day'], publishedAt: new Date('2026-11-14'), isPublished: true },
+    { category: 'Celebrations', slug: 'annual-day-function-2026', title: 'Annual Day Function: Celebrating a Year of Talent', summary: 'Cultural performances celebrating the year\'s achievements.', content: '<p>The school\'s Annual Day showcased dance, drama, and music performances by students across all classes.</p>', tags: ['annual day'], publishedAt: new Date('2026-12-20'), isPublished: true, isFeatured: true },
+    { category: 'Parenting', slug: 'helping-your-child-prepare-for-exams', title: '7 Ways to Help Your Child Prepare for Exams Without Stress', summary: 'Practical, calm routines parents can build at home before exam season.', content: '<p>A steady routine, enough sleep, and short revision blocks matter more than long hours. Here are seven habits our teachers recommend for families.</p>', tags: ['exam tips', 'parenting'], publishedAt: new Date('2026-09-25'), isPublished: true },
+    { category: 'Academics', slug: 'why-activity-based-learning-works', title: 'Why Activity-Based Learning Works in the Primary Years', summary: 'How hands-on learning builds understanding that lasts.', content: '<p>Children remember what they do. In our primary classrooms, concepts are introduced through activities, experiments, and play before moving to written work.</p>', tags: ['primary education'], publishedAt: new Date('2026-08-18'), isPublished: true },
+    { category: 'Achievements', slug: 'inter-school-science-quiz-winners', title: 'Inter-School Science Quiz — First Place', summary: 'Our Class 9–10 team won first place at the Delhi Inter-School Science Quiz.', content: '<p>Congratulations to our Class 9 and 10 students for winning first place at the Delhi Inter-School Science Quiz, competing against 24 schools.</p>', tags: ['achievements', 'science quiz'], publishedAt: new Date('2026-09-10'), isPublished: true, isFeatured: true },
   ]);
 
   await upsertMany(GalleryAlbum, (d) => ({ title: d.title }), [

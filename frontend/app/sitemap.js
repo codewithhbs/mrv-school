@@ -1,4 +1,4 @@
-import { getAllNewsEventsForSitemap, getAllPagesForSitemap } from '@/lib/api';
+import { getAllBlogsForSitemap, getAllPagesForSitemap } from '@/lib/api';
 import { absoluteUrl, cmsPagePath } from '@/lib/seo';
 
 export const revalidate = 3600;
@@ -8,7 +8,7 @@ const STATIC_ROUTES = [
   '/about/leadership', '/about/infrastructure', '/about/rules-policies',
   '/academics', '/academics/methodology', '/academics/examinations', '/academics/calendar',
   '/admission', '/admission/fees', '/admission/scholarships', '/admission/faq',
-  '/facilities', '/faculty', '/gallery', '/news-events', '/student-life', '/students-corner', '/parents-corner',
+  '/facilities', '/faculty', '/gallery', '/blog', '/student-life', '/students-corner', '/parents-corner',
   '/downloads', '/careers', '/alumni', '/contact',
   '/privacy-policy', '/cookie-policy', '/disclaimer',
 ];
@@ -24,8 +24,8 @@ export default async function sitemap() {
   const staticEntries = STATIC_ROUTES.filter((path) => !excluded(cmsByPath.get(path))).map((path) => ({
     url: absoluteUrl(path),
     lastModified: cmsByPath.get(path)?.updatedAt ? new Date(cmsByPath.get(path).updatedAt) : now,
-    changeFrequency: path === '/' || path === '/news-events' ? 'daily' : 'monthly',
-    priority: path === '/' ? 1 : path === '/admission' || path === '/news-events' ? 0.9 : 0.7,
+    changeFrequency: path === '/' || path === '/blog' ? 'daily' : 'monthly',
+    priority: path === '/' ? 1 : path === '/admission' || path === '/blog' ? 0.9 : 0.7,
   }));
 
   // Admin-created CMS pages served by app/[...slug]
@@ -38,14 +38,14 @@ export default async function sitemap() {
       priority: 0.6,
     }));
 
-  const news = (await getAllNewsEventsForSitemap())
-    .filter((n) => n.slug && !n.noIndex && (!n.canonicalUrl || absoluteUrl(n.canonicalUrl) === absoluteUrl(`/news-events/${n.slug}`)))
+  const blogs = ((await getAllBlogsForSitemap()) || [])
+    .filter((n) => n.slug && !n.noIndex && (!n.canonicalUrl || absoluteUrl(n.canonicalUrl) === absoluteUrl(`/blog/${n.slug}`)))
     .map((n) => ({
-      url: absoluteUrl(`/news-events/${n.slug}`),
+      url: absoluteUrl(`/blog/${n.slug}`),
       lastModified: new Date(n.updatedAt || n.publishedAt || n.createdAt || now),
       changeFrequency: 'weekly',
       priority: n.isFeatured ? 0.8 : 0.6,
     }));
 
-  return [...staticEntries, ...extraCms, ...news];
+  return [...staticEntries, ...extraCms, ...blogs];
 }
