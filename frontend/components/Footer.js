@@ -42,6 +42,9 @@ export default function Footer({ settings }) {
           <p className="text-sm text-white/60 leading-relaxed max-w-xs">
             {settings?.footerText || `A ${settings?.board || 'CBSE'}-affiliated institution dedicated to academic excellence, values and holistic growth.`}
           </p>
+          <p className="text-sm text-white/60 leading-relaxed max-w-xs">
+            For any queries or grievances, please contact Ms. Sandhya Khurana at <a href="mailto:sandhya@mrvps.org">sandhya@mrvps.org</a>.
+          </p>
           <SocialIcons className="mt-5" />
         </div>
 
