@@ -36,16 +36,22 @@ export default function HeroBanner({ banners }) {
       style={ratio ? { aspectRatio: ratio } : undefined}
     >
       {list.map((b, i) => (
+        // Until the ratio is known (server render / before hydration) the first
+        // slide sits in normal flow so the banner (LCP) paints straight from HTML
+        // instead of a 0-height box waiting for JS.
         // eslint-disable-next-line @next/next/no-img-element
         <img
           key={b._id || i}
           ref={(el) => (imgRefs.current[i] = el)}
           src={mediaUrl(b.imageUrl)}
           alt={b.title || ''}
+          loading={i === 0 ? 'eager' : 'lazy'}
+          fetchPriority={i === 0 ? 'high' : 'low'}
+          decoding="async"
           onLoad={(e) => {
             if (i === active) setRatio(e.target.naturalWidth / e.target.naturalHeight);
           }}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${i === active ? 'opacity-100' : 'opacity-0'}`}
+          className={`${!ratio && i === 0 ? 'relative block w-full h-auto' : 'absolute inset-0 w-full h-full object-cover'} transition-opacity duration-700 ${i === active ? 'opacity-100' : 'opacity-0'}`}
         />
       ))}
       {list.length > 1 && (

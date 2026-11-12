@@ -32,15 +32,16 @@ export default function PageBlocks({ page, fallbackText, defaultContent }) {
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={heroImage}
-          alt={page.title}
+          alt={page.heroImageAlt || page.title}
+          decoding="async"
           className="w-full object-cover rounded-card mb-10 border border-line shadow-card"
         />
       )}
 
       {page.title && (
-        <h1 className="font-display font-bold text-3xl md:text-4xl text-ink mb-8">
+        <h2 className="font-display font-bold text-3xl md:text-4xl text-ink mb-8">
           {page.title}
-        </h1>
+        </h2>
       )}
 
       {hasContent && (
@@ -110,7 +111,9 @@ export default function PageBlocks({ page, fallbackText, defaultContent }) {
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={mediaUrl(block.data?.url)}
-                      alt={block.data?.caption || ""}
+                      alt={block.data?.alt || block.data?.caption || ""}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full rounded-card border border-line shadow-card"
                     />
                     {block.data?.caption && (

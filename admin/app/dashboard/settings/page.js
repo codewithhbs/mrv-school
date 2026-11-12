@@ -11,6 +11,7 @@ const FIELDS = [
   { name: 'tagline', label: 'Tagline', type: 'text' },
   { name: 'logoUrl', label: 'Logo', type: 'image' },
   { name: 'faviconUrl', label: 'Favicon', type: 'image' },
+  { name: 'headerAddress', label: 'Header Address (top bar)', type: 'text', hint: 'Address shown in the website header top bar. Leave empty to use the full Address below.' },
   { name: 'address', label: 'Address', type: 'textarea' },
   { name: 'officeHours', label: 'Office Hours', type: 'text' },
   { name: 'mapEmbedUrl', label: 'Google Maps Embed URL', type: 'text' },

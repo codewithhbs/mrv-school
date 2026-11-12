@@ -26,7 +26,7 @@ export default function ProgramsSlider({ items }) {
               <div className="aspect-[4/3] rounded-xl overflow-hidden bg-paper">
                 {p.image ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={p.image} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                  <img src={p.image} alt={p.title} loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                 ) : (
                   <div className="w-full h-full bg-gradient-to-br from-red-50 to-paper2" />
                 )}

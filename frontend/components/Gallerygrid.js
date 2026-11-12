@@ -41,7 +41,7 @@ export default function GalleryGrid({ albums }) {
                       <video src={mediaUrl(it.url)} className="w-full h-full object-cover pointer-events-none" />
                     ) : (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img src={mediaUrl(it.url)} alt={it.caption || album.title} className="w-full h-full object-cover" />
+                      <img src={mediaUrl(it.url)} alt={it.caption || album.title} loading="lazy" decoding="async" className="w-full h-full object-cover" />
                     )}
                   </button>
                 ))}

@@ -51,9 +51,9 @@ export default function PortalLoginPage() {
 
         <div className="relative">
           <div className="eyebrow text-gold mb-4">Parents Corner &middot; Students Corner</div>
-          <h1 className="font-display font-bold text-3xl md:text-4xl leading-tight max-w-md">
+          <h2 className="font-display font-bold text-3xl md:text-4xl leading-tight max-w-md">
             Everything about your child&rsquo;s school life, in one place.
-          </h1>
+          </h2>
           <ul className="mt-8 space-y-3">
             {['Attendance & Homework', 'Exam Schedule & Results', 'Fee Status & PTM Dates'].map((li) => (
               <li key={li} className="flex items-center gap-3 text-white/70 text-sm">

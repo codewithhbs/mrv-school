@@ -27,7 +27,7 @@ export default async function FacilitiesPage() {
                 <div className="aspect-[16/10] bg-paper2">
                   {f.images?.[0] ? (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={mediaUrl(f.images[0])} alt={f.name} className="w-full h-full object-cover" />
+                    <img src={mediaUrl(f.images[0])} alt={f.name} loading="lazy" decoding="async" className="w-full h-full object-cover" />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-slate/50 font-display">{f.name}</div>
                   )}

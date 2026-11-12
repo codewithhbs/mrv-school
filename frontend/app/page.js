@@ -84,13 +84,23 @@ export default async function HomePage() {
     <>
       {banners?.[0]?.heroType === 'banner' ? <HeroBanner banners={banners} /> : <Hero banners={banners} settings={settings} />}
 
+      {/* PAGE H1 — the only H1 on the homepage */}
+      <section className="bg-white pt-12 md:pt-16">
+        <div className="container-max text-center">
+          <h1 className="font-display font-bold text-2xl sm:text-3xl md:text-[2.4rem] leading-tight text-navy max-w-4xl mx-auto">
+            CBSE Certified School in Tilak Nagar: Knowledge, Character and Care for Every Child
+          </h1>
+          <div className="w-16 h-1 bg-gold rounded-full mt-5 mx-auto" />
+        </div>
+      </section>
+
       {/* ABOUT / PRINCIPAL */}
       <section className="bg-white py-16 md:py-24">
         <div className="container-max grid lg:grid-cols-[1fr_1.05fr] gap-12 lg:gap-16 items-center">
           <div className="relative pl-0 sm:pl-10">
             <div className="rounded-[1.5rem] overflow-hidden shadow-cardHover aspect-[16/12] bg-paper">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/principal-photo.png" alt="Principal, MRVPS" className="w-full h-full object-cover" />
+              <img src="/images/principal-photo.webp" alt="Principal, MRVPS" width="1000" height="667" loading="lazy" decoding="async" className="w-full h-full object-cover" />
             </div>
             <div className="hidden sm:block absolute left-0 top-1/2 -translate-y-1/2 w-48 bg-white rounded-card shadow-cardHover p-5">
               <div className="font-display text-4xl text-accent-pink leading-none">&ldquo;</div>
@@ -145,7 +155,7 @@ export default async function HomePage() {
             <div className="absolute -inset-4 blob-mask-2 border-[8px] border-gold/80 border-t-transparent border-l-transparent" />
             <div className="relative blob-mask-2 overflow-hidden aspect-[5/4] shadow-cardHover">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/students-photo.webp" alt="MRVPS students" className="w-full h-full object-cover" />
+              <img src="/images/students-photo.webp" alt="MRVPS students" loading="lazy" decoding="async" className="w-full h-full object-cover" />
             </div>
           </div>
         </div>
@@ -174,7 +184,7 @@ export default async function HomePage() {
             <div className="absolute top-2 right-0 z-10 font-script text-3xl text-navy leading-tight text-right rotate-[-4deg] bg-white/80 rounded-xl px-3 py-1">Great Minds<br />Grow Here</div>
             <div className="rounded-[2rem] overflow-hidden aspect-[4/5] bg-paper shadow-cardHover">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/campus-photo.webp" alt="Student at MRVPS" className="w-full h-full object-cover" />
+              <img src="/images/campus-photo.webp" alt="Student at MRVPS" loading="lazy" decoding="async" className="w-full h-full object-cover" />
             </div>
           </div>
         </div>
@@ -239,7 +249,7 @@ export default async function HomePage() {
                   <Link key={album._id} href={absoluteUrl('/gallery')} className="group relative rounded-card overflow-hidden aspect-[4/3] bg-paper shadow-card">
                     {album.coverImage ? (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img src={mediaUrl(album.coverImage)} alt={album.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                      <img src={mediaUrl(album.coverImage)} alt={album.title} loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-slate/50 text-xs font-display p-2 text-center">{album.title}</div>
                     )}

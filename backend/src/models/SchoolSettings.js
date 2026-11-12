@@ -9,6 +9,7 @@ const schema = new mongoose.Schema(
     logoUrl: { type: String },
     faviconUrl: { type: String },
     address: { type: String },
+    headerAddress: { type: String }, // shown in the top bar of the website header
     phones: { type: [String], default: [] },
     emails: { type: [String], default: [] },
     officeHours: { type: String },

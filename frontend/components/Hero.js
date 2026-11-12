@@ -38,9 +38,9 @@ export default function Hero({ banners, settings }) {
             Building Bright Futures
             <svg className="w-6 h-6 text-navy/70" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" strokeLinejoin="round" /></svg>
           </div>
-          <h1 className="mt-2 font-display font-extrabold text-4xl sm:text-5xl lg:text-[3.5rem] leading-[1.08] text-navy">
+          <h2 className="mt-2 font-display font-extrabold text-4xl sm:text-5xl lg:text-[3.5rem] leading-[1.08] text-navy">
             {lead}{lead && ' '}<span className="text-gold">{last}</span>
-          </h1>
+          </h2>
           <p className="mt-5 text-base md:text-lg text-slate leading-relaxed max-w-lg">{subtitle}</p>
 
           <div className="mt-7 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-xl">
@@ -70,7 +70,7 @@ export default function Hero({ banners, settings }) {
           <div className="absolute -inset-3 md:-inset-5 blob-mask border-[10px] border-gold/90 border-l-transparent border-b-transparent rotate-6" />
           <div className="relative blob-mask overflow-hidden aspect-[5/4] shadow-cardHover bg-white">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={image} alt={settings?.schoolName || 'MRV Public School campus'} className="w-full h-full object-cover" />
+            <img src={image} alt={settings?.schoolName || 'MRV Public School campus'} fetchPriority="high" decoding="async" className="w-full h-full object-cover" />
           </div>
           {/* 25+ badge */}
           <div className="absolute -bottom-4 right-2 md:right-6 w-28 h-28 md:w-32 md:h-32 rounded-full bg-navy text-white border-4 border-gold/80 shadow-cardHover flex flex-col items-center justify-center text-center">

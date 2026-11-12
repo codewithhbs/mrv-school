@@ -33,7 +33,7 @@ export default function Footer({ settings }) {
         <div>
           <div className="flex items-center gap-3 mb-4">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={logo} alt={name} className="w-14 h-14 object-contain rounded-full bg-white p-0.5" />
+            <img src={logo} alt={name} width="56" height="56" loading="lazy" decoding="async" className="w-14 h-14 object-contain rounded-full bg-white p-0.5" />
             <div className="leading-tight">
               <div className="font-display font-bold text-lg uppercase">MRV Public School</div>
               <div className="text-[11px] text-white/60">{settings?.tagline || 'Knowledge • Character • Excellence'}</div>

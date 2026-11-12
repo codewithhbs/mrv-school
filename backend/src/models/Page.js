@@ -19,6 +19,7 @@ const schema = new mongoose.Schema(
     title: { type: String, required: true, trim: true },
     subtitle: { type: String, trim: true },
     heroImage: { type: String },
+    heroImageAlt: { type: String, trim: true },
     // Main rich-text body (HTML from the admin editor, sanitized in middleware/richText.js)
     content: { type: String, default: '' },
     blocks: { type: [blockSchema], default: [] },

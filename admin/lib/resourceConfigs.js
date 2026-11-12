@@ -88,6 +88,7 @@ export const resourceConfigs = {
 
       { name: '_hero', type: 'heading', label: 'Media', side: true },
       { name: 'heroImage', label: 'Hero Image', type: 'image', side: true },
+      { name: 'heroImageAlt', label: 'Image Alt Text', type: 'text', side: true, hint: 'Describe the image (Google Images & accessibility).' },
 
       { name: '_seoPreview_h', type: 'heading', icon: 'seo', label: 'SEO Preview & Score', side: true },
       {
@@ -100,6 +101,7 @@ export const resourceConfigs = {
         contentField: 'content',
         contentType: 'page',
         imageField: 'heroImage',
+        imageAltField: 'heroImageAlt',
         checkSlug: false,
         path: (v) => cmsPagePath(v.slug, v.group),
       },

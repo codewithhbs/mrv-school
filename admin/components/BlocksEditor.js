@@ -24,7 +24,7 @@ function emptyData(type) {
     case 'list':
       return { items: [] };
     case 'image':
-      return { url: '', caption: '' };
+      return { url: '', alt: '', caption: '' };
     case 'table':
       return { headers: ['Column 1', 'Column 2'], rows: [['', '']] };
     case 'cta':
@@ -174,6 +174,7 @@ function BlockFields({ block, onChange }) {
               </span>
             )}
           </div>
+          <input className="input" placeholder="Image alt text (describe the image — important for SEO)" value={data.alt || ''} onChange={(e) => onChange({ alt: e.target.value })} />
           <input className="input" placeholder="Caption (optional)" value={data.caption || ''} onChange={(e) => onChange({ caption: e.target.value })} />
         </div>
       );

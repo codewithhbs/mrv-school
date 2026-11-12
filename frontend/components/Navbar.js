@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { mediaUrl } from '@/lib/media';
-import { absoluteUrl } from '@/lib/seo';
+import { absoluteUrl, SCHOOL_ADDRESS } from '@/lib/seo';
 
 const NAV = [
   {
@@ -68,7 +68,7 @@ export default function Navbar({ settings }) {
   const pathname = usePathname() || '/';
 
   const email = settings?.emails?.[0] || 'info@mrvpublicschool.com';
-  const address = settings?.shortAddress || 'New Mahavir Nagar, New Delhi';
+  const address = settings?.headerAddress || settings?.address || SCHOOL_ADDRESS;
   const logo = settings?.logoUrl ? mediaUrl(settings.logoUrl) : '/images/logo.png';
   const name = settings?.schoolName || 'MRV Public School';
 
@@ -83,10 +83,10 @@ export default function Navbar({ settings }) {
     <header className="sticky top-0 z-50">
       {/* Utility bar */}
       <div className="bg-navy text-white">
-        <div className="container-max flex items-center justify-between py-2 text-xs">
-          <div className="flex items-center gap-5">
-            <span className="hidden sm:inline-flex items-center gap-1.5">
-              <svg className="w-3.5 h-3.5 text-gold" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" /></svg>
+        <div className="container-max flex items-center justify-between gap-4 py-2 text-xs">
+          <div className="flex items-center gap-5 min-w-0">
+            <span className="hidden sm:inline-flex items-center gap-1.5 min-w-0">
+              <svg className="w-3.5 h-3.5 shrink-0 text-gold" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" /></svg>
               {address}
             </span>
             <a href={`mailto:${email}`} className="inline-flex items-center gap-1.5 hover:text-gold-light transition-colors">
@@ -109,7 +109,7 @@ export default function Navbar({ settings }) {
         <div className="container-max flex items-center justify-between gap-4 py-2">
           <Link href={absoluteUrl('/')} className="flex items-center gap-3 shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={logo} alt={name} className="w-14 h-14 object-contain rounded-full" />
+            <img src={logo} alt={name} width="56" height="56" decoding="async" className="w-14 h-14 object-contain rounded-full" />
             <div className="leading-tight hidden sm:block">
               <div className="font-display font-bold text-[17px] text-navy uppercase tracking-wide">MRV Public School</div>
               <div className="text-[11px] text-slate">{settings?.tagline || 'Knowledge • Character • Excellence'}</div>

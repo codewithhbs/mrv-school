@@ -3,6 +3,7 @@
 import { API_BASE_URL } from './api';
 
 const ORIGIN = API_BASE_URL.replace(/\/api\/?$/, '');
+export const MEDIA_ORIGIN = ORIGIN;
 
 export function mediaUrl(path) {
   if (!path) return null;

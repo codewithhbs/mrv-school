@@ -47,7 +47,7 @@ export async function cmsPageMetadata(slug, path, fallbackTitle, fallbackDescrip
       description: description || undefined,
       siteName: SITE_NAME,
       locale: 'en_IN',
-      images: image ? [{ url: image, width: 1200, height: 630, alt: decodeEntities(page?.title || fallbackTitle) }] : undefined,
+      images: image ? [{ url: image, width: 1200, height: 630, alt: decodeEntities((!page?.ogImage && page?.heroImageAlt) || page?.title || fallbackTitle) }] : undefined,
     },
     twitter: {
       card: image ? 'summary_large_image' : 'summary',
