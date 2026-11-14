@@ -39,9 +39,9 @@ export default function PageBlocks({ page, fallbackText, defaultContent }) {
       )}
 
       {page.title && (
-        <h2 className="font-display font-bold text-3xl md:text-4xl text-ink mb-8">
+        <h1 className="font-display font-bold text-3xl md:text-4xl text-ink mb-8">
           {page.title}
-        </h2>
+        </h1>
       )}
 
       {hasContent && (
